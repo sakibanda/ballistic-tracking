@@ -1,0 +1,141 @@
+<?xml version='1.0'?>
+<options>
+	<analyze>
+		<referers>
+			<show_time>true</show_time>
+			<show_traffic_source>true</show_traffic_source>
+			<show_bottom>true</show_bottom>
+			<show_bottom_advanced>true</show_bottom_advanced>
+		</referers>
+
+		<variables>
+			<show_time>true</show_time>
+			<show_traffic_source>true</show_traffic_source>
+			<show_bottom>true</show_bottom>
+			<show_bottom_advanced>true</show_bottom_advanced>
+		</variables>
+
+		<lifetime>
+			<show_time>true</show_time>
+			<show_traffic_source>true</show_traffic_source>
+			<show_bottom>true</show_bottom>
+			<show_bottom_advanced>true</show_bottom_advanced>
+		</lifetime>
+
+		<landing_page>
+			<show_time>true</show_time>
+			<show_traffic_source>true</show_traffic_source>
+			<show_bottom>true</show_bottom>
+			<show_bottom_advanced>true</show_bottom_advanced>
+		</landing_page>
+
+		<keywords>
+			<show_time>true</show_time>
+			<show_traffic_source>true</show_traffic_source>
+			<show_bottom>true</show_bottom>
+			<show_bottom_advanced>true</show_bottom_advanced>
+		</keywords>
+
+		<ips>
+			<show_time>true</show_time>
+			<show_traffic_source>true</show_traffic_source>
+			<show_bottom>true</show_bottom>
+			<show_bottom_advanced>true</show_bottom_advanced>
+		</ips>
+	</analyze>
+
+	<dateparting>
+		<date>
+			<show_time>true</show_time>
+			<show_traffic_source>true</show_traffic_source>
+			<show_bottom>true</show_bottom>
+			<show_bottom_advanced>true</show_bottom_advanced>
+			<show_campaign>true</show_campaign>
+		</date>
+	</dateparting>
+
+	<geography>
+		<time_zones>
+			<show_time>true</show_time>
+			<show_traffic_source>true</show_traffic_source>
+			<show_bottom>true</show_bottom>
+			<show_bottom_advanced>true</show_bottom_advanced>
+			<show_campaign>true</show_campaign>
+		</time_zones>
+
+		<states>
+			<show_time>true</show_time>
+			<show_traffic_source>true</show_traffic_source>
+			<show_bottom>true</show_bottom>
+			<show_bottom_advanced>true</show_bottom_advanced>
+			<show_campaign>true</show_campaign>
+		</states>
+
+		<map>
+			<show_time>true</show_time>
+			<show_traffic_source>true</show_traffic_source>
+			<show_bottom>true</show_bottom>
+			<show_bottom_advanced>true</show_bottom_advanced>
+			<show_campaign>true</show_campaign>
+		</map>
+
+		<countries>
+			<show_time>true</show_time>
+			<show_traffic_source>true</show_traffic_source>
+			<show_bottom>true</show_bottom>
+			<show_bottom_advanced>true</show_bottom_advanced>
+			<show_campaign>true</show_campaign>
+		</countries>
+
+		<cities>
+			<show_time>true</show_time>
+			<show_traffic_source>true</show_traffic_source>
+			<show_bottom>true</show_bottom>
+			<show_bottom_advanced>true</show_bottom_advanced>
+			<show_campaign>true</show_campaign>
+		</cities>
+	</geography>
+
+	<overview>
+		<breakdown>
+			<show_time>true</show_time>
+			<show_traffic_source>true</show_traffic_source>
+			<show_bottom>true</show_bottom>
+			<show_breakdown>true</show_breakdown>
+			<show_bottom_advanced>true</show_bottom_advanced>
+			<show_campaign>true</show_campaign>
+		</breakdown>
+
+		<overview>
+			<show_time>true</show_time>
+			<show_traffic_source>true</show_traffic_source>
+			<show_bottom>true</show_bottom>
+			<show_type>true</show_type>
+		</overview>
+	</overview>
+
+	<platforms>
+		<os>
+			<show_time>true</show_time>
+			<show_traffic_source>true</show_traffic_source>
+			<show_bottom>true</show_bottom>
+			<show_bottom_advanced>true</show_bottom_advanced>
+		</os>
+
+		<mobile>
+			<show_time>true</show_time>
+			<show_traffic_source>true</show_traffic_source>
+			<show_mobile_breakdown>true</show_mobile_breakdown>
+			<show_bottom>true</show_bottom>
+			<show_bottom_advanced>true</show_bottom_advanced>
+		</mobile>
+
+		<browser>
+			<show_time>true</show_time>
+			<show_traffic_source>true</show_traffic_source>
+			<show_bottom>true</show_bottom>
+			<show_type>true</show_type>
+			<show_bottom_advanced>true</show_bottom_advanced>
+		</browser>
+	</platforms>
+</options>

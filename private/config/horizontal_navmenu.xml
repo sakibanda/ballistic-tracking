@@ -1,0 +1,22 @@
+<?xml version='1.0'?> 
+<navmenu>
+	<item label="Overview" link="/overview"></item>
+	
+	<item label="New Campaign" link="/tracker/code"></item>
+	
+	<item label="Traffic Sources" link="/trafficsources"></item>
+	
+	<item label="Offers" link="/offers"></item>
+
+	<item label="Aff Networks" link="/offers/affnetworks"></item>
+	
+	<item label="Advanced Redirects" link="/cloaker"></item>
+	
+	<item label="Click Spy" link="/spy"></item>
+
+	<item label="Reporting" link="/overview/breakdown"></item>
+	
+	<item label="Update" link="/updateclick"></item>
+	
+	<item label="Spending" link="/spending"></item>
+</navmenu>

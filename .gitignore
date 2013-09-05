@@ -1,0 +1,15 @@
+bt-config/
+newfolder/
+bt-config/GeoIPOrg.dat
+bt-config/GeoLiteCity.dat
+bt-config/bt-config.php
+ballistictracking.komodoproject
+bt-config/cache/column_meta
+bt-config/logs/syslog
+bt-config/cache
+wurfl.log
+
+*.iml
+*.ipr
+*iws
+.idea/

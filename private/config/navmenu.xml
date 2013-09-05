@@ -1,0 +1,71 @@
+<?xml version='1.0'?> 
+<navmenu>
+	<item label="Dashboard" link="/dashboard" restriction="!LIVE_SITE"></item>
+
+	<item label="Overview">
+		<item label="Overview" link="/overview"></item>
+		<item label="Breakdown" link="/overview/breakdown"></item>
+	</item>
+	
+	<item label="Spy View" link="/spy"></item>
+	
+	<item label="Campaigns" section="section"></item>
+
+	<item label="Accounts">
+		<item label="Traffic Sources" link="/trafficsources"></item>
+		<item label="Affiliate Networks" link="/offers/affnetworks"></item>
+	</item>
+	
+	<item label="Create / View">
+		<item label="Offers" link="/offers"></item>
+		<item label="Landing Pages" link="/landingpages"></item>
+		<item label="Tracking Links" link="/tracker/code"></item>
+		<item label="Get Postback/Pixel" link="/pixel/code"></item>
+	</item>
+	
+	<item label="Manage Campaigns">
+		<item label="Landing Pages" link="/managelinks/landing"></item>
+		<item label="Direct" link="/managelinks/direct"></item>
+	</item>
+
+	<item label="Advanced Redirects" restriction="bt_cloaker_enabled">
+		<item label="Manage" link="/cloaker"></item>
+	</item>
+
+	<item label="Reporting" section="section"></item>
+	
+	<item label="Date Parting">
+		<item label="Day Parting" link="/dateparting/day"></item>
+		<item label="Week Parting" link="/dateparting/week"></item>
+	</item>
+	
+	<item label="Analyze">
+		<item label="Click Lifetime" link="/analyze/lifetime"></item>
+		<item label="Keywords" link="/analyze/keywords"></item>
+		<item label="Referers" link="/analyze/referers"></item>
+		<item label="Landing Pages" link="/analyze/lps"></item>
+		<item label="SubIDs" link="/analyze/variables"></item>
+		<item label="Click ID" link="/analyze/clickid"></item>
+	</item>
+	
+	<item label="Geography" restriction="bt_geo_enabled">
+		<item label="Time Zones" link="/geography/timezones"></item>
+		<item label="Countries" link="/geography/countries"></item>
+		<item label="States" link="/geography/states"></item>
+		<item label="Cities" link="/geography/cities"></item>
+		<item label="IPs" link="/analyze/ips"></item>
+	</item>
+	
+	<item label="Platforms">
+		<item label="Browser Breakdown" link="/platforms/browser"></item>
+		<item label="OS Breakdown" link="/platforms/os"></item>
+		<item label="Mobile Breakdown" link="/platforms/mobile" restriction="bt_mobile_enabled"></item>
+	</item>
+	
+	<item label="Update">
+		<item label="Update Clicks" link="/updateclick"></item>
+		<item label="Reset Clicks" link="/updateclick/clear"></item>
+		<item label="Reset All Offer Clicks" link="/updateclick/offer"></item>
+		<item label="Daily Spending" link="/spending"></item>
+	</item>
+</navmenu>

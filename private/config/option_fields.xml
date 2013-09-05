@@ -1,0 +1,35 @@
+<?xml version='1.0'?>
+<fieldset>
+	<show_time>
+		<field>time_from</field>
+		<field>time_to</field>
+		<field>time_predefined</field>
+	</show_time>
+
+	<show_type>
+		<field>campaign_type</field>
+	</show_type>
+	
+	<show_campaign>
+		<field>campaign_id</field>
+	</show_campaign>
+	
+	<show_traffic_source>
+		<field>traffic_source_id</field>
+	</show_traffic_source>
+
+	<show_bottom>
+		<field>click_filter</field>
+	</show_bottom>
+
+	<show_breakdown>
+		<field>breakdown</field>
+	</show_breakdown>
+
+	<show_mobile_breakdown>
+		<field>user_mobile_breakdown_1</field>
+		<field>user_mobile_breakdown_2</field>
+		<field>user_mobile_breakdown_3</field>
+		<field>user_mobile_breakdown_4</field>
+	</show_mobile_breakdown>
+</fieldset>
