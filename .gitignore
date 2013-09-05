@@ -1,12 +1,12 @@
-bt-config/
+app/bt-config/
 newfolder/
-bt-config/GeoIPOrg.dat
-bt-config/GeoLiteCity.dat
-bt-config/bt-config.php
-ballistictracking.komodoproject
-bt-config/cache/column_meta
-bt-config/logs/syslog
-bt-config/cache
+app/bt-config/GeoIPOrg.dat
+app/bt-config/GeoLiteCity.dat
+app/bt-config/bt-config.php
+app/ballistictracking.komodoproject
+app/bt-config/cache/column_meta
+app/bt-config/logs/syslog
+app/bt-config/cache
 wurfl.log
 
 *.iml
