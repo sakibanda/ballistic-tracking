@@ -214,7 +214,7 @@ class OverviewController extends BTUserController {
 			
 			";
 			
-		$sql .= getReportOrder($cols,'stat.meta3 asc');
+		//$sql .= getReportOrder($cols,'stat.meta3 asc');
 		
 		$stats = DB::getRows($sql);
 				

@@ -20,7 +20,7 @@ $(document).ready(function(){
         bServerSide: true,
         bSearchable: false,
         bFilter: false,
-        iDisplayLength: 10,
+        iDisplayLength: 100,
         sAjaxSource: "/ajax/spy/data",
         fnInitComplete: function() {
             //$(".dataTables_length").hide();
