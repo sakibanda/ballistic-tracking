@@ -5,4 +5,4 @@ wurfl.log
 .idea/
 v1/
 assets/
-app/bt-config/cache/column_cache
+app/bt-config/cache/*
