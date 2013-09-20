@@ -170,7 +170,7 @@ class TrackerCodeController extends BTController {
 		}
 		
 		foreach($_POST['opt'] as $name=>$val) {			
-			if(!$campaign->addOption($name,$val)) {
+			if(!$campaign->addOption($name,$val,"")) {
 				DB::rollback();
 				echo json_encode(array('message'=>'Could not save options'));
 				BTApp::end();
@@ -179,6 +179,7 @@ class TrackerCodeController extends BTController {
 
         for($j = 0,$cnt = count($_POST['variable_name']);$j < $cnt;$j++) {
             $name = $_POST['variable_name'][$j];
+            $note = $_POST['variable_note'][$j];
             $pass_lp = $_POST['variable_lp'][$j];
             $pass_offer = $_POST['variable_offer'][$j];
 
@@ -188,7 +189,7 @@ class TrackerCodeController extends BTController {
             else
                 $val = json_encode(array('offer'=>'1'));
 
-            if(!$campaign->addOption($name,$val)) {
+            if(!$campaign->addOption($name,$val,$note)) {
                 DB::rollback();
                 echo json_encode(array('message'=>'Could not save Variables Passthroughs'));
                 BTApp::end();
@@ -397,6 +398,7 @@ class TrackerCodeController extends BTController {
 
         for($j = 0,$cnt = count($_POST['variable_name']);$j < $cnt;$j++) {
             $name = $_POST['variable_name'][$j];
+            $note = $_POST['variable_note'][$j];
             $name = 'pass_' . $name;
             if($campaign->type==1){
                 $pass_lp = $_POST['variable_lp'][$j];
@@ -405,7 +407,7 @@ class TrackerCodeController extends BTController {
             }else{
                 $val = json_encode(array('offer'=>'1'));
             }
-            if(!$campaign->addOption($name,$val)) {
+            if(!$campaign->addOption($name,$val,$note)) {
                 DB::rollback();
                 echo json_encode(array('message'=>'Could not save Variables Passthroughs'));
                 BTApp::end();

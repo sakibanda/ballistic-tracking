@@ -235,7 +235,7 @@
                                     echo '<input type="checkbox" class="var_check" '.(($val->offer) ? 'checked' : '').'/><span>Offer</span>';
                                     echo '</div>';
                                 }
-                                echo '</td><td><input type="text" name="variable_note[]" value="" /></td>';
+                                echo '</td><td><input type="text" name="variable_note[]" value="'.$option->note.'" /></td>';
                                 echo '<td><img src="/theme/img/icons/16x16/delete.png" onclick="deleteVarPassTable(this);" style="cursor: pointer; width: 16px; height: 16px;"></td></tr>';
                             }}
                         ?>

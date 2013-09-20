@@ -36,6 +36,7 @@ class CampaignOptionModel extends BTModel {
 			array('name','required',array('message'=>'Please enter a name','for'=>array('new'))),
 			array('name','length',array('min'=>1,'max'=>45,'message'=>'Invalid name','for'=>array('new'))),
 			array('value','length',array('min'=>0,'max'=>16000,'message'=>'Invalid value','for'=>array('new','edit'))),
+			array('note','length',array('min'=>0,'max'=>200,'message'=>'Invalid note','for'=>array('new','edit'))),
 			array('campaign_id','required',array('for'=>array('new'),'message'=>'Invalid tracker ID'))
 		);
 	}
@@ -98,8 +99,8 @@ class CampaignOptionModel extends BTModel {
         $campaign_id = DB::quote($campaign_id);
         $old_id = DB::quote($old_id);
 
-        $query = "insert into " . $this->tableName() . " (campaign_id, name, value)";
-        $query .= "select '$campaign_id', name, value from " . $this->tableName() . " where campaign_id='$old_id'";
+        $query = "insert into " . $this->tableName() . " (campaign_id, name, value, note)";
+        $query .= "select '$campaign_id', name, note value from " . $this->tableName() . " where campaign_id='$old_id'";
         if(!DB::query($query)) {
             return false;
         }

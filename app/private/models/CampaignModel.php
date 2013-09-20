@@ -110,11 +110,12 @@ class CampaignModel extends BTModel {
 		return  'http://' . getTrackingDomain() . '/tracker/direct/' . $this->get('campaign_id') . '?' . $tracking_variable_string;
 	}
 	
-	public function addOption($name,$value) {
+	public function addOption($name,$value,$note) {
 		BTApp::importModel('CampaignOptionModel');
 		$opt = CampaignOptionModel::model();
 		$opt->name = $name;
 		$opt->value = $value;
+		$opt->note = $note;
 		$opt->campaign_id = $this->id();
 		$opt->useRuleSet('new');
 		return $opt->save();
