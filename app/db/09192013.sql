@@ -1,0 +1,1 @@
+ALTER TABLE `bt_u_campaign_options` ADD note VARCHAR(200) NOT NULL DEFAULT '';
