@@ -54,7 +54,7 @@ class OverviewController extends BTUserController {
 		
 		$sql .= "group by click.campaign_id, click.offer_id
 			order by null";
-									
+
 		DB::query($sql);
 		/** END CLICK DATA **/
 		
@@ -212,28 +212,28 @@ class OverviewController extends BTUserController {
 			
 			where stat.user_id='$user_id' and stat.type='overview'
 			
-			";
+			group by stat.meta1";
 			
-		//$sql .= getReportOrder($cols,'stat.meta3 asc');
+		$sql .= getReportOrder($cols,'stat.meta3 asc');
 		
 		$stats = DB::getRows($sql);
 				
 		foreach($stats as &$stat) {			
-			if($stat['meta3']) {
+			/*if($stat['meta3']) {
 				$stat['name'] = $stat['offer_name'];
-				$stat['campaign_id'] = '';
-				$stat['cpc'] = null;
-				$stat['cost'] = null;
-				$stat['net'] = null;
-				$stat['roi'] = null;
+				//$stat['campaign_id'] = '';
+				//$stat['cpc'] = null;
+				//$stat['cost'] = null;
+				//$stat['net'] = null;
+				//$stat['roi'] = null;
 				$stat['type'] = 'Offer';
 			}
-			else {
-				$actions =  '<a class="button grey small" href="/tracker/code?campaign_id=' . $stat['campaign_id'] . '">Edit</a> ';
-                $actions .= '<a class="button grey small" href="#" onclick="return clone_campaign(' . $stat['campaign_id'] . ');">Clone</a> ';
-                $actions .= '<a class="button grey small" href="#" onclick="return delete_campaign(' . $stat['campaign_id'] . ');">Delete</a>';
+			else {*/
+				$actions =  '<a class="button grey small" href="/tracker/code?campaign_id=' . $stat['campaign_id'] . '"><i class="icon-pencil"></i> Edit</a> ';
+                $actions .= '<a class="button grey small" href="#" onclick="return clone_campaign(' . $stat['campaign_id'] . ');"><i class="icon-copy"></i> Clone</a> ';
+                $actions .= '<a class="button grey small" href="#" onclick="return delete_campaign(' . $stat['campaign_id'] . ');"><i class="icon-remove"></i> Delete</a>';
                 $stat['actions'] = $actions;
-			}
+			/*}*/
 		}
 		
 		return array('data'=>$stats,'cnt'=>count($stats),'cols'=>$cols);
