@@ -14,8 +14,8 @@ class OverviewController extends BTUserController {
 		$time = grab_timeframe(); 
 		
 		$user_id = DB::quote(getUserID());
-		$start = DB::quote($time['from']);
-		$end = DB::quote($time['to']);
+		//$start = DB::quote($time['from']);
+		//$end = DB::quote($time['to']);
 		
 		/** GET SPENDING **/
 		$spend_from = date('Y-m-d',$time['from']);
@@ -30,6 +30,20 @@ class OverviewController extends BTUserController {
 		
 		$spends = DB::getRows($sql,'campaign_id');
 		/** END SPENDING **/
+
+        /** GET INCOME **/
+        $income_from = date('Y-m-d',$time['from']);
+        $income_to = date('Y-m-d',$time['to']);
+
+        $sql = "select sum(amount) as cost, campaign_id from bt_u_income
+				where date >= '$income_from' and date <= '$income_to' ";
+
+        $sql .= getSpendingReportFilters('bt_u_income',getReportOptionsForPage('overview/overview'));
+
+        $sql .= " group by campaign_id";
+
+        $incomes = DB::getRows($sql,'campaign_id');
+        /** END INCOME **/
 				
 		//Erase old cache
 		DB::query("delete from bt_c_statcache where type='overview' and user_id='$user_id'");
@@ -113,9 +127,25 @@ class OverviewController extends BTUserController {
 					where c.meta1=" . $campaign->id() . " and (c.meta3 is null or c.meta3=0)");
 		}
 		/** END TOP LEVEL LP **/
-		
+		$this->reCalculateIncomesPerCampaign($incomes);
 		$this->calculateCostsPerCampaign($spends);
 	}
+
+    public function reCalculateIncomesPerCampaign($incomes){
+        $user_id = DB::quote(getUserID());
+        $sql = "select * from bt_c_statcache where user_id='$user_id' and type='overview'";
+        $rows = DB::getRows($sql);
+        foreach($rows as $row) {
+            $income = 0;
+            if(isset($incomes[$row['meta1']])) {
+                $income = $incomes[$row['meta1']]['cost'];
+            }
+            $row['income'] = $row['income'] + $income;
+            DB::query("update bt_c_statcache set
+				income='" . DB::quote($row['income']) . "'
+				where id='" . DB::quote($row['id']) . "'");
+        }
+    }
 	
 	public function calculateCostsPerCampaign($spends) {
 		$user_id = DB::quote(getUserID());

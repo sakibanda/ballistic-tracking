@@ -15,8 +15,10 @@
 	<item label="Click Spy" link="/spy"></item>
 
 	<item label="Reporting" link="/overview/breakdown"></item>
-	
-	<item label="Update" link="/updateclick"></item>
-	
+
+	<item label="Update Clicks" link="/updateclick"></item>
+
 	<item label="Spending" link="/spending"></item>
+
+    <item label="Income" link="/income"></item>
 </navmenu>
