@@ -100,11 +100,24 @@
 		<breakdown>
 			<show_time>true</show_time>
 			<show_traffic_source>true</show_traffic_source>
-			<show_bottom>true</show_bottom>
-			<show_breakdown>true</show_breakdown>
-			<show_bottom_advanced>true</show_bottom_advanced>
-			<show_campaign>true</show_campaign>
+			<show_breakdown>false</show_breakdown>
+            <show_campaign>true</show_campaign>
+            <show_status>true</show_status>
+            <show_group>true</show_group>
+            <show_timezone>true</show_timezone>
+            <show_button_report>true</show_button_report>
 		</breakdown>
+
+        <custom_report>
+            <show_time>true</show_time>
+            <show_traffic_source>true</show_traffic_source>
+            <show_breakdown>false</show_breakdown>
+            <show_campaign>true</show_campaign>
+            <show_status>true</show_status>
+            <show_group>true</show_group>
+            <show_timezone>true</show_timezone>
+            <show_button_report>true</show_button_report>
+        </custom_report>
 
 		<overview>
 			<show_time>true</show_time>

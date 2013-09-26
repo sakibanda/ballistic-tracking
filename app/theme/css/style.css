@@ -2190,3 +2190,99 @@ table#vp_table input[type="radio"] {
     margin-left: 0px;
 }
 
+/* =============================================================================
+   Reports Section
+   ========================================================================== */
+#reportOptions {
+    clear:both;
+    width:925px;
+    margin:10px auto 30px;
+    padding:10px;
+    background:#EEEEEE;
+    border: 1px solid #CCC;
+    text-align:left;
+    -moz-border-radius:10px;
+    -webkit-border-radius:10px;
+    border-radius:10px;
+    box-shadow:0 1px 1px #b0b0b0;
+}
+
+#reportOptions h1 {
+    font-size:14px;
+    font-weight:bold;
+    text-align:left;
+    color:#000000;
+    margin:10px 0 5px 5px;
+}
+
+#reportOptions fieldset {
+    margin:0 0 15px 0;
+    padding:5px;
+    border:1px solid #B5B8C8;
+}
+
+#reportOptions legend {
+    font-size:12px;
+    font-weight:bold;
+    color:#15428B;
+}
+
+div.reportOptions {
+    float:left;
+    width:100%;
+    clear:both;
+    margin:5px 0;
+}
+
+input.reportBox {
+    margin:1px 5px 0 10px;
+    float:left;
+    width:auto;
+}
+
+p.reportSelect, p.reportLabel {
+    float:left;
+    width:auto;
+    font-size:12px;
+    padding:0 25px 0 0;
+    margin: 0px 0px;!important
+}
+p.reportSelect {
+    font-weight:900;
+    padding-bottom:3px;
+}
+table.report_options {
+    display:inline-block;
+}
+
+table.report_options td {
+    font-size:13px;
+    padding:5px 15px 5px 0
+}
+
+p.statTableType {
+    clear:left;
+    float:left;
+    width:50%;
+    font-size:16px;
+    font-weight:bold;
+    margin:10px 0 5px;
+    padding:0;
+}
+
+div.statTableWrapper {
+    clear:both;
+    margin:30px 0 0 0;
+    padding:10px 0
+}
+
+#campaignList table td.cell_id {
+    width:36px;
+}
+#campaignList table td.cell_name {
+    width:350px;
+}
+#campaignList table td.cell_actions {
+    width:215px;
+}
+
