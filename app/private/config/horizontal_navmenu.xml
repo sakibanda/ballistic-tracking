@@ -14,8 +14,8 @@
 	
 	<item label="Click Spy" link="/spy"></item>
 
-	<item label="Reporting" link="/overview/breakdown"></item>
-	
+    <item label="Reporting" link="/overview/custom_report"></item>
+
 	<item label="Update" link="/updateclick"></item>
 	
 	<item label="Spending" link="/spending"></item>

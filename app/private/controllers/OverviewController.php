@@ -13,7 +13,7 @@ class OverviewController extends BTUserController {
 	public function getOverviewData() {
 		$time = grab_timeframe(); 
 		
-		$user_id = DB::quote(getUserID());
+            $user_id = DB::quote(getUserID());
 		$start = DB::quote($time['from']);
 		$end = DB::quote($time['to']);
 		
@@ -27,7 +27,7 @@ class OverviewController extends BTUserController {
 		$sql .= getSpendingReportFilters('bt_u_spending',getReportOptionsForPage('overview/overview'));
 		
 		$sql .= " group by campaign_id";
-		
+
 		$spends = DB::getRows($sql,'campaign_id');
 		/** END SPENDING **/
 				
@@ -54,7 +54,7 @@ class OverviewController extends BTUserController {
 		
 		$sql .= "group by click.campaign_id, click.offer_id
 			order by null";
-									
+
 		DB::query($sql);
 		/** END CLICK DATA **/
 		
@@ -289,25 +289,25 @@ class OverviewController extends BTUserController {
 	}
 	
 	public function viewBreakdownAction() {
-		$_POST['order'] = '';
+    $_POST['order'] = '';
 
 
-		//show breakdown
-		runBreakdown(true);
+    //show breakdown
+    runBreakdown(true);
 
-		//show real or filtered clicks
-		$mysql['user_id'] = DB::quote(getUserID());
-		$breakdown = BTAuth::user()->getPref('breakdown');
+    //show real or filtered clicks
+    $mysql['user_id'] = DB::quote(getUserID());
+    $breakdown = BTAuth::user()->getPref('breakdown');
 
-		//grab breakdown report	
-		$breakdown_sql = "SELECT * FROM bt_c_statcache WHERE user_id='".$mysql['user_id']."' and type='breakdown' ";  
-		$breakdown_result = DB::getRows($breakdown_sql);
-		
-		$this->setVar("breakdown",$breakdown);
-		$this->setVar("breakdown_result",$breakdown_result);
-		
-		$this->loadView('overview/view_breakdown');
-	}
+    //grab breakdown report
+    $breakdown_sql = "SELECT * FROM bt_c_statcache WHERE user_id='".$mysql['user_id']."' and type='breakdown' ";
+    $breakdown_result = DB::getRows($breakdown_sql);
+
+    $this->setVar("breakdown",$breakdown);
+    $this->setVar("breakdown_result",$breakdown_result);
+
+    $this->loadView('overview/view_breakdown');
+}
 	
 	public function deleteCampaignAction() {
 		$camp = CampaignModel::model()->getRowFromPk($_POST['campaign_id']);
@@ -322,4 +322,35 @@ class OverviewController extends BTUserController {
             CampaignModel::model()->duplicate($_POST['campaign_id']);
         }
     }
+
+
+    public function custom_reportAction() {
+        $this->useActionAsCurrentNav();
+
+        $this->setVar("title", "Custom Reports");
+        $this->render("overview/custom_report");
+    }
+
+    public function viewCustomReportAction() {
+        $_POST['order'] = '';
+
+
+        //show breakdown
+        runBreakdown(true);
+
+        //show real or filtered clicks
+        $mysql['user_id'] = DB::quote(getUserID());
+        $breakdown = BTAuth::user()->getPref('breakdown');
+
+        //grab breakdown report
+        $breakdown_sql = "SELECT * FROM bt_c_statcache WHERE user_id='".$mysql['user_id']."' and type='breakdown' ";
+        $breakdown_result = DB::getRows($breakdown_sql);
+
+        $this->setVar("breakdown",$breakdown);
+        $this->setVar("breakdown_result",$breakdown_result);
+
+        $this->loadView('overview/view_custom_report');
+    }
+
+
 }
