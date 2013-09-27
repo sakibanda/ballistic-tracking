@@ -241,7 +241,7 @@ $html['page'] = BTHtml::encode($page); ?>
                 <input class="reportBox" name="campaignData[]" id="cpc" value="cCPC" type="checkbox"><p class="reportLabel">CPC</p>
                 <input class="reportBox" name="campaignData[]" id="on" value="o.name oName" type="checkbox"><p class="reportLabel">Offer Name</p>
                 <input class="reportBox" name="campaignData[]" id="ld" value="click.lead" type="checkbox"><p class="reportLabel">Lead</p>
-                <input class="reportBox" name="campaignData[]" id="cv" value="o.payout" type="checkbox"><p class="reportLabel">Payout</p>
+                <input class="reportBox" name="campaignData[]" id="po" value="o.payout" type="checkbox"><p class="reportLabel">Payout</p>
             </div>
         </fieldset>
 
@@ -334,24 +334,23 @@ $html['page'] = BTHtml::encode($page); ?>
     c.campaign_id = '18' AND c.deleted = 0 AND c.user_id = '$user_id' limit 3   ";
 
 
-    echo "SQL_QUERIE: ".$sql_report;
+    echo "SQL__: ".$sql_report;
 
     $report_rows = DB::getRows($sql_report);
 
-        echo mysql_field_name($report_rows, 1);
+        //echo mysql_field_name($report_rows, 1);
 
         echo "<table border='1'>";
-        echo "<tr>";
-        for($i = 0; $i < count($report_rows); $i++) {
-            $field_info = mysql_fetch_field($sql_report, $i);
-            echo "<th>{$field_info->name}</th>";
-        }
+        echo "<tr>".$title_table."</tr>";
 
+        foreach($report_rows as $row){
+            echo "<tr>";
+            for($columns = 0;$columns<count($row);$columns++){
+                echo "<td>" . $row['brand'] . "</td>";
+            }
+            echo "</tr>";
+         }
 
-//            <tr>".$title_table."</tr>";
-//        $valor = explode(",", $sql_report);
-//        echo $valor;
-//
 //        foreach($report_rows as $row){
 //            echo "<tr>";
 //                for($columns = 0;$columns<=count($row);$columns++){
@@ -359,7 +358,6 @@ $html['page'] = BTHtml::encode($page); ?>
 //                }
 //                echo "</tr>";
 //         }
-
         echo "</table>";
 }
 

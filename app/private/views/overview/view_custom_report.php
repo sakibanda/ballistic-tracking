@@ -124,8 +124,6 @@ $stats_total['net'] = 0;
                 document.getElementById('ip').checked = true;
                 document.getElementById('ref').checked = true;
                 document.getElementById('ua').checked = true;
-                document.getElementById('oip').checked = true;
-                document.getElementById('oua').checked = true;
             } else {
                 document.getElementById('sid').checked = false;
                 document.getElementById('ts').checked = false;
@@ -133,8 +131,6 @@ $stats_total['net'] = 0;
                 document.getElementById('ip').checked = false;
                 document.getElementById('ref').checked = false;
                 document.getElementById('ua').checked = false;
-                document.getElementById('oip').checked = false;
-                document.getElementById('oua').checked = false;
             }
         }
         if (i === 2 || setAll) {
@@ -145,14 +141,14 @@ $stats_total['net'] = 0;
                 document.getElementById('cpc').checked = true;
                 document.getElementById('on').checked = true;
                 document.getElementById('ld').checked = true;
-                document.getElementById('cv').checked = true;
+                document.getElementById('po').checked = true;
             } else {
                 document.getElementById('cid').checked = false;
                 document.getElementById('cn').checked = false;
                 document.getElementById('cpc').checked = false;
                 document.getElementById('on').checked = false;
                 document.getElementById('ld').checked = false;
-                document.getElementById('cv').checked = false;
+                document.getElementById('po').checked = false;
             }
         }
         if (i === 3 || setAll) {
