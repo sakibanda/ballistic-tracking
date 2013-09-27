@@ -44,6 +44,11 @@ $(function(){
         showOfferTextareaHover(this);
     });
 
+    $("#lp_holder").on('click','input[name^="lp_url"]',function(e) {
+        e.stopPropagation();
+        showOfferTextareaHover(this);
+    });
+
     $("#vp_table").on('click','input:checkbox',function(e){
         e.stopPropagation();
         var input = $(this).prev('input:hidden:first');

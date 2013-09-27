@@ -15,7 +15,7 @@
 				</div>
 			</div>
 			
-			<table class="styled" id="overview_table" cellpadding="0" cellspacing="0">
+			<table class="styled display" id="overview_table" cellpadding="0" cellspacing="0">
 				<thead>
 					<tr>
 						<th>ID</th>
@@ -31,7 +31,7 @@
 						<th>Cost</th>
 						<th>Net</th>
 						<th>ROI</th>
-						<th style="width: 150px;">Actions</th>
+						<th style="width: 200px;">Actions</th>
 					</tr>
 				</thead>
 				
@@ -72,16 +72,16 @@
 			$(".dataTables_wrapper .footer").hide();
 		},
 		fnDrawCallback: function() {			
-			$("#overview_table tbody td:nth-child(12)").each(function() {
+			/*$("#overview_table tbody td:nth-child(12)").each(function() {
 				colorizeReportTd($(this));
 			});
 			
 			$("#overview_table tbody td:nth-child(13)").each(function() {
 				colorizeReportTd($(this));
-			});
+			});*/
 		},
 		aoColumns: [
-			{ "bSortable": true }, //id
+			{ "bSortable": false }, //id
 			{ "bSortable": false }, //name
 			{ "bSortable": false }, //type
 			{ "bSortable": false }, //clicks

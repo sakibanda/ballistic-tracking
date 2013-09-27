@@ -1485,10 +1485,8 @@ table.styled tfoot th {
 
 table.styled th {
 	position: relative;
-	
-	min-width: 50px;
-	padding: 8px 12px;
-	
+	/*min-width: 50px;*/
+	padding: 8px 5px;
 	border-right: 1px solid #cfcfcf;
 	border-left: 1px solid #fff;
 	border-bottom: 1px solid #cfcfcf;
@@ -1512,8 +1510,7 @@ table.styled.borders th:first-child {
 }
 
 table.styled td {
-	padding: 8px 12px;
-
+	padding: 8px 5px;
 	border-bottom: 1px solid #dfdfdf;
 	border-right: 1px solid #dfdfdf;
 	word-wrap: break-word;

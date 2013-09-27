@@ -13,7 +13,7 @@ class OverviewController extends BTUserController {
 	public function getOverviewData() {
 		$time = grab_timeframe(); 
 		
-            $user_id = DB::quote(getUserID());
+		$user_id = DB::quote(getUserID());
 		$start = DB::quote($time['from']);
 		$end = DB::quote($time['to']);
 		
@@ -27,9 +27,23 @@ class OverviewController extends BTUserController {
 		$sql .= getSpendingReportFilters('bt_u_spending',getReportOptionsForPage('overview/overview'));
 		
 		$sql .= " group by campaign_id";
-
+		
 		$spends = DB::getRows($sql,'campaign_id');
 		/** END SPENDING **/
+
+        /** GET INCOME **/
+        $income_from = date('Y-m-d',$time['from']);
+        $income_to = date('Y-m-d',$time['to']);
+
+        $sql = "select sum(amount) as cost, campaign_id from bt_u_income
+				where date >= '$income_from' and date <= '$income_to' ";
+
+        $sql .= getSpendingReportFilters('bt_u_income',getReportOptionsForPage('overview/overview'));
+
+        $sql .= " group by campaign_id";
+
+        $incomes = DB::getRows($sql,'campaign_id');
+        /** END INCOME **/
 				
 		//Erase old cache
 		DB::query("delete from bt_c_statcache where type='overview' and user_id='$user_id'");
@@ -54,7 +68,7 @@ class OverviewController extends BTUserController {
 		
 		$sql .= "group by click.campaign_id, click.offer_id
 			order by null";
-
+									
 		DB::query($sql);
 		/** END CLICK DATA **/
 		
@@ -113,9 +127,25 @@ class OverviewController extends BTUserController {
 					where c.meta1=" . $campaign->id() . " and (c.meta3 is null or c.meta3=0)");
 		}
 		/** END TOP LEVEL LP **/
-		
+		$this->reCalculateIncomesPerCampaign($incomes);
 		$this->calculateCostsPerCampaign($spends);
 	}
+
+    public function reCalculateIncomesPerCampaign($incomes){
+        $user_id = DB::quote(getUserID());
+        $sql = "select * from bt_c_statcache where user_id='$user_id' and type='overview'";
+        $rows = DB::getRows($sql);
+        foreach($rows as $row) {
+            $income = 0;
+            if(isset($incomes[$row['meta1']])) {
+                $income = $incomes[$row['meta1']]['cost'];
+            }
+            $row['income'] = $row['income'] + $income;
+            DB::query("update bt_c_statcache set
+				income='" . DB::quote($row['income']) . "'
+				where id='" . DB::quote($row['id']) . "'");
+        }
+    }
 	
 	public function calculateCostsPerCampaign($spends) {
 		$user_id = DB::quote(getUserID());
@@ -212,28 +242,28 @@ class OverviewController extends BTUserController {
 			
 			where stat.user_id='$user_id' and stat.type='overview'
 			
-			";
+			group by stat.meta1";
 			
-		//$sql .= getReportOrder($cols,'stat.meta3 asc');
+		$sql .= getReportOrder($cols,'stat.meta3 asc');
 		
 		$stats = DB::getRows($sql);
 				
 		foreach($stats as &$stat) {			
-			if($stat['meta3']) {
+			/*if($stat['meta3']) {
 				$stat['name'] = $stat['offer_name'];
-				$stat['campaign_id'] = '';
-				$stat['cpc'] = null;
-				$stat['cost'] = null;
-				$stat['net'] = null;
-				$stat['roi'] = null;
+				//$stat['campaign_id'] = '';
+				//$stat['cpc'] = null;
+				//$stat['cost'] = null;
+				//$stat['net'] = null;
+				//$stat['roi'] = null;
 				$stat['type'] = 'Offer';
 			}
-			else {
-				$actions =  '<a class="button grey small" href="/tracker/code?campaign_id=' . $stat['campaign_id'] . '">Edit</a> ';
-                $actions .= '<a class="button grey small" href="#" onclick="return clone_campaign(' . $stat['campaign_id'] . ');">Clone</a> ';
-                $actions .= '<a class="button grey small" href="#" onclick="return delete_campaign(' . $stat['campaign_id'] . ');">Delete</a>';
+			else {*/
+				$actions =  '<a class="button grey small" href="/tracker/code?campaign_id=' . $stat['campaign_id'] . '"><i class="icon-pencil"></i> Edit</a> ';
+                $actions .= '<a class="button grey small" href="#" onclick="return clone_campaign(' . $stat['campaign_id'] . ');"><i class="icon-copy"></i> Clone</a> ';
+                $actions .= '<a class="button grey small" href="#" onclick="return delete_campaign(' . $stat['campaign_id'] . ');"><i class="icon-remove"></i> Delete</a>';
                 $stat['actions'] = $actions;
-			}
+			/*}*/
 		}
 		
 		return array('data'=>$stats,'cnt'=>count($stats),'cols'=>$cols);
@@ -289,25 +319,25 @@ class OverviewController extends BTUserController {
 	}
 	
 	public function viewBreakdownAction() {
-    $_POST['order'] = '';
+		$_POST['order'] = '';
 
 
-    //show breakdown
-    runBreakdown(true);
+		//show breakdown
+		runBreakdown(true);
 
-    //show real or filtered clicks
-    $mysql['user_id'] = DB::quote(getUserID());
-    $breakdown = BTAuth::user()->getPref('breakdown');
+		//show real or filtered clicks
+		$mysql['user_id'] = DB::quote(getUserID());
+		$breakdown = BTAuth::user()->getPref('breakdown');
 
-    //grab breakdown report
-    $breakdown_sql = "SELECT * FROM bt_c_statcache WHERE user_id='".$mysql['user_id']."' and type='breakdown' ";
-    $breakdown_result = DB::getRows($breakdown_sql);
-
-    $this->setVar("breakdown",$breakdown);
-    $this->setVar("breakdown_result",$breakdown_result);
-
-    $this->loadView('overview/view_breakdown');
-}
+		//grab breakdown report	
+		$breakdown_sql = "SELECT * FROM bt_c_statcache WHERE user_id='".$mysql['user_id']."' and type='breakdown' ";  
+		$breakdown_result = DB::getRows($breakdown_sql);
+		
+		$this->setVar("breakdown",$breakdown);
+		$this->setVar("breakdown_result",$breakdown_result);
+		
+		$this->loadView('overview/view_breakdown');
+	}
 	
 	public function deleteCampaignAction() {
 		$camp = CampaignModel::model()->getRowFromPk($_POST['campaign_id']);
