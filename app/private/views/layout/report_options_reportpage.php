@@ -283,7 +283,7 @@ $html['page'] = BTHtml::encode($page); ?>
     </div>
 
     <div class="box" style="border: none; background-color: transparent; padding: 0;box-shadow: none;">
-        <input type="submit" id="s-search" class="blue" value="Create Report"/>
+        <input type="submit" id="s-search" style="float:center;" class="blue" value="Create Report"/>
     </div>
 </form>
 <?php
@@ -360,9 +360,6 @@ $html['page'] = BTHtml::encode($page); ?>
 //         }
         echo "</table>";
 }
-
-
-
 ?>
 
 

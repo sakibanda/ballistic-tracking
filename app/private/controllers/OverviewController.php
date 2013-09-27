@@ -352,35 +352,4 @@ class OverviewController extends BTUserController {
             CampaignModel::model()->duplicate($_POST['campaign_id']);
         }
     }
-
-
-    public function custom_reportAction() {
-        $this->useActionAsCurrentNav();
-
-        $this->setVar("title", "Custom Reports");
-        $this->render("overview/custom_report");
-    }
-
-    public function viewCustomReportAction() {
-        $_POST['order'] = '';
-
-
-        //show breakdown
-        runBreakdown(true);
-
-        //show real or filtered clicks
-        $mysql['user_id'] = DB::quote(getUserID());
-        $breakdown = BTAuth::user()->getPref('breakdown');
-
-        //grab breakdown report
-        $breakdown_sql = "SELECT * FROM bt_c_statcache WHERE user_id='".$mysql['user_id']."' and type='breakdown' ";
-        $breakdown_result = DB::getRows($breakdown_sql);
-
-        $this->setVar("breakdown",$breakdown);
-        $this->setVar("breakdown_result",$breakdown_result);
-
-        $this->loadView('overview/view_custom_report');
-    }
-
-
 }
