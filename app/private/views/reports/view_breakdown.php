@@ -151,11 +151,10 @@ $stats_total['net'] = 0;
 </div>
 
 <script type="text/javascript">
-function exportCsv() {	
-	iframe = document.createElement('iframe');
-	iframe.style.display = 'none';
-	document.body.appendChild(iframe);
-	iframe.src = '/overview/exportBreakdown?iSortCol_0=0&sSortDir_0=asc';
-}
-
+    function exportCsv() {
+        iframe = document.createElement('iframe');
+        iframe.style.display = 'none';
+        document.body.appendChild(iframe);
+        iframe.src = '/reports/exportBreakdown?iSortCol_0=0&sSortDir_0=asc';
+    }
 </script>
