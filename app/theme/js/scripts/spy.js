@@ -46,7 +46,7 @@ $(document).ready(function(){
 });
 
 function startSpyTimer() {
-    theSpyTimer = setInterval(function() { runSpy(); },5000);
+    theSpyTimer = setInterval(function() { runSpy(); },50000);
 }
 
 function stopSpyTimer() {
@@ -55,5 +55,6 @@ function stopSpyTimer() {
 }
 
 function runSpy() {
+    $('.tooltip').tooltip( "close" );
     $("#visitors_table").dataTable().fnDraw(false);
 }
