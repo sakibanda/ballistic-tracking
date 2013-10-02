@@ -59,7 +59,7 @@ function runBreakdown($user_pref) {
 		$sql = "select sum(amount) as cost, FROM_UNIXTIME(UNIX_TIMESTAMP(date),'$datetype') as date from bt_u_spending 
 				where date >= '$spend_from' and date <= '$spend_to' ";
 				
-		$sql .= getSpendingReportFilters('bt_u_spending',getReportOptionsForPage('overview/breakdown'));
+		$sql .= getSpendingReportFilters('bt_u_spending',getReportOptionsForPage('reports/breakdown'));
 				
 		$sql .= "group by date";
 		
@@ -112,7 +112,7 @@ function runBreakdown($user_pref) {
 		FROM 
 		";
 		
-		$sql .= getReportFilters('overview/breakdown');
+		$sql .= getReportFilters('reports/breakdown');
 
 		$sql .= "
 		group by date

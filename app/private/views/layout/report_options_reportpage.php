@@ -55,8 +55,7 @@ $html['page'] = BTHtml::encode($page); ?>
 <form onsubmit="return false;" id="user_prefs" class="grid_12" novalidate="novalidate">
     <input type="hidden" name="opt_setting" value="<?php echo $opts; ?>"/>
 
-
-    <?php if($show_options['show_status']) { ?>
+    <?php if($show_options['show_status']) { ?> //new one
         <div class="grid_2">
             <div class="box">
                 <label>Status</label>
@@ -69,7 +68,7 @@ $html['page'] = BTHtml::encode($page); ?>
         </div>
     <?php } ?>
 
-    <?php if($show_options['show_group']) { ?>
+    <?php if($show_options['show_group']) { ?> //new one
         <div class="grid_2">
             <div class="box">
                 <label>Group</label>

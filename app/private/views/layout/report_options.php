@@ -74,7 +74,6 @@ $default_opts = array(
 );
 
 $show_options = array_merge($default_opts,$opt_arr);
-
 $time = grab_timeframe();   
 $html['from'] = date('m/d/Y', $time['from']);
 $html['to'] = date('m/d/Y', $time['to']);  
@@ -83,7 +82,6 @@ $html['page'] = BTHtml::encode($page); ?>
 
 <form onsubmit="return false;" id="user_prefs" class="grid_12" novalidate="novalidate">
 	<input type="hidden" name="opt_setting" value="<?php echo $opts; ?>"/>
-
 
 	<div class="grid_2">
 		<div class="box">
@@ -97,9 +95,7 @@ $html['page'] = BTHtml::encode($page); ?>
 				<option <?php if ($time['time_predefined'] == 'thismonth') { echo 'selected=""'; } ?> value="thismonth">This Month</option>
 				<option <?php if ($time['time_predefined'] == 'lastmonth') { echo 'selected=""'; } ?> value="lastmonth">Last Month</option>
 			</select>
-			
-			<label class="tooltip" title="MM/DD/YYYY">Start Date:</label> <input class="date" onchange="unset_time_predefined();" type="text" name="from" id="from" value="<?php echo $html['from']; ?>" />		
-
+			<label class="tooltip" title="MM/DD/YYYY">Start Date:</label> <input class="date" onchange="unset_time_predefined();" type="text" name="from" id="from" value="<?php echo $html['from']; ?>" />
 			<label class="tooltip"title="MM/DD/YYYY">End Date:</label> <input class="date" onchange="unset_time_predefined();" type="text" name="to" id="to" value="<?php echo $html['to']; ?>"  />	
 		</div>
 	</div>
@@ -108,7 +104,6 @@ $html['page'] = BTHtml::encode($page); ?>
 		<div class="grid_2">
 			<div class="box">
 				<label>Campaign</label>
-
 				<?php
 					BTForm::createSelect('campaign_id',CampaignModel::model()->getRows(),
 										 BTAuth::user()->getPref('campaign_id'),'campaign_id','','name','campaign_id','Show All');
@@ -121,7 +116,6 @@ $html['page'] = BTHtml::encode($page); ?>
 		<div class="grid_2">
 			<div class="box">
 				<label>Type</label>
-
 				<?php
 					BTForm::createSelect('campaign_type',
 										 array(array('label'=>'Landing Page','value'=>'lp'),array('label'=>'Direct Link','value'=>'direct')),
@@ -274,6 +268,5 @@ $html['page'] = BTHtml::encode($page); ?>
 		$('#to').val(todate);  
 	}
 
-	
 	loadContent('<?php echo $page; ?>');
-</script> 
+</script>
