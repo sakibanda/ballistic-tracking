@@ -145,7 +145,7 @@
             <show_traffic_source>true</show_traffic_source>
             <show_breakdown>false</show_breakdown>
             <show_campaign>true</show_campaign>
-            <show_status>true</show_status>
+            <show_status>false</show_status>
             <show_group>true</show_group>
             <show_timezone>true</show_timezone>
             <show_button_report>false</show_button_report>

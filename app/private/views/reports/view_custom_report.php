@@ -1,62 +1,16 @@
 <div class="grid_12">
-    <div class="box with-table">
+    <div class="box with-table" id="customReportContent">
         <div class="header">
             <h2>Report Result</h2>
         </div>
         <div class="content">
             <div class="tabletools">
                 <div class="right">
-                    <a href="#" onclick="exportCsv(); return false;">CSV</a>
+                    <!--<a href="#" onclick="exportCsv(); return false;">CSV</a>-->
                 </div>
             </div>
             <div style="overflow-x:scroll;clear:both;">
                 <table class="styled" id="result_table" cellpadding="0" cellspacing="0">
-                    <thead>
-                    <tr>
-                        <th>Click ID</th>
-                        <th>Timestamp</th>
-                        <th>IP Address</th>
-                        <th>Referer</th>
-                        <th>User Agent</th>
-                        <th>Campaign ID</th>
-                        <th>Campaign Name</th>
-                        <th>CPC</th>
-                        <th>Offer Name</th>
-                        <th>Conversion</th>
-                        <th>Payout</th>
-                        <th>Device Name</th>
-                        <th>Model</th>
-                        <th>Device Type</th>
-                        <th>Operation System</th>
-                        <th>Carrier</th>
-                        <th>ISP</th>
-                        <th>Country Code</th>
-                        <th>Country Name</th>
-                    </tr>
-                    </thead>
-                    <tfoot>
-                    <tr>
-                        <th>Click ID</th>
-                        <th>Timestamp</th>
-                        <th>IP Address</th>
-                        <th>Referer</th>
-                        <th>User Agent</th>
-                        <th>Campaign ID</th>
-                        <th>Campaign Name</th>
-                        <th>CPC</th>
-                        <th>Offer Name</th>
-                        <th>Conversion</th>
-                        <th>Payout</th>
-                        <th>Device Name</th>
-                        <th>Model</th>
-                        <th>Device Type</th>
-                        <th>Operation System</th>
-                        <th>Carrier</th>
-                        <th>ISP</th>
-                        <th>Country Code</th>
-                        <th>Country Name</th>
-                    </tr>
-                    </tfoot>
                 </table>
             </div>
         </div>
@@ -66,12 +20,14 @@
 <script type="text/javascript">
 
     $(function(){
+        $("#customReportContent").hide();
         $("#generate_custom_report").click(function(e) {
-            alert("generate_custom_report");
             e.preventDefault();
-            $.post('/ajax/reports/viewCustomReport',$('#user_prefs').serialize(true),
+            $.post('/ajax/reports/customReport',$('#user_prefs').serialize(true),
                 function(data) {
                     alert(data);
+                    $("#result_table").html(data);
+                    $("#customReportContent").show();
                 }
             );
             return false;
