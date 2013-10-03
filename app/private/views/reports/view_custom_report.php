@@ -1,12 +1,3 @@
-<?php
-$stats_total['clicks'] = 0;
-$stats_total['leads'] = 0;
-$stats_total['payout'] = 0;
-$stats_total['income'] = 0;
-$stats_total['cost'] = 0;
-$stats_total['net'] = 0;
-?>
-
 <div class="grid_12">
     <div class="box with-table">
         <div class="header">
@@ -73,6 +64,19 @@ $stats_total['net'] = 0;
 </div>
 
 <script type="text/javascript">
+
+    $(function(){
+        $("#generate_custom_report").click(function(e) {
+            alert("generate_custom_report");
+            e.preventDefault();
+            $.post('/ajax/reports/viewCustomReport',$('#user_prefs').serialize(true),
+                function(data) {
+                    alert(data);
+                }
+            );
+            return false;
+        });
+    });
 
     function exportCsv() {
         iframe = document.createElement('iframe');

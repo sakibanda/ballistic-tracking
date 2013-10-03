@@ -13,8 +13,84 @@ class ReportsController extends BTUserController {
     }
 
     public function viewCustomReportAction() {
-        $_POST['order'] = '';
 
+        $camp_id = @$_POST['campaign_id'];
+        $devices = @$_POST['deviceData'];
+
+        if(isset($_GET['deviceData'])){
+            //$user_id = DB::quote(getUserID());
+            $sql_report = "SELECT ";
+            $title_table = "";
+            if(!empty($_POST['clickData'])) {
+                foreach($_POST['clickData'] as $option){
+                    $sql_report .="$option,";
+                    $title_table .= "<th>".$option."</th>";
+
+                }
+            }
+            if(!empty($_POST['campaignData'])) {
+                foreach($_POST['campaignData'] as $option){
+                    $sql_report .="$option,";
+                    $title_table .= "<th>".$option."</th>";
+                }
+            }
+
+            if(!empty($_POST['deviceData'])) {
+                foreach($_POST['deviceData'] as $option){
+                    $sql_report .="$option,";
+                    $title_table .= "<th>".$option."</th>";
+                }
+            }
+            $sql_report = trim($sql_report, ',');
+
+            $sql_report.=" FROM
+                bt_u_campaigns AS c
+                    JOIN
+                bt_u_campaign_offers co ON (co.campaign_id = c.campaign_id)
+                    JOIN
+                bt_u_offers o ON (co.offer_id = o.offer_id)
+                    JOIN
+                bt_s_clicks click ON (click.campaign_id = c.campaign_id)
+                    JOIN
+                bt_s_clicks_site cs USING (click_id)
+                    JOIN
+                bt_s_clicks_advanced adv USING (click_id)
+                    JOIN
+                bt_s_ips ON (bt_s_ips.ip_id = adv.ip_id)
+                    JOIN
+                bt_s_device_data d ON (d.device_id = adv.platform_id)";
+
+                        $sql_report .=" WHERE
+                c.campaign_id = '18' AND c.deleted = 0 AND c.user_id = '2' limit 3   ";
+
+            echo "SQL__: ".$sql_report;
+
+            $report_rows = DB::getRows($sql_report);
+
+            //echo mysql_field_name($report_rows, 1);
+
+            echo "<table border='1'>";
+            echo "<tr>".$title_table."</tr>";
+
+            foreach($report_rows as $row){
+                echo "<tr>";
+                for($columns = 0;$columns<count($row);$columns++){
+                    echo "<td>" . $row['brand'] . "</td>";
+                }
+                echo "</tr>";
+            }
+
+//        foreach($report_rows as $row){
+//            echo "<tr>";
+//                for($columns = 0;$columns<=count($row);$columns++){
+//                    echo "<td>" . $row . "</td>";
+//                }
+//                echo "</tr>";
+//         }
+            echo "</table>";
+        }
+
+        //$_POST['order'] = '';
         /*
         //show breakdown
         runBreakdown(true);

@@ -148,7 +148,8 @@
             <show_status>true</show_status>
             <show_group>true</show_group>
             <show_timezone>true</show_timezone>
-            <show_button_report>true</show_button_report>
+            <show_button_report>false</show_button_report>
+            <show_custom_report>true</show_custom_report>
         </reports>
     </reports>
 

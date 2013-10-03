@@ -7,5 +7,5 @@
 <?php
 $this->setVar('page','/ajax/reports/viewCustomReport');
 $this->setVar('opts','reports/reports');
-$this->loadTemplate('report_options_reportpage');
+$this->loadTemplate('report_options');
 ?>

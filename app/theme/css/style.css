@@ -618,7 +618,7 @@ td { vertical-align: top; }
     top: 50%;
     width: 100%;
 }
-
+/*
 #user_prefs > div {
 	display:inline-block;
     vertical-align:bottom;
@@ -626,6 +626,7 @@ td { vertical-align: top; }
 	position: inherit;
 	max-width: 150px;
 }
+*/
 
 #user_prefs .box {
 	-webkit-border-radius: 6px;
@@ -2195,8 +2196,8 @@ table#vp_table input[type="radio"] {
     width:925px;
     margin:10px auto 30px;
     padding:10px;
-    background:#EEEEEE;
-    border: 1px solid #CCC;
+    /*background:#EEEEEE;*/
+    /*border: 1px solid #CCC;*/
     text-align:left;
     -moz-border-radius:10px;
     -webkit-border-radius:10px;
