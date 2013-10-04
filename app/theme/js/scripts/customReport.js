@@ -4,8 +4,10 @@ $(document).ready(function() {
     $("#customReportContent").hide();
     $("#generate_custom_report").click(function(e) {
         e.preventDefault();
+        $("#loading").show();
         $.post('/ajax/reports/customReport',$('#user_prefs').serialize(true),
             function(data) {
+                $("#loading").hide();
                 $("#result_table").html(data);
                 $("#customReportContent").show();
                 //$("#result_table").dataTable();

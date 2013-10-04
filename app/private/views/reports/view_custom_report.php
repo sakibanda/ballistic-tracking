@@ -15,6 +15,6 @@
             </div>
         </div>
     </div>
+    <div id="loading" style="display:none;"><img src="theme/img/loader.gif"/></div>
 </div>
-
 <script src="/theme/js/scripts/customReport.js"></script>

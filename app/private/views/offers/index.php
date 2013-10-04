@@ -12,7 +12,7 @@
 				<div class="right">
 				</div>
 			</div>
-            <table cellpadding="0" cellspacing="0" id="offers_table" class="styled display">
+            <table cellpadding="0" cellspacing="0" id="offers_table" class="dataTable">
 				<thead>
 					<tr>
 						<th>Offer ID</th>

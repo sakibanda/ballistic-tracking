@@ -21,6 +21,29 @@ class ReportsController extends BTUserController {
         $camp_id = getArrayVar($_POST,'campaign_id');
         $user_id = DB::quote(getUserID());
 
+        $clickValues = array(
+            "Click ID"   => "click.click_id",
+            "Timestamp"  => "click.time",
+            "IP Address" => "ip_address",
+            "Referer" => "cs.referer_url",
+            "User Agent" => "adv.browser_id"
+        );
+
+        $campaignValues = array(
+            "Camp Id"   => "c.campaign_id",
+            "Campaign Name"  => "c.name as cName",
+            "Offer Name" => "o.name as oName",
+            "Lead" => "click.lead",
+            "Payout" => "o.payout"
+        );
+
+        $deviceValues = array(
+            "Name"   => "d.brand",
+            "Model"  => "d.type as model",
+            "Device Type" => "d.type",
+            "Operating System" => "d.os"
+        );
+
         $sql_report = "SELECT ";
         $title_table = "";
         if(empty($_POST['clickData']) && empty($_POST['campaignData']) && empty($_POST['deviceData'])){
@@ -29,21 +52,30 @@ class ReportsController extends BTUserController {
 
             if(!empty($_POST['clickData'])) {
                 foreach($_POST['clickData'] as $option){
-                    $sql_report .="$option,";
-                    $title_table .= "<th>".substr($option,2)."</th>";
+                    if($option != ""){
+                        $sql_report .="$option,";
+                        $title = array_search($option,$clickValues);
+                        $title_table .= "<th>".$title."</th>";
+                    }
                 }
             }
             if(!empty($_POST['campaignData'])) {
                 foreach($_POST['campaignData'] as $option){
-                    $sql_report .="$option,";
-                    $title_table .= "<th>".substr($option,2)."</th>";
+                    if($option != ""){
+                        $sql_report .="$option,";
+                        $title = array_search($option,$campaignValues);
+                        $title_table .= "<th>".$title."</th>";
+                    }
                 }
             }
 
             if(!empty($_POST['deviceData'])) {
                 foreach($_POST['deviceData'] as $option){
-                    $sql_report .="$option,";
-                    $title_table .= "<th>".substr($option,2)."</th>";
+                    if($option != ""){
+                        $sql_report .="$option,";
+                        $title = array_search($option,$deviceValues);
+                        $title_table .= "<th>".$title."</th>";
+                    }
                 }
             }
             $sql_report = trim($sql_report, ',');
@@ -69,7 +101,7 @@ class ReportsController extends BTUserController {
             if($camp_id){
                 $sql_report .="c.campaign_id = '$camp_id' AND c.deleted = 0 AND ";
             }
-            $sql_report .="c.user_id = '$user_id' limit 10 ";
+            $sql_report .="c.user_id = '$user_id' ";
 
             $report_rows = DB::getRows($sql_report);
 

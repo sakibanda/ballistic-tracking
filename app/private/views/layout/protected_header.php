@@ -8,6 +8,7 @@
 		<link rel="stylesheet" type="text/css" href="/theme/css/jquery-ui/smoothness/jquery-ui-1.10.3.custom.css" />
 		<link rel="stylesheet" type="text/css" href="/theme/css/grid.css" />
 		<link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
+        <link rel="stylesheet" type="text/css" href="/theme/css/datatable.css" />
         <script src="/theme/js/vendor/jquery-1.10.2.min.js"></script>
         <script src="/theme/js/vendor/jquery.validate.min.js"></script>
         <script src="/theme/js/vendor/jquery-ui-1.10.3.custom.min.js"></script>

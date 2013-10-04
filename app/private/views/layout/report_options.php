@@ -273,7 +273,7 @@ $html['page'] = BTHtml::encode($page); ?>
                 <div class="reportOptions">
                     <input type="checkbox" name="clickData[]" value="click.click_id"><p>Click ID</p>
                     <input type="checkbox" name="clickData[]" value="click.time"><p>Timestamp</p>
-                    <input type="checkbox" name="clickData[]" value="datetime as DataTime"><p>Date/Time</p>
+                    <input type="checkbox" name="clickData[]" value=""><p>Date/Time</p>
                     <input type="checkbox" name="clickData[]" value="ip_address"><p>IP Address</p>
                     <input type="checkbox" name="clickData[]" value="cs.referer_url"><p>Referer</p>
                     <input type="checkbox" name="clickData[]" value="adv.browser_id"><p>User Agent</p>
@@ -289,8 +289,8 @@ $html['page'] = BTHtml::encode($page); ?>
                 <div class="reportOptions">
                     <input type="checkbox" name="campaignData[]" value="c.campaign_id"><p>Campaign ID</p>
                     <input type="checkbox" name="campaignData[]" value="c.name as cName"><p>Campaign Name</p>
-                    <input type="checkbox" name="campaignData[]" value="cCPC"><p>CPC</p>
-                    <input type="checkbox" name="campaignData[]" value="o.name oName"><p>Offer Name</p>
+                    <input type="checkbox" name="campaignData[]" value=""><p>CPC</p>
+                    <input type="checkbox" name="campaignData[]" value="o.name as oName"><p>Offer Name</p>
                     <input type="checkbox" name="campaignData[]" value="click.lead"><p>Lead</p>
                     <input type="checkbox" name="campaignData[]" value="o.payout"><p>Payout</p>
                 </div>
