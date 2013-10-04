@@ -23,59 +23,64 @@ class ReportsController extends BTUserController {
 
         $sql_report = "SELECT ";
         $title_table = "";
-        if(!empty($_POST['clickData'])) {
-            foreach($_POST['clickData'] as $option){
-                $sql_report .="$option,";
-                $title_table .= "<th>".substr($option,2)."</th>";
+        if(empty($_POST['clickData']) && empty($_POST['campaignData']) && empty($_POST['deviceData'])){
+            echo "<tr><td><div id='errorData'>No options have been selected. To create a report, select from the options above and click 'Create Report' below.</div></td></tr>";
+        }else{
+
+            if(!empty($_POST['clickData'])) {
+                foreach($_POST['clickData'] as $option){
+                    $sql_report .="$option,";
+                    $title_table .= "<th>".substr($option,2)."</th>";
+                }
             }
-        }
-        if(!empty($_POST['campaignData'])) {
-            foreach($_POST['campaignData'] as $option){
-                $sql_report .="$option,";
-                $title_table .= "<th>".substr($option,2)."</th>";
+            if(!empty($_POST['campaignData'])) {
+                foreach($_POST['campaignData'] as $option){
+                    $sql_report .="$option,";
+                    $title_table .= "<th>".substr($option,2)."</th>";
+                }
             }
-        }
 
-        if(!empty($_POST['deviceData'])) {
-            foreach($_POST['deviceData'] as $option){
-                $sql_report .="$option,";
-                $title_table .= "<th>".substr($option,2)."</th>";
+            if(!empty($_POST['deviceData'])) {
+                foreach($_POST['deviceData'] as $option){
+                    $sql_report .="$option,";
+                    $title_table .= "<th>".substr($option,2)."</th>";
+                }
             }
-        }
-        $sql_report = trim($sql_report, ',');
+            $sql_report = trim($sql_report, ',');
 
-        $sql_report.=" FROM
-            bt_u_campaigns AS c
-                JOIN
-            bt_u_campaign_offers co ON (co.campaign_id = c.campaign_id)
-                JOIN
-            bt_u_offers o ON (co.offer_id = o.offer_id)
-                JOIN
-            bt_s_clicks click ON (click.campaign_id = c.campaign_id)
-                JOIN
-            bt_s_clicks_site cs USING (click_id)
-                JOIN
-            bt_s_clicks_advanced adv USING (click_id)
-                JOIN
-            bt_s_ips ON (bt_s_ips.ip_id = adv.ip_id)
-                JOIN
-            bt_s_device_data d ON (d.device_id = adv.platform_id)";
+            $sql_report.=" FROM
+                bt_u_campaigns AS c
+                    JOIN
+                bt_u_campaign_offers co ON (co.campaign_id = c.campaign_id)
+                    JOIN
+                bt_u_offers o ON (co.offer_id = o.offer_id)
+                    JOIN
+                bt_s_clicks click ON (click.campaign_id = c.campaign_id)
+                    JOIN
+                bt_s_clicks_site cs USING (click_id)
+                    JOIN
+                bt_s_clicks_advanced adv USING (click_id)
+                    JOIN
+                bt_s_ips ON (bt_s_ips.ip_id = adv.ip_id)
+                    JOIN
+                bt_s_device_data d ON (d.device_id = adv.platform_id)";
 
-        $sql_report .=" WHERE ";
-        if($camp_id){
-            $sql_report .="c.campaign_id = '$camp_id' AND c.deleted = 0 AND ";
-        }
-        $sql_report .="c.user_id = '$user_id' limit 10 ";
-
-        $report_rows = DB::getRows($sql_report);
-
-        echo "<tr>".$title_table."</tr>";
-        foreach($report_rows as $row => $innerArray){
-            echo "<tr>";
-            foreach($innerArray as $innerRow => $value){
-                echo "<td>" . $value . "</td>";
+            $sql_report .=" WHERE ";
+            if($camp_id){
+                $sql_report .="c.campaign_id = '$camp_id' AND c.deleted = 0 AND ";
             }
-            echo "</tr>";
+            $sql_report .="c.user_id = '$user_id' limit 10 ";
+
+            $report_rows = DB::getRows($sql_report);
+
+            echo "<tr>".$title_table."</tr>";
+            foreach($report_rows as $row => $innerArray){
+                echo "<tr>";
+                foreach($innerArray as $innerRow => $value){
+                    echo "<td>" . $value . "</td>";
+                }
+                echo "</tr>";
+            }
         }
     }
 

@@ -252,82 +252,82 @@ $html['page'] = BTHtml::encode($page); ?>
         <div id="reportOptions" class="box">
             <h3>Report Options</h3>
             <div class="reportOptions">
-                <input class="reportBox" name="cvr" id="cvr" value="1" type="checkbox">
+                <input type="checkbox" name="cvr" value="1">
                 <p class="reportSelect">Restrict to Converting Subids</p>
-                <input class="reportBox" name="opt" id="opt" value="1" type="checkbox">
+                <input type="checkbox" name="opt" value="1">
                 <p class="reportSelect">Restrict to Opt-ins</p>
-                <input class="reportBox" name="filtered" id="filtered" value="1" type="checkbox">
+                <input type="checkbox" name="filtered" value="1">
                 <p class="reportSelect">Include Filtered Clicks</p>
             </div>
             <div class="reportOptions">
-                <input class="reportBox" name="allData" id="allData" value="1" onclick="setAllData();" type="checkbox">
+                <input type="checkbox" id="allData">
                 <p class="reportSelect">Select All Options</p>
             </div>
 
-            <fieldset>
+            <fieldset id="clickData">
                 <legend>Click Data</legend>
                 <div class="reportOptions">
-                    <input class="reportBox" name="clickData" id="clickData" value="1" onclick="setReportData(1,0);" type="checkbox">
+                    <input type="checkbox" class="selectall"/>
                     <p class="reportSelect">Select All Click Data</p>
                 </div>
                 <div class="reportOptions">
-                    <input class="reportBox" name="clickData[]" id="sid" value="click.click_id" type="checkbox"><p class="reportLabel">Click ID</p>
-                    <input class="reportBox" name="clickData[]" id="ts" value="click.time" type="checkbox"><p class="reportLabel">Timestamp</p>
-                    <input class="reportBox" name="clickData[]" id="dt" value="datetime as DataTime" type="checkbox"><p class="reportLabel">Date/Time</p>
-                    <input class="reportBox" name="clickData[]" id="ip" value="ip_address" type="checkbox"><p class="reportLabel">IP Address</p>
-                    <input class="reportBox" name="clickData[]" id="ref" value="cs.referer_url" type="checkbox"><p class="reportLabel">Referer</p>
-                    <input class="reportBox" name="clickData[]" id="ua" value="adv.browser_id" type="checkbox"><p class="reportLabel">User Agent</p>
+                    <input type="checkbox" name="clickData[]" value="click.click_id"><p>Click ID</p>
+                    <input type="checkbox" name="clickData[]" value="click.time"><p>Timestamp</p>
+                    <input type="checkbox" name="clickData[]" value="datetime as DataTime"><p>Date/Time</p>
+                    <input type="checkbox" name="clickData[]" value="ip_address"><p>IP Address</p>
+                    <input type="checkbox" name="clickData[]" value="cs.referer_url"><p>Referer</p>
+                    <input type="checkbox" name="clickData[]" value="adv.browser_id"><p>User Agent</p>
                 </div>
             </fieldset>
 
             <fieldset>
                 <legend>Campaign Data</legend>
                 <div class="reportOptions">
-                    <input class="reportBox" name="campData" id="campData" value="1" onclick="setReportData(2,0);" type="checkbox">
+                    <input type="checkbox" class="selectall"/>
                     <p class="reportSelect">Select All Campaign Data</p>
                 </div>
                 <div class="reportOptions">
-                    <input class="reportBox" name="campaignData[]" id="cid" value="c.campaign_id" type="checkbox"><p class="reportLabel">Campaign ID</p>
-                    <input class="reportBox" name="campaignData[]" id="cn" value="c.name as cName" type="checkbox"><p class="reportLabel">Campaign Name</p>
-                    <input class="reportBox" name="campaignData[]" id="cpc" value="cCPC" type="checkbox"><p class="reportLabel">CPC</p>
-                    <input class="reportBox" name="campaignData[]" id="on" value="o.name oName" type="checkbox"><p class="reportLabel">Offer Name</p>
-                    <input class="reportBox" name="campaignData[]" id="ld" value="click.lead" type="checkbox"><p class="reportLabel">Lead</p>
-                    <input class="reportBox" name="campaignData[]" id="po" value="o.payout" type="checkbox"><p class="reportLabel">Payout</p>
+                    <input type="checkbox" name="campaignData[]" value="c.campaign_id"><p>Campaign ID</p>
+                    <input type="checkbox" name="campaignData[]" value="c.name as cName"><p>Campaign Name</p>
+                    <input type="checkbox" name="campaignData[]" value="cCPC"><p>CPC</p>
+                    <input type="checkbox" name="campaignData[]" value="o.name oName"><p>Offer Name</p>
+                    <input type="checkbox" name="campaignData[]" value="click.lead"><p>Lead</p>
+                    <input type="checkbox" name="campaignData[]" value="o.payout"><p>Payout</p>
                 </div>
             </fieldset>
 
             <fieldset>
                 <legend>Device Data</legend>
                 <div class="reportOptions">
-                    <input class="reportBox" name="deviceData" id="deviceData" value="1" onclick="setReportData(3,0);" type="checkbox">
+                    <input type="checkbox" class="selectall"/>
                     <p class="reportSelect">Select All Device Data</p>
                 </div>
                 <div class="reportOptions">
-                    <input class="reportBox" name="deviceData[]" id="name" value="d.brand" type="checkbox"><p class="reportLabel">Name</p>
-                    <input class="reportBox" name="deviceData[]" id="mdl" value="d.type as model" type="checkbox"><p class="reportLabel">Model</p>
-                    <input class="reportBox" name="deviceData[]" id="type" value="d.type" type="checkbox"><p class="reportLabel">Device Type</p>
-                    <input class="reportBox" name="deviceData[]" id="os" value="d.os" type="checkbox"><p class="reportLabel">Operating System</p>
+                    <input type="checkbox" name="deviceData[]" value="d.brand"><p>Name</p>
+                    <input type="checkbox" name="deviceData[]" value="d.type as model"><p>Model</p>
+                    <input type="checkbox" name="deviceData[]" value="d.type"><p>Device Type</p>
+                    <input type="checkbox" name="deviceData[]" value="d.os"><p>Operating System</p>
                 </div>
             </fieldset>
 
             <fieldset>
                 <legend>Carrier Data</legend>
                 <div class="reportOptions">
-                    <input class="reportBox" name="carrierData" id="carrierData" value="1" onclick="setReportData(4,0);" type="checkbox">
+                    <input type="checkbox" class="selectall"/>
                     <p class="reportSelect">Select All Carrier Data</p>
                 </div>
                 <div class="reportOptions">
-                    <input class="reportBox" name="carrier" id="carrier" value="1" type="checkbox"><p class="reportLabel">Carrier</p>
-                    <input class="reportBox" name="isp" id="isp" value="1" type="checkbox"><p class="reportLabel">ISP</p>
-                    <input class="reportBox" name="code" id="code" value="1" type="checkbox"><p class="reportLabel">Country Code</p>
-                    <input class="reportBox" name="country" id="country" value="1" type="checkbox"><p class="reportLabel">Country Name</p>
+                    <input type="checkbox" name="carrier"><p>Carrier</p>
+                    <input type="checkbox" name="isp"><p>ISP</p>
+                    <input type="checkbox" name="code"><p>Country Code</p>
+                    <input type="checkbox" name="country"><p>Country Name</p>
                 </div>
             </fieldset>
 
             <fieldset>
                 <legend>Token Data</legend>
                 <div class="reportOptions">
-                    <input class="reportBox" name="tokenData" id="tokenData" value="1" onclick="setReportData(5,0);" type="checkbox">
+                    <input type="checkbox" class="selectall" name="tokenData" value="1"/>
                     <p class="reportSelect">Select All Token Data</p>
                 </div>
             </fieldset>

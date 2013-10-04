@@ -2196,8 +2196,6 @@ table#vp_table input[type="radio"] {
     width:925px;
     margin:10px auto 30px;
     padding:10px;
-    /*background:#EEEEEE;*/
-    /*border: 1px solid #CCC;*/
     text-align:left;
     -moz-border-radius:10px;
     -webkit-border-radius:10px;
@@ -2232,13 +2230,13 @@ div.reportOptions {
     margin:5px 0;
 }
 
-input.reportBox {
+div.reportOptions input {
     margin:1px 5px 0 10px;
     float:left;
     width:auto;
 }
 
-p.reportSelect, p.reportLabel {
+div.reportOptions p{
     float:left;
     width:auto;
     font-size:12px;
@@ -2248,14 +2246,6 @@ p.reportSelect, p.reportLabel {
 p.reportSelect {
     font-weight:900;
     padding-bottom:3px;
-}
-table.report_options {
-    display:inline-block;
-}
-
-table.report_options td {
-    font-size:13px;
-    padding:5px 15px 5px 0
 }
 
 p.statTableType {
@@ -2285,5 +2275,15 @@ div.statTableWrapper {
 }
 table#result_table th{
     text-transform: uppercase;
+}
+div#errorData{
+    margin: 5px auto;
+    font-size: 13px;
+    font-weight: bold;
+    width: 460px;
+    color: #b00000;
+    padding: 8px;
+    border: 1px solid #b00000;
+    text-align: center;
 }
 
