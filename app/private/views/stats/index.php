@@ -11,6 +11,7 @@
                     <a class="open-add-client-dialog" id="add_offer_btn" href="javascript:void(0);"><i class="icon-plus"></i>Add Offer</a>
                 </div>
                 <div class="right">
+                    <a href="#" onclick="exportCsv(); return false;">CSV</a>
                 </div>
             </div>
             <table class="dataTable" id="table_id">
@@ -25,61 +26,6 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td class="center">1</td>
-                    <td class="center">Test</td>
-                    <td class="center">Garcinia AU New Order Page</td>
-                    <td class="center">65.00</td>
-                    <td class="center"><a class="button small grey tooltip" href="#" target="_blank"><i class="icon-external-link"></i></a></td>
-                    <td class="center">
-                        <a href="#" class="button small grey" title="Edit"><i class="icon-pencil"></i> Edit</a>
-                        <a class="button small grey" title="Delete" href="#"><i class="icon-remove"></i> Delete</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="center">2</td>
-                    <td class="center">Network</td>
-                    <td class="center">data table</td>
-                    <td class="center">100.00</td>
-                    <td class="center"><a class="button small grey tooltip" href="#" target="_blank"><i class="icon-external-link"></i></a></td>
-                    <td class="center">
-                        <a href="#" class="button small grey" title="Edit"><i class="icon-pencil"></i> Edit</a>
-                        <a class="button small grey" title="Delete" href="#"><i class="icon-remove"></i> Delete</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="center">3</td>
-                    <td class="center">gogle</td>
-                    <td class="center">offer name</td>
-                    <td class="center">23.00</td>
-                    <td class="center"><a class="button small grey tooltip" href="#" target="_blank"><i class="icon-external-link"></i></a></td>
-                    <td class="center">
-                        <a href="#" class="button small grey" title="Edit"><i class="icon-pencil"></i> Edit</a>
-                        <a class="button small grey" title="Delete" href="#"><i class="icon-remove"></i> Delete</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="center">4</td>
-                    <td class="center">php</td>
-                    <td class="center">ballistic tracking</td>
-                    <td class="center">80.00</td>
-                    <td class="center"><a class="button small grey tooltip" href="#" target="_blank"><i class="icon-external-link"></i></a></td>
-                    <td class="center">
-                        <a href="#" class="button small grey" title="Edit"><i class="icon-pencil"></i> Edit</a>
-                        <a class="button small grey" title="Delete" href="#"><i class="icon-remove"></i> Delete</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="center">5</td>
-                    <td class="center">jquery</td>
-                    <td class="center">adrian</td>
-                    <td class="center">200.00</td>
-                    <td class="center"><a class="button small grey tooltip" href="#" target="_blank"><i class="icon-external-link"></i></a></td>
-                    <td class="center">
-                        <a href="#" class="button small grey" title="Edit"><i class="icon-pencil"></i> Edit</a>
-                        <a class="button small grey" title="Delete" href="#"><i class="icon-remove"></i> Delete</a>
-                    </td>
-                </tr>
                 </tbody>
                 <tfoot>
                 <tr>
@@ -98,13 +44,41 @@
 
 <script>
     $(document).ready(function(){
-        $("#table_id").dataTable({
-            "bPaginate": true, //pagination
+        $.extend($.fn.dataTable.defaults, {
+            "bPaginate": true, //pagination,
+            "sPaginationType": "full_numbers", //two_button or full_numbers
             "bLengthChange": true, //select to change how many rows
+            "aLengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+            "iDisplayLength": 10, //results per page
+            "iDisplayStart": 2, //page to start
             "bFilter": true, //search input
             "bSort": true, //arrows on header
             "bInfo": true, //Showing 1 to 5 of 5 entries
-            "bAutoWidth": true
+            "bAutoWidth": true,
+            "bSortClasses": true, //large data it's better turn off
+            "bStateSave": false, //save options, iCookieDuration seconds duration
+            "fnStateSave": function (oSettings, oData) {
+                localStorage.setItem( 'DataTables_'+window.location.pathname, JSON.stringify(oData) );
+            },
+            "fnStateLoad": function (oSettings) {
+                var data = localStorage.getItem('DataTables_'+window.location.pathname);
+                return JSON.parse(data);
+            },
+            "aaSorting": [[ 0, "desc" ]], //default sort column
+            "sDom": '<"top"lf>rt<"footer"ip><"clear">', //l=bLengthChange,f=bFilter,i=bInfo,p=bPaginate,t=table,r=pRocessing
+            "bProcessing": true //loader text
+        });
+        $("#table_id").dataTable({
+            "bServerSide": true,
+            "sAjaxSource": '../ajax/stats/data',
+            "aoColumns": [
+                {"sClass":"center","bSearchable": false,"sType": "numeric"},
+                {"sClass":"center","sType": "string"},
+                {"sType": "string"},
+                {"sClass":"center","sType": "numeric"},
+                {"bSortable": false,"sClass":"center","bSearchable": false},
+                {"bSortable": false,"bSearchable": false}
+            ]
         });
     });
 </script>

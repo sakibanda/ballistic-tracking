@@ -67,9 +67,9 @@
 		iDisplayLength: 50000, 
 		sAjaxSource: "/ajax/overview/dataOverview",
 		fnInitComplete: function() {
-			$(".dataTables_length").hide();
-			$(".dataTables_processing").hide();
-			$(".dataTables_wrapper .footer").hide();
+			//$(".dataTables_length").hide();
+			//$(".dataTables_processing").hide();
+			//$(".dataTables_wrapper .footer").hide();
 		},
 		fnDrawCallback: function() {			
 			/*$("#overview_table tbody td:nth-child(12)").each(function() {

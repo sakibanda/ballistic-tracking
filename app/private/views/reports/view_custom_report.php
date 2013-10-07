@@ -6,7 +6,7 @@
         <div class="content">
             <div class="tabletools">
                 <div class="right">
-                    <!--<a href="#" onclick="exportCsv(); return false;">CSV</a>-->
+                    <a href="#" onclick="exportCsv(); return false;">CSV</a>
                 </div>
             </div>
             <div style="overflow-x:scroll;clear:both;">

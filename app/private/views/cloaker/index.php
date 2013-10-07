@@ -24,7 +24,7 @@
 				</div>
 			</div>
 			
-			<table class="styled" id="cloakers_table" cellpadding="0" cellspacing="0">
+			<table class="dataTable" id="cloakers_table" cellpadding="0" cellspacing="0">
 				<thead>
 					<tr>
 						<th>
