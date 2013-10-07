@@ -7,7 +7,7 @@ $(function() {
     }
 
     var oTable = $("#offers_table").dataTable({
-        "bServerSide": false, //only ajax
+        "bServerSide": true, //only ajax
         "sAjaxSource": '../ajax/offers/list?network='+network,
         "bDeferRender": true, //will only create the nodes required for each individual display
         "aoColumns": [

@@ -281,6 +281,7 @@ class DB_Select_Query {
 	protected $_conditions = array();
 	protected $_joins = array();
 	protected $_group = '';
+    protected $_like = '';
 	protected $_order = '';
 	protected $_offset = 0;
 	protected $_limit = 10;
@@ -341,9 +342,15 @@ class DB_Select_Query {
 	
 	public function limit($limit) {
 		$this->_limit = $limit;
-		
+
 		return $this;
 	}
+
+    public function like($like) {
+        $this->_like = $like;
+
+        return $this;
+    }
 	
 	public function run() {
 		if(!$this->_cols || !$this->_table) {
@@ -401,6 +408,10 @@ class DB_Select_Query {
 				}
 				
 				$query = substr($query,0,-4);
+
+                if($this->_like) {
+                    $query .= 'AND '.$this->_like;
+                }
 			}
 			else {
 				$query .= $this->_conditions . ' ';

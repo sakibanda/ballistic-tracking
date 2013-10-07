@@ -12,16 +12,47 @@ class OffersController extends BTUserController {
 		$this->render('offers/index');
 	}
 
-	public function listAction() {		
+	public function listAction() {
+        $aColumns = array( 'offer_id', 'aff_network_id', 'name', 'payout', 'url', 'actions');
+        $colSearchs = array('name', 'payout');
+        $sort_col = $_GET['iSortCol_0'];
+        $sort_dir = $_GET['sSortDir_0'];
+        $sort = $aColumns[$sort_col]." ".$sort_dir;
+
+        $like = "";
+        if ( isset($_GET['sSearch']) && $_GET['sSearch'] != "" ){
+            for ( $i=0 ; $i<count($colSearchs) ; $i++ ){
+                $like .= $colSearchs[$i]." LIKE '%".mysql_real_escape_string($_GET['sSearch'])."%' OR ";
+            }
+            $like = substr_replace( $like, "", -3 );
+        }
+
 		if($network_id = getArrayVar($_GET,'network')){
-			$offers = OfferModel::model()->getRows(array('conditions'=>array('aff_network_id'=>$network_id)));
+            $offers = OfferModel::model()->getRows(
+                array(
+                    'order'=>$sort,
+                    'limit'=>intval($_GET['iDisplayLength']),
+                    'offset'=>intval($_GET['iDisplayStart']),
+                    //'like'=>$like,
+                    'consitions'=>array('aff_network_id'=>$network_id)
+                )
+            );
 		}else {
-			$offers = OfferModel::model()->getRows();
+            $offers = OfferModel::model()->getRows(
+                array(
+                    'order'=>$sort,
+                    'limit'=>intval($_GET['iDisplayLength']),
+                    'offset'=>intval($_GET['iDisplayStart']),
+                    'like'=>$like
+                )
+            );
 		}
+        $sEcho = $_GET['sEcho'];
+        $iTotal = count(OfferModel::model()->getRows(array('conditions'=>array('aff_network_id'=>$network_id))));
         $output = array(
-            //"sEcho" => $sEcho,
-            //"iTotalRecords" => $iTotal,
-            //"iTotalDisplayRecords" => $iTotal,
+            "sEcho" => $sEcho,
+            "iTotalRecords" => $iTotal,
+            "iTotalDisplayRecords" => $iTotal,
             "aaData" => array()
         );
         foreach($offers as $offer) {

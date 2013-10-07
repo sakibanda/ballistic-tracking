@@ -64,10 +64,11 @@
 		bServerSide: true,
 		bSearchable: false,
 		bFilter: false,
+        "bPaginate": false,
 		iDisplayLength: 10,
 		sAjaxSource: "/ajax/overview/dataOverview",
 		aoColumns: [
-			{ "bSortable": true,"sClass":"center" }, //id
+			{ "bSortable": true, "sClass":"center" }, //id
 			{ "bSortable": true }, //name
 			{ "bSortable": true,"sClass":"center" }, //type
 			{ "bSortable": false,"sClass":"center" }, //clicks

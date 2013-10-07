@@ -17,21 +17,32 @@ class StatsController extends BTUserController {
 
     public function dataAction(){
         $aColumns = array( 'offer_id', 'aff_network_id', 'name', 'payout', 'url', 'actions');
-
+        $colSearchs = array('name', 'payout');
         $sort_col = $_GET['iSortCol_0'];
         $sort_dir = $_GET['sSortDir_0'];
         $sort = $aColumns[$sort_col]." ".$sort_dir;
 
+        $like = "";
+        if ( isset($_GET['sSearch']) && $_GET['sSearch'] != "" ){
+            for ( $i=0 ; $i<count($colSearchs) ; $i++ ){
+                $like .= $colSearchs[$i]." LIKE '%".mysql_real_escape_string($_GET['sSearch'])."%' OR ";
+            }
+            $like = substr_replace( $like, "", -3 );
+        }
+
         $offers = OfferModel::model()->getRows(
             array(
-                'order'=>$sort
+                'order'=>$sort,
+                'limit'=>intval($_GET['iDisplayLength']),
+                'offset'=>intval($_GET['iDisplayStart']),
+                'like'=>$like
             )
         );
         $sEcho = $_GET['sEcho'];
-        $iTotal = count($offers);
+        $iTotal = OfferModel::model()->count();
         $output = array(
             "sEcho" => $sEcho,
-            "iTotalRecords" => 13,
+            "iTotalRecords" => $iTotal,
             "iTotalDisplayRecords" => $iTotal,
             "aaData" => array()
         );
