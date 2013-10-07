@@ -49,10 +49,11 @@ class SpendingController extends BtUserController {
 				$total_spends = SpendingModel::model()->count();
 				$spends = SpendingModel::model()->getRows(array('order'=>' date desc, campaign_id asc '));
 								
-				$sEcho = $_GET['sEcho'];
-				$data = array('sEcho'=>(int)$sEcho,
-					'iTotalRecords'=>(int)$total_spends,
-					'iTotalDisplayRecords'=>(int)$total_spends,
+				//$sEcho = $_GET['sEcho'];
+				$data = array(
+                    //'sEcho'=>(int)$sEcho,
+					//'iTotalRecords'=>(int)$total_spends,
+					//'iTotalDisplayRecords'=>(int)$total_spends,
 					'aaData'=>array());
 					
 				foreach($spends as $spend) {

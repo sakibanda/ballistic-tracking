@@ -10,7 +10,7 @@
                 </div>
             </div>
             <div style="overflow-x:scroll;clear:both;">
-                <table class="styled" id="result_table" cellpadding="0" cellspacing="0">
+                <table class="dataTable" id="result_table" cellpadding="0" cellspacing="0">
                 </table>
             </div>
         </div>

@@ -26,6 +26,9 @@
                 </tr>
                 </thead>
                 <tbody>
+                <tr>
+                    <td colspan="6" class="dataTables_empty">Loading data from server</td>
+                </tr>
                 </tbody>
                 <tfoot>
                 <tr>
@@ -44,32 +47,8 @@
 
 <script>
     $(document).ready(function(){
-        $.extend($.fn.dataTable.defaults, {
-            "bPaginate": true, //pagination,
-            "sPaginationType": "full_numbers", //two_button or full_numbers
-            "bLengthChange": true, //select to change how many rows
-            "aLengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
-            "iDisplayLength": 10, //results per page
-            "iDisplayStart": 2, //page to start
-            "bFilter": true, //search input
-            "bSort": true, //arrows on header
-            "bInfo": true, //Showing 1 to 5 of 5 entries
-            "bAutoWidth": true,
-            "bSortClasses": true, //large data it's better turn off
-            "bStateSave": false, //save options, iCookieDuration seconds duration
-            "fnStateSave": function (oSettings, oData) {
-                localStorage.setItem( 'DataTables_'+window.location.pathname, JSON.stringify(oData) );
-            },
-            "fnStateLoad": function (oSettings) {
-                var data = localStorage.getItem('DataTables_'+window.location.pathname);
-                return JSON.parse(data);
-            },
-            "aaSorting": [[ 0, "desc" ]], //default sort column
-            "sDom": '<"top"lf>rt<"footer"ip><"clear">', //l=bLengthChange,f=bFilter,i=bInfo,p=bPaginate,t=table,r=pRocessing
-            "bProcessing": true //loader text
-        });
         $("#table_id").dataTable({
-            "bServerSide": true,
+            "bServerSide": true, //only ajax
             "sAjaxSource": '../ajax/stats/data',
             "aoColumns": [
                 {"sClass":"center","bSearchable": false,"sType": "numeric"},

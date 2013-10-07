@@ -13,13 +13,7 @@ $(document).ready(function(){
     });
 
     $("#visitors_table").dataTable({
-        //sDom: '<"filters"fl>rt<"footer"ip>',
-        sDom: '<"filters"p<"clear">>rt<"footer"ip>',
-        bProcessing: false,
-        sPaginationType: 'full_numbers',
         bServerSide: true,
-        bSearchable: false,
-        bFilter: false,
         iDisplayLength: 100,
         sAjaxSource: "/ajax/spy/data",
         fnInitComplete: function() {

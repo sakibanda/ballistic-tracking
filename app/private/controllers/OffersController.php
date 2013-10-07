@@ -18,8 +18,27 @@ class OffersController extends BTUserController {
 		}else {
 			$offers = OfferModel::model()->getRows();
 		}
-		$this->setVar('offers',$offers);
-		$this->loadView('offers/view_offers');
+        $output = array(
+            //"sEcho" => $sEcho,
+            //"iTotalRecords" => $iTotal,
+            //"iTotalDisplayRecords" => $iTotal,
+            "aaData" => array()
+        );
+        foreach($offers as $offer) {
+            $arr = array();
+            $arr[] = $offer->offer_id;
+            $arr[] = $offer->network->name;
+            $arr[] = $offer->name;
+            $arr[] = $offer->payout;
+            $arr[] = '<a class="button small grey tooltip" target="_blank" href="'.$offer->url.'"><i class="icon-external-link"></i></a>';
+            $actions =  '<a href="/offers/edit?id='.$offer->offer_id.'" class="button small grey tooltip" title="Edit"><i class="icon-pencil"></i> Edit</a> ';
+            $actions .= '<a rel="'.$offer->offer_id.'" class="button small grey tooltip delete_offer" title="Delete" href="#"><i class="icon-remove"></i> Delete</a>';
+            $arr[] = $actions;
+            $output['aaData'][] = $arr;
+        }
+        echo json_encode($output);
+		//$this->setVar('offers',$offers);
+		//$this->loadView('offers/view_offers');
 	}
 
     public function saveAction(){

@@ -17,8 +17,8 @@ else	{
 		?>
 		<tr>
 			<td><?php printf('%s',$html['name']); ?></td>
-			<td class="center"><a href="/offers/?network=<?php echo $aff_network_row->aff_network_id; ?>"><?php echo $no_of_accounts; ?></a></td>
-			<td class="center">
+			<td><a href="/offers/?network=<?php echo $aff_network_row->aff_network_id; ?>"><?php echo $no_of_accounts; ?></a></td>
+			<td>
 				<a href="/offers/affnetworks?aff_network_id=<?php echo $html['aff_network_id']; ?>" class="button small grey tooltip" alt="Edit" title="Edit"> <i class="icon-pencil"></i> Edit</a>
 				
 				<a href="#" class="button small grey tooltip" alt="Delete" title="Delete" onclick="confirmAffNetworkDelete(<?php echo $html['aff_network_id']; ?>)"><i class="icon-remove"></i> Delete</a>

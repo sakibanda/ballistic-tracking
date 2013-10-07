@@ -2,7 +2,7 @@
 
 <?php $this->loadTemplate('message_boxes');  ?>
 
-<div class="grid_7">
+<div class="grid_6">
 	<form class="box" method="post" action="/trafficsources">
 		<div class="header">
 			<h2>New Traffic Source</h2>
@@ -28,10 +28,10 @@
 	</form>
 </div>
 
-<div class="grid_5">
+<div class="grid_6">
 	<div class="box with-table">
 		<div class="content">
-			<table class="styled" id="trafficsourcesTable" cellpadding="0" cellspacing="0">
+			<table class="dataTable" id="trafficsourcesTable" cellpadding="0" cellspacing="0">
 				<thead>
 					<tr>
 						<th>Name</th>
@@ -65,8 +65,7 @@
 		}
 	}
     $(function(){
-        $('#trafficsourcesTable').table({
-            "bPaginate": false,
+        $('#trafficsourcesTable').dataTable({
             "aoColumns": [
                 null,
                 { "bSortable": false }

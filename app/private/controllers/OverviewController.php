@@ -249,22 +249,11 @@ class OverviewController extends BTUserController {
 		
 		$stats = DB::getRows($sql);
 				
-		foreach($stats as &$stat) {			
-			/*if($stat['meta3']) {
-				$stat['name'] = $stat['offer_name'];
-				//$stat['campaign_id'] = '';
-				//$stat['cpc'] = null;
-				//$stat['cost'] = null;
-				//$stat['net'] = null;
-				//$stat['roi'] = null;
-				$stat['type'] = 'Offer';
-			}
-			else {*/
-				$actions =  '<a class="button grey small" href="/tracker/code?campaign_id=' . $stat['campaign_id'] . '"><i class="icon-pencil"></i> Edit</a> ';
-                $actions .= '<a class="button grey small" href="#" onclick="return clone_campaign(' . $stat['campaign_id'] . ');"><i class="icon-copy"></i> Clone</a> ';
-                $actions .= '<a class="button grey small" href="#" onclick="return delete_campaign(' . $stat['campaign_id'] . ');"><i class="icon-remove"></i> Delete</a>';
-                $stat['actions'] = $actions;
-			/*}*/
+		foreach($stats as &$stat) {
+            $actions =  '<a class="button grey small" href="/tracker/code?campaign_id=' . $stat['campaign_id'] . '"><i class="icon-pencil"></i> Edit</a> ';
+            $actions .= '<a class="button grey small" href="#" onclick="return clone_campaign(' . $stat['campaign_id'] . ');"><i class="icon-copy"></i> Clone</a> ';
+            $actions .= '<a class="button grey small" href="#" onclick="return delete_campaign(' . $stat['campaign_id'] . ');"><i class="icon-remove"></i> Delete</a>';
+            $stat['actions'] = $actions;
 		}
 		
 		return array('data'=>$stats,'cnt'=>count($stats),'cols'=>$cols);
