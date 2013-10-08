@@ -101,11 +101,11 @@ class ReportsController extends BTUserController {
             if($camp_id){
                 $sql_report .="c.campaign_id = '$camp_id' AND c.deleted = 0 AND ";
             }
-            $sql_report .="c.user_id = '$user_id' ";
+            $sql_report .="c.user_id = '$user_id' limit 15 ";
 
             $report_rows = DB::getRows($sql_report);
 
-            echo "<tr>".$title_table."</tr>";
+            echo "<thead><tr>".$title_table."</tr></thead>";
             foreach($report_rows as $row => $innerArray){
                 echo "<tr>";
                 foreach($innerArray as $innerRow => $value){

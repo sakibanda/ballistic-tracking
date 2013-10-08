@@ -24,7 +24,7 @@ $(document).ready(function(){
             setupTooltip();
         },
         aoColumns: [
-            { "bSortable": false },
+            { "bSortable": false,"sClass":"center" },
             { "bSortable": false },
             { "bSortable": false },
             { "bSortable": false },

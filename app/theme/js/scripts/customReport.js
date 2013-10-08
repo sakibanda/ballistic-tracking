@@ -1,20 +1,34 @@
 $(document).ready(function() {
     "use strict";
 
+    var oTable = null;
     $("#customReportContent").hide();
     $("#generate_custom_report").click(function(e) {
+        //Delete the datable object first
+        if(oTable != null)oTable.fnDestroy();
+        //Remove all the DOM elements
+        $('#result_table').empty();
+
         e.preventDefault();
         $("#loading").show();
         $.post('/ajax/reports/customReport',$('#user_prefs').serialize(true),
             function(data) {
                 $("#loading").hide();
                 $("#result_table").html(data);
+                initTable();
                 $("#customReportContent").show();
-                //$("#result_table").dataTable();
             }
         );
         return false;
     });
+
+    function initTable(){
+        oTable = $("#result_table").dataTable({
+            "bRetrieve": true,
+            "bFilter": false,
+            "bSort": false
+        });
+    }
 
     $("#allData").click(function(){
         $(".selectall").click();

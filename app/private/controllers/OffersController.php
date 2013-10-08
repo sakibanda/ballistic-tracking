@@ -34,7 +34,7 @@ class OffersController extends BTUserController {
                     'limit'=>intval($_GET['iDisplayLength']),
                     'offset'=>intval($_GET['iDisplayStart']),
                     //'like'=>$like,
-                    'consitions'=>array('aff_network_id'=>$network_id)
+                    'conditions'=>array('aff_network_id'=>$network_id)
                 )
             );
 		}else {
@@ -48,7 +48,12 @@ class OffersController extends BTUserController {
             );
 		}
         $sEcho = $_GET['sEcho'];
-        $iTotal = count(OfferModel::model()->getRows(array('conditions'=>array('aff_network_id'=>$network_id))));
+        $iTotal = 0;
+        if($network_id = getArrayVar($_GET,'network')){
+            $iTotal = count(OfferModel::model()->getRows(array('conditions'=>array('aff_network_id'=>$network_id))));
+        }else{
+            $iTotal = count(OfferModel::model()->getRows());
+        }
         $output = array(
             "sEcho" => $sEcho,
             "iTotalRecords" => $iTotal,

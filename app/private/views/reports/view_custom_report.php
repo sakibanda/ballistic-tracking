@@ -9,10 +9,8 @@
                     <a href="#" onclick="exportCsv(); return false;">CSV</a>
                 </div>
             </div>
-            <div style="overflow-x:scroll;clear:both;">
-                <table class="dataTable" id="result_table" cellpadding="0" cellspacing="0">
-                </table>
-            </div>
+            <table class="dataTable" id="result_table" cellpadding="0" cellspacing="0">
+            </table>
         </div>
     </div>
     <div id="loading" style="display:none;"><img src="theme/img/loader.gif"/></div>
