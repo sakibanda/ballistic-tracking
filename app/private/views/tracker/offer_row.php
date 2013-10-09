@@ -1,7 +1,7 @@
 <div style="border-bottom: 1px solid #b9b9b9;" class="offer_table">
 	<input type="hidden" name="campaign_offer_id[]" value="<?php echo $campoffer->id(); ?>" />
     <input type="hidden" name="offer_id[]" value="<?php echo @$campoffer->offer->offer_id; ?>" />
-	<table class="styled">
+	<table class="dataTable">
 		<tbody>
 			<tr class="no_row_borders">
 				<td style="width: 90px;">Offer Name:</td>

@@ -11,12 +11,12 @@ ENDHTML;
         <tr>
             <td class="center">{$offer->offer_id}</td>
             <td class="center">{$offer->network->name}</td>
-            <td class="center">{$offer->name}</td>
+            <td>{$offer->name}</td>
             <td class="center">{$offer->payout}</td>
             <td class="center">
                 <a class="button small grey tooltip" target="_blank" href="{$offer->url}"><i class="icon-external-link"></i></a>
             </td>
-            <td class="center">
+            <td>
                 <a href="/offers/edit?id={$offer->offer_id}" class="button small grey tooltip" title="Edit"><i class="icon-pencil"></i> Edit</a>
                 <a rel="{$offer->offer_id}" class="button small grey tooltip delete_offer" title="Delete" href="#"><i class="icon-remove"></i> Delete</a>
             </td>

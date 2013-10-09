@@ -10,7 +10,7 @@
 	<p>What affiliate networks will you be using? Some examples include: ClickBank, Comission Junction, and Amazon.</p>
 </div>
 
-<div class="grid_7">
+<div class="grid_6">
 	<form method="post" action="/offers/affnetworks" id="aff_network_form" class="box">
 		<div class="header">
 			<h2>Add A Network</h2>
@@ -33,10 +33,10 @@
 	</form>
 </div>
 
-<div class="grid_5">
+<div class="grid_6">
 	<div class="box with-table">
 		<div class="content">
-			<table id="affnetwork_list" class="styled with-prev-next" cellpadding="0" cellspacing="0">
+			<table id="affnetwork_list" class="dataTable" cellpadding="0" cellspacing="0">
 				<thead>
 					<tr>
 						<th>Network Name</th>
@@ -66,12 +66,11 @@ $dialog->dialog();
 		}
 	}
     $(function(){
-        $('#affnetwork_list').table({
-            "bPaginate": false,
+        $('#affnetwork_list').dataTable({
             "aoColumns": [
                 null,
-                null,
-                { "bSortable": false }
+                {"sClass":"center"},
+                { "bSortable": false,"sClass":"center" }
             ]
         });
     });

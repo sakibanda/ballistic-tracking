@@ -15,7 +15,7 @@
 				</div>
 			</div>
 			
-			<table class="styled display" id="overview_table" cellpadding="0" cellspacing="0">
+			<table class="dataTable" id="overview_table" cellpadding="0" cellspacing="0">
 				<thead>
 					<tr>
 						<th>ID</th>
@@ -59,41 +59,28 @@
 </div>
 
 <script type="text/javascript">
-	$("#overview_table").table({
-		aaSorting: [[3,'desc']],
+	$("#overview_table").dataTable({
+		//aaSorting: [[0,'desc']],
 		bServerSide: true,
 		bSearchable: false,
 		bFilter: false,
-		iDisplayLength: 50000, 
+        "bPaginate": false,
+		iDisplayLength: 10,
 		sAjaxSource: "/ajax/overview/dataOverview",
-		fnInitComplete: function() {
-			$(".dataTables_length").hide();
-			$(".dataTables_processing").hide();
-			$(".dataTables_wrapper .footer").hide();
-		},
-		fnDrawCallback: function() {			
-			/*$("#overview_table tbody td:nth-child(12)").each(function() {
-				colorizeReportTd($(this));
-			});
-			
-			$("#overview_table tbody td:nth-child(13)").each(function() {
-				colorizeReportTd($(this));
-			});*/
-		},
 		aoColumns: [
-			{ "bSortable": false }, //id
-			{ "bSortable": false }, //name
-			{ "bSortable": false }, //type
-			{ "bSortable": false }, //clicks
-			{ "bSortable": false }, //leads
-			{ "bSortable": false }, //Conv %
-			{ "bSortable": false }, //payout
-			{ "bSortable": false }, //epc
-			{ "bSortable": false }, //cpc
-			{ "bSortable": false }, //income
-			{ "bSortable": false }, //cost
-			{ "bSortable": false }, //net
-			{ "bSortable": false }, //roi
+			{ "bSortable": true, "sClass":"center" }, //id
+			{ "bSortable": true }, //name
+			{ "bSortable": true,"sClass":"center" }, //type
+			{ "bSortable": false,"sClass":"center" }, //clicks
+			{ "bSortable": false,"sClass":"center" }, //leads
+			{ "bSortable": false,"sClass":"center" }, //Conv %
+			{ "bSortable": false,"sClass":"center" }, //payout
+			{ "bSortable": false,"sClass":"center" }, //epc
+			{ "bSortable": false,"sClass":"center" }, //cpc
+			{ "bSortable": false,"sClass":"center" }, //income
+			{ "bSortable": false,"sClass":"center" }, //cost
+			{ "bSortable": false,"sClass":"center" }, //net
+			{ "bSortable": false,"sClass":"center" }, //roi
 			{ "bSortable": false } //actions
 		]
 	});

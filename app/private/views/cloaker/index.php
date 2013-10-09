@@ -24,7 +24,7 @@
 				</div>
 			</div>
 			
-			<table class="styled" id="cloakers_table" cellpadding="0" cellspacing="0">
+			<table class="dataTable" id="cloakers_table" cellpadding="0" cellspacing="0">
 				<thead>
 					<tr>
 						<th>
@@ -113,6 +113,7 @@
 		});
 				
 		refreshCloakerTable();
+        //var oTable = $("#cloakers_table").dataTable();
 	});
 	
 	function refreshCloakerTable() {
@@ -158,6 +159,7 @@
 			});
 		});
 	}
+
 </script>
 
 <div style="display: none;" id="add_cloaker_form_holder" title="Add A Redirect">

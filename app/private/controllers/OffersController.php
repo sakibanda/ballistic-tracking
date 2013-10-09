@@ -12,14 +12,69 @@ class OffersController extends BTUserController {
 		$this->render('offers/index');
 	}
 
-	public function listAction() {		
+	public function listAction() {
+        $aColumns = array( 'offer_id', 'aff_network_id', 'name', 'payout', 'url', 'actions');
+        $colSearchs = array('name', 'payout');
+        $sort_col = $_GET['iSortCol_0'];
+        $sort_dir = $_GET['sSortDir_0'];
+        $sort = $aColumns[$sort_col]." ".$sort_dir;
+
+        $like = "";
+        if ( isset($_GET['sSearch']) && $_GET['sSearch'] != "" ){
+            for ( $i=0 ; $i<count($colSearchs) ; $i++ ){
+                $like .= $colSearchs[$i]." LIKE '%".mysql_real_escape_string($_GET['sSearch'])."%' OR ";
+            }
+            $like = substr_replace( $like, "", -3 );
+        }
+
 		if($network_id = getArrayVar($_GET,'network')){
-			$offers = OfferModel::model()->getRows(array('conditions'=>array('aff_network_id'=>$network_id)));
+            $offers = OfferModel::model()->getRows(
+                array(
+                    'order'=>$sort,
+                    'limit'=>intval($_GET['iDisplayLength']),
+                    'offset'=>intval($_GET['iDisplayStart']),
+                    //'like'=>$like,
+                    'conditions'=>array('aff_network_id'=>$network_id)
+                )
+            );
 		}else {
-			$offers = OfferModel::model()->getRows();
+            $offers = OfferModel::model()->getRows(
+                array(
+                    'order'=>$sort,
+                    'limit'=>intval($_GET['iDisplayLength']),
+                    'offset'=>intval($_GET['iDisplayStart']),
+                    'like'=>$like
+                )
+            );
 		}
-		$this->setVar('offers',$offers);
-		$this->loadView('offers/view_offers');
+        $sEcho = $_GET['sEcho'];
+        $iTotal = 0;
+        if($network_id = getArrayVar($_GET,'network')){
+            $iTotal = count(OfferModel::model()->getRows(array('conditions'=>array('aff_network_id'=>$network_id))));
+        }else{
+            $iTotal = count(OfferModel::model()->getRows());
+        }
+        $output = array(
+            "sEcho" => $sEcho,
+            "iTotalRecords" => $iTotal,
+            "iTotalDisplayRecords" => $iTotal,
+            "aaData" => array()
+        );
+        foreach($offers as $offer) {
+            $arr = array();
+            $arr[] = $offer->offer_id;
+            $arr[] = $offer->network->name;
+            $arr[] = $offer->name;
+            $arr[] = $offer->payout;
+            $arr[] = '<a class="button small grey tooltip" target="_blank" href="'.$offer->url.'"><i class="icon-external-link"></i></a>';
+            $actions =  '<a href="/offers/edit?id='.$offer->offer_id.'" class="button small grey tooltip" title="Edit"><i class="icon-pencil"></i> Edit</a> ';
+            $actions .= '<a rel="'.$offer->offer_id.'" class="button small grey tooltip delete_offer" title="Delete" href="#"><i class="icon-remove"></i> Delete</a>';
+            $arr[] = $actions;
+            $output['aaData'][] = $arr;
+        }
+        echo json_encode($output);
+		//$this->setVar('offers',$offers);
+		//$this->loadView('offers/view_offers');
 	}
 
     public function saveAction(){

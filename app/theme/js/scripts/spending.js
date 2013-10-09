@@ -1,9 +1,9 @@
 $(function() {
     "use strict";
 
-    var oTable = $("#income_table").dataTable({
+    var oTable = $("#spending_table").dataTable({
         "bServerSide": false, //only ajax
-        sAjaxSource: "/ajax/income/data_income",
+        sAjaxSource: "/ajax/spending/data_spending",
         aoColumns: [
             { "bSortable": false }, //date
             { }, //campaign
@@ -11,14 +11,14 @@ $(function() {
             { "bSortable": false,"sClass":"center" } //actions
         ],
         fnDrawCallback: function() {
-            $(".delete_income").click(function(e) {
+            $(".delete_spend").click(function(e) {
                 e.preventDefault();
                 if(!confirm("Are you sure you want to delete this entry?")) {
                     return;
                 }
-                var income_id = $(this).parents('tr').find('.income_id').val();
-                var postdata = {income_id:income_id};
-                $.post("/ajax/income/postDelete",postdata,function(data) {
+                var spending_id = $(this).parents('tr').find('.spending_id').val();
+                var postdata = {spending_id:spending_id};
+                $.post("/ajax/spending/postDelete",postdata,function(data) {
                     if(data != 1) {
                         alert("An error ocurred while deleting the entry");
                     } else {

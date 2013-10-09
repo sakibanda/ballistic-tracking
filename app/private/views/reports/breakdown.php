@@ -5,7 +5,7 @@
 	$('body').addClass('flex_width');
 </script>
 <?php
-$this->setVar('page','/ajax/overview/viewBreakdown');
-$this->setVar('opts','overview/breakdown');
+$this->setVar('page','/ajax/reports/viewBreakdown');
+$this->setVar('opts','reports/breakdown');
 $this->loadTemplate('report_options');
 ?>

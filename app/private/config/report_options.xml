@@ -63,7 +63,7 @@
 			<show_campaign>true</show_campaign>
 		</time_zones>
 
-		<states>
+        <states>
 			<show_time>true</show_time>
 			<show_traffic_source>true</show_traffic_source>
 			<show_bottom>true</show_bottom>
@@ -71,7 +71,7 @@
 			<show_campaign>true</show_campaign>
 		</states>
 
-		<map>
+        <map>
 			<show_time>true</show_time>
 			<show_traffic_source>true</show_traffic_source>
 			<show_bottom>true</show_bottom>
@@ -79,7 +79,7 @@
 			<show_campaign>true</show_campaign>
 		</map>
 
-		<countries>
+        <countries>
 			<show_time>true</show_time>
 			<show_traffic_source>true</show_traffic_source>
 			<show_bottom>true</show_bottom>
@@ -87,7 +87,7 @@
 			<show_campaign>true</show_campaign>
 		</countries>
 
-		<cities>
+        <cities>
 			<show_time>true</show_time>
 			<show_traffic_source>true</show_traffic_source>
 			<show_bottom>true</show_bottom>
@@ -95,26 +95,6 @@
 			<show_campaign>true</show_campaign>
 		</cities>
 	</geography>
-
-	<overview>
-		<breakdown>
-			<show_time>true</show_time>
-			<show_traffic_source>true</show_traffic_source>
-			<show_breakdown>false</show_breakdown>
-            <show_campaign>true</show_campaign>
-            <show_status>true</show_status>
-            <show_group>true</show_group>
-            <show_timezone>true</show_timezone>
-            <show_button_report>true</show_button_report>
-		</breakdown>
-
-		<overview>
-			<show_time>true</show_time>
-			<show_traffic_source>true</show_traffic_source>
-			<show_bottom>true</show_bottom>
-			<show_type>true</show_type>
-		</overview>
-	</overview>
 
 	<platforms>
 		<os>
@@ -124,7 +104,7 @@
 			<show_bottom_advanced>true</show_bottom_advanced>
 		</os>
 
-		<mobile>
+        <mobile>
 			<show_time>true</show_time>
 			<show_traffic_source>true</show_traffic_source>
 			<show_mobile_breakdown>true</show_mobile_breakdown>
@@ -132,7 +112,7 @@
 			<show_bottom_advanced>true</show_bottom_advanced>
 		</mobile>
 
-		<browser>
+        <browser>
 			<show_time>true</show_time>
 			<show_traffic_source>true</show_traffic_source>
 			<show_bottom>true</show_bottom>
@@ -140,16 +120,37 @@
 			<show_bottom_advanced>true</show_bottom_advanced>
 		</browser>
 	</platforms>
+
+    <overview>
+        <overview>
+            <show_time>true</show_time>
+            <show_traffic_source>true</show_traffic_source>
+            <show_bottom>true</show_bottom>
+            <show_type>true</show_type>
+        </overview>
+    </overview>
+
     <reports>
+        <breakdown>
+            <show_time>true</show_time>
+            <show_traffic_source>true</show_traffic_source>
+            <show_bottom>true</show_bottom>
+            <show_breakdown>true</show_breakdown>
+            <show_bottom_advanced>true</show_bottom_advanced>
+            <show_campaign>true</show_campaign>
+        </breakdown>
+
         <reports>
             <show_time>true</show_time>
             <show_traffic_source>true</show_traffic_source>
             <show_breakdown>false</show_breakdown>
             <show_campaign>true</show_campaign>
-            <show_status>true</show_status>
+            <show_status>false</show_status>
             <show_group>true</show_group>
             <show_timezone>true</show_timezone>
-            <show_button_report>true</show_button_report>
+            <show_button_report>false</show_button_report>
+            <show_custom_report>true</show_custom_report>
         </reports>
     </reports>
+
 </options>

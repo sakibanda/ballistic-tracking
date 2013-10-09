@@ -14,18 +14,12 @@ $stats_total['net'] = 0;
 		<div class="header">
 			<h2>Breakdown</h2>
 		</div>
-		
 		<div class="content">
 			<div class="tabletools">
-				<div class="left">
-					
-				</div>
-				
 				<div class="right">
 					<a href="#" onclick="exportCsv(); return false;">CSV</a>
 				</div>
 			</div>
-			
 			<table cellpadding="0" cellspacing="0" class="styled">
 				<thead><tr>   
 					<th>Time</th>
@@ -151,11 +145,10 @@ $stats_total['net'] = 0;
 </div>
 
 <script type="text/javascript">
-function exportCsv() {	
-	iframe = document.createElement('iframe');
-	iframe.style.display = 'none';
-	document.body.appendChild(iframe);
-	iframe.src = '/overview/exportBreakdown?iSortCol_0=0&sSortDir_0=asc';
-}
-
+    function exportCsv() {
+        iframe = document.createElement('iframe');
+        iframe.style.display = 'none';
+        document.body.appendChild(iframe);
+        iframe.src = '/reports/exportBreakdown?iSortCol_0=0&sSortDir_0=asc';
+    }
 </script>

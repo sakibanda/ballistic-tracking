@@ -6,6 +6,7 @@ $btDefaultParams = array(
 	'offset'=>0,
 	'order'=>'',
 	'group'=>'',
+    'like'=>'',
 	'cols'=>array('*')
 );
 
@@ -456,7 +457,8 @@ abstract class BTModel {
 			->order($params['order'])
 			->limit($params['limit'])
 			->offset($params['offset'])
-			->group($params['group']);
+			->group($params['group'])
+            ->like($params['like']);
 
 		$rows = $sel->run();
 		

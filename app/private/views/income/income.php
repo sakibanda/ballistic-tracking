@@ -58,7 +58,7 @@
                 <h2>Incomes</h2>
             </div>
             <div class="content">
-                <table id="income_table" class="styled" cellpadding="0" cellspacing="0">
+                <table id="income_table" class="dataTable" cellpadding="0" cellspacing="0">
                     <thead>
                     <tr>
                         <th>Date</th>

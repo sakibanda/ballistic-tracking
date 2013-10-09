@@ -141,7 +141,7 @@
 					</div>
 				</div>
 				
-				<table class="styled" id="lp_table">
+				<table class="dataTable" id="lp_table">
 					<thead>
 						<tr>
 							<th style="width: 200px;">Name</th>
@@ -162,7 +162,7 @@
 				<h2>Variables</h2>
 			</div>
 			<div class="content">
-				<table class="styled" cellpadding="0" cellspacing="0">
+				<table class="dataTable" cellpadding="0" cellspacing="0">
 					<thead>
 						<tr>
 							<th>Variables</th>
@@ -213,7 +213,7 @@
                         <a href="#" onclick="add_var_pass();return false;"><i class="icon-plus"></i> Add</a>
                     </div>
                 </div>
-                <table class="styled" id="vp_table">
+                <table class="dataTable" id="vp_table">
                     <thead>
                     <tr>
                         <th>Name</th>

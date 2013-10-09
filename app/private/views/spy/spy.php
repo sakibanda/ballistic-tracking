@@ -10,7 +10,7 @@
 			<div class="right"></div>
 		</div>
 		<div class="content">
-			<table id="visitors_table" class="styled" cellpadding="0" cellspacing="0">
+			<table id="visitors_table" class="dataTable" cellpadding="0" cellspacing="0">
 				<thead>
 					<tr>
 						<th>Click ID</th>
