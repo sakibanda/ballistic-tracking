@@ -2,10 +2,22 @@ $(document).ready(function() {
     "use strict";
 
     var oTable = null;
-    //$("#customReportContent").hide();
+    $("#customReportContent").hide();
     $("#generate_custom_report").click(function(e){
+        e.preventDefault();
 
-        if(oTable != null) oTable.fnDestroy();
+        $("#errorData").hide();
+        $("#customReportContent").show();
+        if($("input[name='clickData[]']:checked").length==0 && $("input[name='campaignData[]']:checked").length ==0 && $("input[name='deviceData[]']:checked").length==0){
+            $("#errorData").show();
+            return false;
+        }
+
+        if(oTable != null){
+            oTable.fnDestroy();
+            oTable = null;
+            $("#result_table").empty();
+        }
         var aryColTableChecked = [];
         $("#reportOptions input:checked").each(function(){
             var columnName = $(this).data("column");
@@ -16,11 +28,16 @@ $(document).ready(function() {
         for (var i=0; i < aryColTableChecked.length; i++ ) {
             aryJSONColTable.push({
                 "sTitle": aryColTableChecked[i],
-                "aTargets": [i]
+                "aTargets": [i],
+                "sClass": "center"
             });
         };
 
         oTable = $("#result_table").dataTable({
+            "sDom": '<"top"lT>rt<"footer"ip><"clear">',
+            "oTableTools": {
+                "sSwfPath": "/theme/swf/copy_csv_xls_pdf.swf"
+            },
             "aoColumnDefs": aryJSONColTable,
             "bServerSide": true, //only ajax
             "sAjaxSource": '/ajax/reports/customReport',
@@ -42,36 +59,9 @@ $(document).ready(function() {
             }
         });
 
-
-
         return false;
-        /*
-        if(oTable != null) oTable.fnDestroy();
-        e.preventDefault();
-        $("#loading").show();
-        $.post('/ajax/reports/customReport',$('#user_prefs').serialize(true),
-            function(data) {
-                $("#loading").hide();
-                $("#result_table").html(data);
-                initTable();
-                $("#customReportContent").show();
-            }
-        );
-        return false;
-        */
     });
-    /*
-    function initTable(){
-        oTable = $("#result_table").dataTable({
-            "bRetrieve": true,
-            "bDestroy": true,
-            "bFilter": false,
-            "bSortClasses": false,
-            "bSort": false,
-            "iDisplayLength": 100
-        });
-    }
-*/
+
     $("#allData").click(function(){
         $(".selectall").click();
     });

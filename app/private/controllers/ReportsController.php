@@ -20,94 +20,104 @@ class ReportsController extends BTUserController {
 
         $camp_id = getArrayVar($_POST,'campaign_id');
         $user_id = DB::quote(getUserID());
-
         $sql_report = "SELECT ";
-        /*
-        if(empty($_POST['clickData']) && empty($_POST['campaignData']) && empty($_POST['deviceData'])){
-            echo "<tr><td><div id='errorData'>No options have been selected. To create a report, select from the options above and click 'Create Report' below.</div></td></tr>";
-        }else{
 
-            if(!empty($_POST['clickData'])) {
-                foreach($_POST['clickData'] as $option){
-                    if($option != ""){
-                        $sql_report .="$option,";
+        if(!empty($_POST['clickData'])) {
+            foreach($_POST['clickData'] as $option){
+                if($option != ""){
+                    $sql_report .="$option,";
+                }
+            }
+        }
+
+        if(!empty($_POST['campaignData'])) {
+            foreach($_POST['campaignData'] as $option){
+                if($option != ""){
+                    $sql_report .="$option,";
+                }
+            }
+        }
+
+        if(!empty($_POST['deviceData'])) {
+            foreach($_POST['deviceData'] as $option){
+                if($option != ""){
+                    $sql_report .="$option,";
+                }
+            }
+        }
+
+        $sql_report = trim($sql_report, ',');
+        $limit = "LIMIT ".intval($_POST['iDisplayStart']).",".intval($_POST['iDisplayLength']);
+        $sql_report.=" FROM
+            bt_u_campaigns AS c
+                JOIN
+            bt_u_campaign_offers co ON (co.campaign_id = c.campaign_id)
+                JOIN
+            bt_u_offers o ON (co.offer_id = o.offer_id)
+                JOIN
+            bt_s_clicks click ON (click.campaign_id = c.campaign_id)
+                JOIN
+            bt_s_clicks_site cs USING (click_id)
+                JOIN
+            bt_s_clicks_advanced adv USING (click_id)
+                JOIN
+            bt_s_ips ON (bt_s_ips.ip_id = adv.ip_id)
+                JOIN
+            bt_s_device_data d ON (d.device_id = adv.platform_id)";
+
+        $sql_report .=" WHERE ";
+        if($camp_id){
+            $sql_report .="c.campaign_id = '$camp_id' AND ";
+        }
+        $sql_report .="c.deleted = 0 AND o.deleted = 0 AND c.user_id = '$user_id' ";
+        $sql_total = $sql_report;
+        $sql_report .= $limit;
+
+        $total_results = count(DB::getRows($sql_total));
+        $report_rows = DB::getRows($sql_report);
+
+        $sEcho = $_POST['sEcho'];
+        $output = array(
+            "sEcho" => $sEcho,
+            "iTotalRecords" => $total_results,
+            "iTotalDisplayRecords" => $total_results,
+            "aaData" => array()
+        );
+
+        foreach($report_rows as $row => $innerArray){
+            $arr = array();
+            foreach($innerArray as $innerRow => $value){
+                if($innerRow=="click_id"){
+                    $arr[] = BTHtml::encode(base_convert($value,10,36));
+                }else if($innerRow=="time"){
+                    $arr[] = date('m/d/y g:ia',$value);
+                }else if($innerRow=="referer_url"){
+                    $url = BTHtml::encode($value);
+                    if($url){
+                        $parse = parse_url($url);
+                        $arr[] = sprintf('<a href="%s" target="_new" title="Referer" class="tablelink">%s</a> ',$url,$parse['host']);
+                    }else{
+                        $arr[] = $url;
                     }
+                }else if($innerRow=="ip_address"){
+                    $arr[] = sprintf('<a target="_new" href="http://whois.arin.net/rest/ip/%s" class="tablelink">%s</a>',$value,$value);
+                }else if($innerRow=="browser"){
+                    if($value==""){ $arr[] = "No User Agent"; }
+                    else{$arr[] = BTHtml::encode($value);}
+                }else if($innerRow=="lead_time"){
+                    $arr[] = date('m/d/y g:ia',$value);
+                }else if($innerRow=="lifetime"){
+                    $arr[] = date('m/d/y g:ia',$value);
+                }else{
+                    if($value=="")
+                        $value ="Unknown";
+
+                    $arr[] = BTHtml::encode($value);
                 }
             }
-            if(!empty($_POST['campaignData'])) {
-                foreach($_POST['campaignData'] as $option){
-                    if($option != ""){
-                        $sql_report .="$option,";
-                    }
-                }
-            }
-
-            if(!empty($_POST['deviceData'])) {
-                foreach($_POST['deviceData'] as $option){
-                    if($option != ""){
-                        $sql_report .="$option,";
-                    }
-                }
-            }
-            $sql_report = trim($sql_report, ',');
-            */
-
-            $limit = "LIMIT ".intval($_GET['iDisplayStart']).",".intval($_GET['iDisplayLength']);
-
-            $sql_report.=" FROM
-                bt_u_campaigns AS c
-                    JOIN
-                bt_u_campaign_offers co ON (co.campaign_id = c.campaign_id)
-                    JOIN
-                bt_u_offers o ON (co.offer_id = o.offer_id)
-                    JOIN
-                bt_s_clicks click ON (click.campaign_id = c.campaign_id)
-                    JOIN
-                bt_s_clicks_site cs USING (click_id)
-                    JOIN
-                bt_s_clicks_advanced adv USING (click_id)
-                    JOIN
-                bt_s_ips ON (bt_s_ips.ip_id = adv.ip_id)
-                    JOIN
-                bt_s_device_data d ON (d.device_id = adv.platform_id)";
-
-            $sql_report .=" WHERE ";
-            $camp_id = 0;
-            if($camp_id){
-                $sql_report .="c.campaign_id = '$camp_id' AND ";
-            }
-            $sql_report .="c.deleted = 0 AND c.user_id = '$user_id' ".$limit;
-
-            $report_rows = DB::getRows($sql_report);
-
-            $sEcho = $_GET['sEcho'];
-            $iTotal = 1000;
-            $output = array(
-                "sEcho" => $sEcho,
-                "iTotalRecords" => $iTotal,
-                "iTotalDisplayRecords" => $iTotal,
-                "aaData" => array()
-            );
-
-            foreach($report_rows as $row => $innerArray){
-                $arr = array();
-                foreach($innerArray as $innerRow => $value){
-                    $arr[] = $value;
-                }
-                $output['aaData'][] = $arr;
-            }
-
-            /*
-            foreach($report_rows as $row => $innerArray){
-                echo "<tr>";
-                foreach($innerArray as $innerRow => $value){
-                    echo "<td>" . $value . "</td>";
-                }
-                echo "</tr>";
-            }
-            */
-            echo json_encode($output);
-        /*}*/
+            $output['aaData'][] = $arr;
+        }
+        echo json_encode($output);
     }
 
     public function breakdownAction() {

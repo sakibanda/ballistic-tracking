@@ -9,10 +9,13 @@
 		<link rel="stylesheet" type="text/css" href="/theme/css/grid.css" />
 		<link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
         <link rel="stylesheet" type="text/css" href="/theme/css/datatable.css" />
+        <link rel="stylesheet" type="text/css" href="/theme/css/TableTools.css" />
         <script src="/theme/js/vendor/jquery-1.10.2.min.js"></script>
         <script src="/theme/js/vendor/jquery.validate.min.js"></script>
         <script src="/theme/js/vendor/jquery-ui-1.10.3.custom.min.js"></script>
         <script src="/theme/js/vendor/jquery.dataTables.min.js"></script>
+        <script src="/theme/js/vendor/TableTools.min.js"></script>
+        <script src="/theme/js/vendor/ZeroClipboard.js"></script>
         <script src="/theme/js/jquery.tipsy.js"></script>
         <script src="/theme/js/app.js"></script>
         <script src="/theme/js/global.js"></script>
