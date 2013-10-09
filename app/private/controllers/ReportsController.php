@@ -20,12 +20,13 @@ class ReportsController extends BTUserController {
 
         $camp_id = getArrayVar($_POST,'campaign_id');
         $user_id = DB::quote(getUserID());
-        $sql_report = "SELECT ";
+        $sql_select = "SELECT ";
+        $sql_total = "SELECT count(*) as total ";
 
         if(!empty($_POST['clickData'])) {
             foreach($_POST['clickData'] as $option){
                 if($option != ""){
-                    $sql_report .="$option,";
+                    $sql_select .="$option,";
                 }
             }
         }
@@ -33,7 +34,7 @@ class ReportsController extends BTUserController {
         if(!empty($_POST['campaignData'])) {
             foreach($_POST['campaignData'] as $option){
                 if($option != ""){
-                    $sql_report .="$option,";
+                    $sql_select .="$option,";
                 }
             }
         }
@@ -41,14 +42,13 @@ class ReportsController extends BTUserController {
         if(!empty($_POST['deviceData'])) {
             foreach($_POST['deviceData'] as $option){
                 if($option != ""){
-                    $sql_report .="$option,";
+                    $sql_select .="$option,";
                 }
             }
         }
 
-        $sql_report = trim($sql_report, ',');
-        $limit = "LIMIT ".intval($_POST['iDisplayStart']).",".intval($_POST['iDisplayLength']);
-        $sql_report.=" FROM
+        $sql_select = trim($sql_select, ',');
+        $sql_from =" FROM
             bt_u_campaigns AS c
                 JOIN
             bt_u_campaign_offers co ON (co.campaign_id = c.campaign_id)
@@ -65,22 +65,25 @@ class ReportsController extends BTUserController {
                 JOIN
             bt_s_device_data d ON (d.device_id = adv.platform_id)";
 
-        $sql_report .=" WHERE ";
+        $sql_where =" WHERE ";
+        $sql_where .="click.lead > 0 AND ";
         if($camp_id){
-            $sql_report .="c.campaign_id = '$camp_id' AND ";
+            $sql_where .="c.campaign_id = '$camp_id' AND ";
         }
-        $sql_report .="c.deleted = 0 AND o.deleted = 0 AND c.user_id = '$user_id' ";
-        $sql_total = $sql_report;
-        $sql_report .= $limit;
+        $sql_where .="c.deleted = 0 AND o.deleted = 0 AND c.user_id = '$user_id' ";
+        $limit = "LIMIT ".intval($_POST['iDisplayStart']).",".intval($_POST['iDisplayLength']);
 
-        $total_results = count(DB::getRows($sql_total));
-        $report_rows = DB::getRows($sql_report);
+        $sql_count = $sql_total.$sql_from.$sql_where;
+        $sql_query = $sql_select.$sql_from.$sql_where.$limit;
+
+        $iTotal = DB::getVar($sql_count);
+        $report_rows = DB::getRows($sql_query);
 
         $sEcho = $_POST['sEcho'];
         $output = array(
             "sEcho" => $sEcho,
-            "iTotalRecords" => $total_results,
-            "iTotalDisplayRecords" => $total_results,
+            "iTotalRecords" => $iTotal,
+            "iTotalDisplayRecords" => $iTotal,
             "aaData" => array()
         );
 
@@ -89,7 +92,7 @@ class ReportsController extends BTUserController {
             foreach($innerArray as $innerRow => $value){
                 if($innerRow=="click_id"){
                     $arr[] = BTHtml::encode(base_convert($value,10,36));
-                }else if($innerRow=="time"){
+                }else if($innerRow=="date"){
                     $arr[] = date('m/d/y g:ia',$value);
                 }else if($innerRow=="referer_url"){
                     $url = BTHtml::encode($value);
