@@ -2,13 +2,51 @@ $(document).ready(function() {
     "use strict";
 
     var oTable = null;
-    $("#customReportContent").hide();
-    $("#generate_custom_report").click(function(e) {
-        //Delete the datable object first
-        if(oTable != null)oTable.fnDestroy();
-        //Remove all the DOM elements
-        $('#result_table').empty();
+    //$("#customReportContent").hide();
+    $("#generate_custom_report").click(function(e){
 
+        if(oTable != null) oTable.fnDestroy();
+        var aryColTableChecked = [];
+        $("#reportOptions input:checked").each(function(){
+            var columnName = $(this).data("column");
+            if(typeof columnName !== "undefined")
+                aryColTableChecked.push(columnName);
+        });
+        var aryJSONColTable = [];
+        for (var i=0; i < aryColTableChecked.length; i++ ) {
+            aryJSONColTable.push({
+                "sTitle": aryColTableChecked[i],
+                "aTargets": [i]
+            });
+        };
+
+        oTable = $("#result_table").dataTable({
+            "aoColumnDefs": aryJSONColTable,
+            "bServerSide": true, //only ajax
+            "sAjaxSource": '/ajax/reports/customReport',
+            "bDeferRender": true,
+            "iDisplayLength": 100,
+            "bRetrieve": true,
+            "bDestroy": true,
+            "bFilter": false,
+            "bSort": false,
+            "sServerMethod": "POST",
+            fnServerParams:function(aoData) {
+                var serializedForm = $('form#user_prefs').serializeArray();
+                for (var n in serializedForm) {
+                    var tmpobj = serializedForm[n];
+                    var key = tmpobj['name'];
+                    var value = tmpobj['value'];
+                    aoData.push({"name":key,"value":value});
+                }
+            }
+        });
+
+
+
+        return false;
+        /*
+        if(oTable != null) oTable.fnDestroy();
         e.preventDefault();
         $("#loading").show();
         $.post('/ajax/reports/customReport',$('#user_prefs').serialize(true),
@@ -20,16 +58,20 @@ $(document).ready(function() {
             }
         );
         return false;
+        */
     });
-
+    /*
     function initTable(){
         oTable = $("#result_table").dataTable({
             "bRetrieve": true,
+            "bDestroy": true,
             "bFilter": false,
-            "bSort": false
+            "bSortClasses": false,
+            "bSort": false,
+            "iDisplayLength": 100
         });
     }
-
+*/
     $("#allData").click(function(){
         $(".selectall").click();
     });

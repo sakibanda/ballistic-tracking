@@ -12,23 +12,7 @@
 				<div class="right">
 				</div>
 			</div>
-            <table cellpadding="0" cellspacing="0" id="offers_table" class="dataTable">
-				<thead>
-					<tr>
-						<th>Offer ID</th>
-						<th>Network</th>
-						<th>Offer Name</th>
-						<th>Payout</th>
-						<th>URL</th>
-						<th>Actions</th>
-					</tr>
-				</thead>
-				<tbody>
-                    <tr>
-                        <td colspan="6" class="dataTables_empty">Loading data from server</td>
-                    </tr>
-				</tbody>
-			</table>
+            <table cellpadding="0" cellspacing="0" id="offers_table" class="dataTable"></table>
 		</div>
 	</div>
 </div>

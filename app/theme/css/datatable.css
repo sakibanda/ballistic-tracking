@@ -5,7 +5,7 @@
 table.dataTable {
     margin: 0 auto;
     clear: both;
-    width: 100%;
+    width: 100% !important;
     border-collapse: separate;
     border-top: 1px solid #cfcfcf;
 }

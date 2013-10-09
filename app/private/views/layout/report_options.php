@@ -271,12 +271,12 @@ $html['page'] = BTHtml::encode($page); ?>
                     <p class="reportSelect">Select All Click Data</p>
                 </div>
                 <div class="reportOptions">
-                    <input type="checkbox" name="clickData[]" value="click.click_id"><p>Click ID</p>
-                    <input type="checkbox" name="clickData[]" value="click.time"><p>Timestamp</p>
+                    <input type="checkbox" name="clickData[]" data-column="Click ID" value="click.click_id"><p>Click ID</p>
+                    <input type="checkbox" name="clickData[]" data-column="Timestamp" value="click.time"><p>Timestamp</p>
                     <input type="checkbox" name="clickData[]" value=""><p>Date/Time</p>
-                    <input type="checkbox" name="clickData[]" value="ip_address"><p>IP Address</p>
-                    <input type="checkbox" name="clickData[]" value="cs.referer_url"><p>Referer</p>
-                    <input type="checkbox" name="clickData[]" value="adv.browser_id"><p>User Agent</p>
+                    <input type="checkbox" name="clickData[]" data-column="IP" value="ip_address"><p>IP Address</p>
+                    <input type="checkbox" name="clickData[]" data-column="Referer" value="cs.referer_url"><p>Referer</p>
+                    <input type="checkbox" name="clickData[]" data-column="Platform" value="adv.browser_id"><p>User Agent</p>
                 </div>
             </fieldset>
 
@@ -287,12 +287,12 @@ $html['page'] = BTHtml::encode($page); ?>
                     <p class="reportSelect">Select All Campaign Data</p>
                 </div>
                 <div class="reportOptions">
-                    <input type="checkbox" name="campaignData[]" value="c.campaign_id"><p>Campaign ID</p>
-                    <input type="checkbox" name="campaignData[]" value="c.name as cName"><p>Campaign Name</p>
+                    <input type="checkbox" name="campaignData[]" data-column="Camp Id" value="c.campaign_id"><p>Campaign ID</p>
+                    <input type="checkbox" name="campaignData[]" data-column="Campaign Name" value="c.name as cName"><p>Campaign Name</p>
                     <input type="checkbox" name="campaignData[]" value=""><p>CPC</p>
-                    <input type="checkbox" name="campaignData[]" value="o.name as oName"><p>Offer Name</p>
-                    <input type="checkbox" name="campaignData[]" value="click.lead"><p>Lead</p>
-                    <input type="checkbox" name="campaignData[]" value="o.payout"><p>Payout</p>
+                    <input type="checkbox" name="campaignData[]" data-column="Offer Name" value="o.name as oName"><p>Offer Name</p>
+                    <input type="checkbox" name="campaignData[]" data-column="Lead" value="click.lead"><p>Lead</p>
+                    <input type="checkbox" name="campaignData[]" data-column="Payout" value="o.payout"><p>Payout</p>
                 </div>
             </fieldset>
 
@@ -303,10 +303,10 @@ $html['page'] = BTHtml::encode($page); ?>
                     <p class="reportSelect">Select All Device Data</p>
                 </div>
                 <div class="reportOptions">
-                    <input type="checkbox" name="deviceData[]" value="d.brand"><p>Name</p>
-                    <input type="checkbox" name="deviceData[]" value="d.type as model"><p>Model</p>
-                    <input type="checkbox" name="deviceData[]" value="d.type"><p>Device Type</p>
-                    <input type="checkbox" name="deviceData[]" value="d.os"><p>Operating System</p>
+                    <input type="checkbox" name="deviceData[]" data-column="Name" value="d.brand"><p>Name</p>
+                    <input type="checkbox" name="deviceData[]" data-column="Model" value="d.type as model"><p>Model</p>
+                    <input type="checkbox" name="deviceData[]" data-column="Device Type" value="d.type"><p>Device Type</p>
+                    <input type="checkbox" name="deviceData[]" data-column="Operating System" value="d.os"><p>Operating System</p>
                 </div>
             </fieldset>
 
@@ -317,10 +317,10 @@ $html['page'] = BTHtml::encode($page); ?>
                     <p class="reportSelect">Select All Carrier Data</p>
                 </div>
                 <div class="reportOptions">
-                    <input type="checkbox" name="carrier"><p>Carrier</p>
-                    <input type="checkbox" name="isp"><p>ISP</p>
-                    <input type="checkbox" name="code"><p>Country Code</p>
-                    <input type="checkbox" name="country"><p>Country Name</p>
+                    <input type="checkbox" data-column="Carrier" name="carrier"><p>Carrier</p>
+                    <input type="checkbox" data-column="ISP" name="isp"><p>ISP</p>
+                    <input type="checkbox" data-column="Country Code" name="code"><p>Country Code</p>
+                    <input type="checkbox" data-column="Country Name" name="country"><p>Country Name</p>
                 </div>
             </fieldset>
 

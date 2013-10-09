@@ -6,7 +6,18 @@ $(function() {
         network='';
     }
 
+    var aryColTableChecked = ["Offer ID", "Network", "Offer Name", "Payout", "URL", "Actions"];
+    var aryJSONColTable = [];
+
+    for (var i=0; i < aryColTableChecked.length; i++ ) {
+        aryJSONColTable.push({
+            "sTitle": aryColTableChecked[i],
+            "aTargets": [i]
+        });
+    };
+
     var oTable = $("#offers_table").dataTable({
+        "aoColumnDefs": aryJSONColTable,
         "bServerSide": true, //only ajax
         "sAjaxSource": '../ajax/offers/list?network='+network,
         "bDeferRender": true, //will only create the nodes required for each individual display
