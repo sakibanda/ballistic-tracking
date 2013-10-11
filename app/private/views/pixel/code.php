@@ -35,12 +35,29 @@
 	$(document).ready(function() {
 		pixel_data_changed();
 	});
+
+    function set_duplicate(){
+        if(document.pixel_form.allow_duplicate.checked){
+            document.getElementById('allow_duplicate').setAttribute("value","1");
+        }else{
+            document.getElementById('allow_duplicate').setAttribute("value","0");
+        }
+
+        $.post('/ajax/tracker/code/updatedeDuplicate', $('#pixel_form').serialize(true), function(data) {
+            $('#m-content').html(data);
+            loadContent(page);
+        });
+    }
 </script>
+<?php
+$page = '/ajax/trackercode/index';
+$html['page'] = BTHtml::encode($page);
+?>
 
 <h1 class="grid_12"><span>Pixel or Post Back URL</span></h1>
 
 <div class="grid_12">
-	<form name="pixel_form" id="pixel_form" class="box">
+	<form name="pixel_form" id="pixel_form" class="box" method="post">
 	
 		<div class="header">
 			<h2>Get Your Pixel or Post Back URL</h2>
@@ -51,8 +68,18 @@
 			<div class="row">
 				<label>Type:</label>
 				<div>
-					<div class="sub_row"><input type="radio" name="pixel_type" onchange="pixel_data_changed()" value="0" checked="checked" id="pixel_type_0" /> <label for="pixel_type_0">iFrame</label></div>
-					<div class="sub_row"><input type="radio" name="pixel_type" onchange="pixel_data_changed()" value="1" id="pixel_type_1" /> <label for="pixel_type_1">Postback</label></div>
+                    <table>
+                        <tr>
+                            <td>
+                                <div class="sub_row"><input type="radio" name="pixel_type" onchange="pixel_data_changed()" value="0" checked="checked" id="pixel_type_0" /> <label for="pixel_type_0">iFrame</label></div>
+                                <div class="sub_row"><input type="radio" name="pixel_type" onchange="pixel_data_changed()" value="1" id="pixel_type_1" /> <label for="pixel_type_1">Postback</label></div>
+                            </td>
+                            <td>
+                                <input id="allow_duplicate" name="allow_duplicate" type="checkbox" class="var_check" <?php if($campaign->allow_duplicate_conversion) echo 'checked="checked"'; ?> value ="" onClick="set_duplicate()" /><span>Allow Duplicate Conversions</span>
+                                <input type="hidden" name="campaign_id" value="<?php echo $campaign->id(); ?>" />
+                            </td>
+                        </tr>
+                    </table>
 				</div>				
 			</div>
 			
@@ -90,10 +117,8 @@
 						<textarea class="code_snippet" id="pixel_type_postback_field" style="width: 100%; height: 50px;"></textarea><br/>
 					</div>
 				</div>
-			
 			</div>
 		</div>
-		
 	</form>
-		
+    <div id="m-content"></div>
 </div>

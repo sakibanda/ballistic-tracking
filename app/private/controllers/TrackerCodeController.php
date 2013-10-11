@@ -494,4 +494,16 @@ class TrackerCodeController extends BTController {
     public function variablePassRowAction(){
         $this->loadView('tracker/var_pass_row');
     }
+
+
+    //Update allow duplicate pixel
+    public function updatedeDuplicateAction(){
+        if(isset($_POST['campaign_id'])){
+            isset($_POST['allow_duplicate']) ? $allow=1:$allow=0;
+            $sql = "UPDATE bt_u_campaigns as c SET c.allow_duplicate_conversion =".$allow." WHERE c.campaign_id =".$_POST['campaign_id'];
+            DB::query($sql);
+        }else{
+            echo json_encode(array('message'=>'Error updating the duplicate conversion'));
+        }
+    }
 }

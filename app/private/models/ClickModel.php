@@ -100,14 +100,27 @@ left join (select sum(amount) as cost from bt_u_spending where and deleted=0) sp
 	
 	public function convert($manual = 0,$amount = 0) {
 		require_once(BT_ROOT . '/private/includes/traffic/lifetime.php');
-		
+        $sql = 'SELECT c.allow_duplicate_conversion FROM  bt_u_campaigns as c WHERE c.campaign_id = '.$this->campaign_id;
+        $result = DB::getRows($sql);
+        $row = $result[0];
+
 		//check amount first, so we dont overwrite the amount already in there.
 		if($amount) {
-			$this->payout = $amount;
+            //$this->payout = $amount;
+            if($row['allow_duplicate_conversion'] == 1){
+                $this->payout += $amount;
+            }else{
+                $this->payout = $amount;
+            }
 		}
 		$this->lead_manual = $manual;
-		$this->lead = 1;
-		$this->lead_time = time();
+		//$this->lead = 1;
+        if($row['allow_duplicate_conversion'] == 1){
+            $this->lead += 1;
+        }else{
+            $this->lead = 1;
+        }
+        $this->lead_time = time();
 		$this->lifetime = getClickLifetimeInterval(time() - $this->time); //save lifetime interval
 		$this->useRuleSet("pixel");
 
