@@ -7,7 +7,7 @@
 				<td style="width: 90px;">Offer Name:</td>
 				<td style="width: 550px;">
                     <?php if(@$campoffer->offer->offer_id) { ?>
-                        <b><?php echo @$campoffer->offer->offer_id; ?> - <?php echo @$campoffer->offer->name; ?></b>
+                        <b><?php echo @$campoffer->offer->offer_id; ?>: <?php echo @$campoffer->offer->name; ?></b>
                         <input name="lpoffer_name[]" type="hidden" value="<?php echo @$campoffer->offer->name; ?>" />
                     <?php } else { ?>
                         <input name="lpoffer_name[]" type="text" value="<?php echo @$campoffer->offer->name; ?>" />

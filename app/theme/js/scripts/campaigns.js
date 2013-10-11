@@ -108,6 +108,10 @@ $(function(){
         var $el = $(this).parents('.ui-dialog-content');
         $el.dialog('close');
     });
+
+    $("#lp_holder .content").on('keyup','.weight',function() {
+        calculateWeights($("#lp_holder .content"));
+    });
 });
 
 function type_checked(type) {
@@ -215,6 +219,7 @@ function offersByAffNetwork(){
 function add_lp(lp_id) {
     $.get('/tracker/code/landingPageRow',{"campaign_lp_id":lp_id},function(data) {
         $("#lp_table").append(data);
+        calculateWeights($("#lp_holder .content"));
     });
 }
 
@@ -238,7 +243,11 @@ function deleteVarPassTable(obj) {
 }
 
 function deleteDataRow(obj) {
+    if(!confirm("Are you sure you want to delete this landing page?")) {
+        return;
+    }
     $(obj).parents('tr').remove();
+    calculateWeights($("#lp_holder .content"));
 }
 
 function deleteOfferTable(obj) {
