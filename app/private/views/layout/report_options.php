@@ -332,11 +332,18 @@ $html['page'] = BTHtml::encode($page); ?>
                     <input type="checkbox" class="selectall" name="tokenData" value="1"/>
                     <p class="reportSelect">Select All Token Data</p>
                 </div>
+                <div class="reportOptions">
+                    <input type="checkbox" name="tokenData[]" data-column="Subid1" value="adv.v1_id"><p>Subid1</p>
+                    <input type="checkbox" name="tokenData[]" data-column="Subid2" value="adv.v2_id"><p>Subid2</p>
+                    <input type="checkbox" name="tokenData[]" data-column="Subid3" value="adv.v3_id"><p>Subid3</p>
+                    <input type="checkbox" name="tokenData[]" data-column="Subid4" value="adv.v4_id"><p>Subid4</p>
+                    <input type="checkbox" name="tokenData[]" data-column="Keyword" value="k.keyword"><p>Keyword</p>
+                </div>
             </fieldset>
         </div>
         </div>
         <div class="grid_12">
-            <div class="box" style="border: none; background-color: transparent; padding: 0;box-shadow: none;">
+            <div class="box" style="border: none; background-color: transparent; padding: 0;box-shadow: none;text-align: center;">
                 <button id="generate_custom_report" class="blue">Create Report</button>
             </div>
         </div>

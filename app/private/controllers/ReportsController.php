@@ -47,6 +47,14 @@ class ReportsController extends BTUserController {
             }
         }
 
+        if(!empty($_POST['tokenData'])) {
+            foreach($_POST['tokenData'] as $option){
+                if($option != ""){
+                    $sql_select .="$option,";
+                }
+            }
+        }
+
         $sql_select = trim($sql_select, ',');
         $sql_from =" FROM
             bt_u_campaigns AS c
@@ -63,7 +71,9 @@ class ReportsController extends BTUserController {
                 JOIN
             bt_s_ips ON (bt_s_ips.ip_id = adv.ip_id)
                 JOIN
-            bt_s_device_data d ON (d.device_id = adv.platform_id)";
+            bt_s_device_data d ON (d.device_id = adv.platform_id)
+                JOIN
+            bt_s_keywords k ON (k.keyword_id = adv.keyword_id)";
 
         $sql_where =" WHERE ";
         $sql_where .="click.lead > 0 AND ";

@@ -8,7 +8,8 @@ $(document).ready(function() {
 
         $("#errorData").hide();
         $("#customReportContent").show();
-        if($("input[name='clickData[]']:checked").length==0 && $("input[name='campaignData[]']:checked").length ==0 && $("input[name='deviceData[]']:checked").length==0){
+        if($("input[name='clickData[]']:checked").length==0 && $("input[name='campaignData[]']:checked").length ==0 &&
+            $("input[name='deviceData[]']:checked").length==0 && $("input[name='tokenData[]']:checked").length==0){
             $("#errorData").show();
             return false;
         }
