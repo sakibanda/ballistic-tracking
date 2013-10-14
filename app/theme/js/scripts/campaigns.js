@@ -209,7 +209,7 @@ function offersByAffNetwork(){
     $.getJSON('/tracker/code/offersByAffNetwork',{"aff_network_id":affNetwork}, function(data){
         $("#offerList").empty();
         $.each(data, function(index,item) {
-            $("#offerList").append("<option value=" + item.id + ">" + item.name + "</option>");
+            $("#offerList").append("<option value=" + item.id + ">" +item.id+": "+ item.name + "</option>");
         });
         $("div#showOffers").show();
     });
@@ -277,9 +277,9 @@ function calculateWeights(section_obj) {
         var percent = ((weight / total) * 100);
         percent = Math.round(percent * 100) / 100;
         if(isNaN(percent)) {
-            display.text('0%');
+            display.text(' 0%');
         } else {
-            display.text(percent + "%");
+            display.text(" "+percent + "%");
         }
     });
 }

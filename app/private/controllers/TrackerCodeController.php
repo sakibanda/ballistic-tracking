@@ -458,13 +458,13 @@ class TrackerCodeController extends BTController {
                     'conditions'=>array(
                         'aff_network_id'=>$_GET['aff_network_id']
                     ),
-                    'order'=>'name asc'
+                    'order'=>'offer_id asc'
                 )
             );
         }else{
             $campoffers = OfferModel::model()->getRows(
                 array(
-                    'order'=>'name asc'
+                    'order'=>'offer_id asc'
                 )
             );
         }
