@@ -75,7 +75,7 @@ $html['page'] = BTHtml::encode($page);
                                 <div class="sub_row"><input type="radio" name="pixel_type" onchange="pixel_data_changed()" value="1" id="pixel_type_1" /> <label for="pixel_type_1">Postback</label></div>
                             </td>
                             <td>
-                                <input id="allow_duplicate" name="allow_duplicate" type="checkbox" class="var_check" <?php if($campaign->allow_duplicate_conversion) echo 'checked="checked"'; ?> value ="" onClick="set_duplicate()" /><span>Allow Duplicate Conversions</span>
+                                <input style="margin-top: 10px;" id="allow_duplicate" name="allow_duplicate" type="checkbox" class="var_check" <?php if($campaign->allow_duplicate_conversion) echo 'checked="checked"'; ?> value ="" onClick="set_duplicate()" /><span>Allow Duplicate Conversions</span>
                                 <input type="hidden" name="campaign_id" value="<?php echo $campaign->id(); ?>" />
                             </td>
                         </tr>
