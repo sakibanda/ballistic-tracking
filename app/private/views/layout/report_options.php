@@ -254,8 +254,8 @@ $html['page'] = BTHtml::encode($page); ?>
             <div class="reportOptions">
                 <input type="checkbox" name="cvr" value="1">
                 <p class="reportSelect">Restrict to Converting Subids</p>
-                <input type="checkbox" name="opt" value="1">
-                <p class="reportSelect">Restrict to Opt-ins</p>
+                <!--<input type="checkbox" name="opt" value="1">
+                <p class="reportSelect">Restrict to Opt-ins</p>-->
                 <input type="checkbox" name="filtered" value="1">
                 <p class="reportSelect">Include Filtered Clicks</p>
             </div>
@@ -277,6 +277,9 @@ $html['page'] = BTHtml::encode($page); ?>
                     <input type="checkbox" name="clickData[]" data-column="IP" value="ip_address"><p>IP Address</p>
                     <input type="checkbox" name="clickData[]" data-column="Referer" value="cs.referer_url"><p>Referer</p>
                     <input type="checkbox" name="clickData[]" data-column="User Agent" value="d.browser"><p>User Agent</p>
+                    <input type="checkbox" name="clickData[]" data-column="City" value="l.city"><p>City</p>
+                    <input type="checkbox" name="clickData[]" data-column="State" value="l.state_full"><p>State</p>
+                    <input type="checkbox" name="clickData[]" data-column="Zip Code" value="l.postalcode"><p>Zip Code</p>
                 </div>
             </fieldset>
 
@@ -319,10 +322,10 @@ $html['page'] = BTHtml::encode($page); ?>
                     <p class="reportSelect">Select All Carrier Data</p>
                 </div>
                 <div class="reportOptions">
-                    <input type="checkbox" data-column="Carrier" name="carrier"><p>Carrier</p>
-                    <input type="checkbox" data-column="ISP" name="isp"><p>ISP</p>
-                    <input type="checkbox" data-column="Country Code" name="code"><p>Country Code</p>
-                    <input type="checkbox" data-column="Country Name" name="country"><p>Country Name</p>
+                    <input type="checkbox" name="carrierData[]" data-column="Carrier" value=""><p>Carrier</p>
+                    <input type="checkbox" name="carrierData[]" data-column="ISP" value=""><p>ISP</p>
+                    <input type="checkbox" name="carrierData[]" data-column="Country Code" value="l.country"><p>Country Code</p>
+                    <input type="checkbox" name="carrierData[]" data-column="Country Name" value="l.country_full"><p>Country Name</p>
                 </div>
             </fieldset>
 
@@ -332,11 +335,18 @@ $html['page'] = BTHtml::encode($page); ?>
                     <input type="checkbox" class="selectall" name="tokenData" value="1"/>
                     <p class="reportSelect">Select All Token Data</p>
                 </div>
+                <div class="reportOptions">
+                    <input type="checkbox" name="tokenData[]" data-column="Subid1" value="adv.v1_id"><p>Subid1</p>
+                    <input type="checkbox" name="tokenData[]" data-column="Subid2" value="adv.v2_id"><p>Subid2</p>
+                    <input type="checkbox" name="tokenData[]" data-column="Subid3" value="adv.v3_id"><p>Subid3</p>
+                    <input type="checkbox" name="tokenData[]" data-column="Subid4" value="adv.v4_id"><p>Subid4</p>
+                    <input type="checkbox" name="tokenData[]" data-column="Keyword" value="k.keyword"><p>Keyword</p>
+                </div>
             </fieldset>
         </div>
         </div>
         <div class="grid_12">
-            <div class="box" style="border: none; background-color: transparent; padding: 0;box-shadow: none;">
+            <div class="box" style="border: none; background-color: transparent; padding: 0;box-shadow: none;text-align: center;">
                 <button id="generate_custom_report" class="blue">Create Report</button>
             </div>
         </div>

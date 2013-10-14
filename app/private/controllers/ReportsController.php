@@ -19,6 +19,7 @@ class ReportsController extends BTUserController {
     public function customReportAction() {
 
         $camp_id = getArrayVar($_POST,'campaign_id');
+        $cvr = getArrayVar($_POST,'cvr');
         $user_id = DB::quote(getUserID());
         $sql_select = "SELECT ";
         $sql_total = "SELECT count(*) as total ";
@@ -47,6 +48,22 @@ class ReportsController extends BTUserController {
             }
         }
 
+        if(!empty($_POST['carrierData'])) {
+            foreach($_POST['carrierData'] as $option){
+                if($option != ""){
+                    $sql_select .="$option,";
+                }
+            }
+        }
+
+        if(!empty($_POST['tokenData'])) {
+            foreach($_POST['tokenData'] as $option){
+                if($option != ""){
+                    $sql_select .="$option,";
+                }
+            }
+        }
+
         $sql_select = trim($sql_select, ',');
         $sql_from =" FROM
             bt_u_campaigns AS c
@@ -63,13 +80,19 @@ class ReportsController extends BTUserController {
                 JOIN
             bt_s_ips ON (bt_s_ips.ip_id = adv.ip_id)
                 JOIN
-            bt_s_device_data d ON (d.device_id = adv.platform_id)";
+            bt_s_device_data d ON (d.device_id = adv.platform_id)
+                JOIN
+            bt_s_keywords k ON (k.keyword_id = adv.keyword_id)
+                JOIN
+            bt_g_geo_locations l ON (l.location_id = adv.location_id)";
 
         $sql_where =" WHERE ";
-        $sql_where .="click.lead > 0 AND ";
-        if($camp_id){
+        if($camp_id)
             $sql_where .="c.campaign_id = '$camp_id' AND ";
-        }
+
+        if($cvr)
+            $sql_where .="click.lead > 0 AND ";
+
         $sql_where .="c.deleted = 0 AND o.deleted = 0 AND c.user_id = '$user_id' ";
         $limit = "LIMIT ".intval($_POST['iDisplayStart']).",".intval($_POST['iDisplayLength']);
 
@@ -110,11 +133,11 @@ class ReportsController extends BTUserController {
                 }else if($innerRow=="lead_time"){
                     $arr[] = date('m/d/y g:ia',$value);
                 }else if($innerRow=="lifetime"){
-                    $arr[] = date('m/d/y g:ia',$value);
+                    $arr[] = date('m/d/y g:ia',$value);//DD:HH:MM
+                }else if($innerRow=="postalcode"){
+                    if($value==""){ $arr[] = "null"; }
+                    else{$arr[] = BTHtml::encode($value);}
                 }else{
-                    if($value=="")
-                        $value ="Unknown";
-
                     $arr[] = BTHtml::encode($value);
                 }
             }

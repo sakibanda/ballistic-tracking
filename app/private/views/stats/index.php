@@ -1,63 +1,108 @@
+<?php $this->loadTemplate('report_links'); ?>
 <h1 class="grid_12"><span>Campaign Stats</span></h1>
-<script type="text/javascript">
-    $('body').addClass('flex_width');
-</script>
-<p>Under Construction ...</p>
-<div class="grid_12 minwidth">
+
+<p>Select Campaign:</p>
+<?php if($campaign->id()) {?>
+    <h2 class="grid_12" style="text-align: center;margin: 30px auto;"><?php echo $campaign->name.' - '.$campaign->id()?></h2>
+<?php } ?>
+<div class="grid_12">
     <div class="box with-table">
         <div class="content">
             <div class="tabletools">
                 <div class="left">
-                    <a class="open-add-client-dialog" id="add_offer_btn" href="javascript:void(0);"><i class="icon-plus"></i>Add Offer</a>
+                    <h3>Campaign Overview</h3>
                 </div>
                 <div class="right">
                     <a href="#" onclick="exportCsv(); return false;">CSV</a>
                 </div>
             </div>
-            <table class="dataTable" id="table_id">
+            <table class="dataTable" id="campaign_overview">
                 <thead>
                 <tr>
-                    <th>Offer ID</th>
-                    <th>Network</th>
-                    <th>Offer Name</th>
-                    <th>Payout</th>
-                    <th>URL</th>
-                    <th>Actions</th>
+                    <th>Campaign Name</th>
+                    <th>Clicks</th>
+                    <th>LP Views</th>
+                    <th>LP Clicks</th>
+                    <th>LP CTR</th>
+                    <th>Leads</th>
+                    <th>Offer CVR</th>
+                    <th>LP CVR</th>
+                    <th>EPC</th>
+                    <th>CPC</th>
+                    <th>Rev.</th>
+                    <th>Cost</th>
+                    <th>Profit</th>
+                    <th>ROI</th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr>
-                    <td colspan="6" class="dataTables_empty">Loading data from server</td>
-                </tr>
-                </tbody>
-                <tfoot>
-                <tr>
-                    <th>Offer ID</th>
-                    <th>Network</th>
-                    <th>Offer Name</th>
-                    <th>Payout</th>
-                    <th>URL</th>
-                    <th>Actions</th>
-                </tr>
-                </tfoot>
             </table>
         </div>
     </div>
 </div>
-
-<script>
-    $(document).ready(function(){
-        $("#table_id").dataTable({
-            "bServerSide": true, //only ajax
-            "sAjaxSource": '../ajax/stats/data',
-            "aoColumns": [
-                {"sClass":"center","bSearchable": false,"sType": "numeric"},
-                {"sClass":"center","sType": "string"},
-                {"sType": "string"},
-                {"sClass":"center","sType": "numeric"},
-                {"bSortable": false,"sClass":"center","bSearchable": false},
-                {"bSortable": false,"bSearchable": false}
-            ]
-        });
-    });
-</script>
+<div class="grid_12">
+    <div class="box with-table">
+        <div class="content">
+            <div class="tabletools">
+                <div class="left">
+                    <h3>Offer Overview</h3>
+                </div>
+                <div class="right">
+                    <a href="#" onclick="exportCsv(); return false;">CSV</a>
+                </div>
+            </div>
+            <table class="dataTable" id="offer_overview">
+                <thead>
+                <tr>
+                    <th>Offers</th>
+                    <th>LP Clicks</th>
+                    <th>LP CTR</th>
+                    <th>Leads</th>
+                    <th>Offer CVR</th>
+                    <th>LP CVR</th>
+                    <th>EPC</th>
+                    <th>CPC</th>
+                    <th>Rev.</th>
+                    <th>Cost</th>
+                    <th>Profit</th>
+                    <th>ROI</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="grid_12">
+    <div class="box with-table">
+        <div class="content">
+            <div class="tabletools">
+                <div class="left">
+                    <h3>Landing Page Overview</h3>
+                </div>
+                <div class="right">
+                    <a href="#" onclick="exportCsv(); return false;">CSV</a>
+                </div>
+            </div>
+            <table class="dataTable" id="lp_overview">
+                <thead>
+                <tr>
+                    <th>Landing Pages</th>
+                    <th>Clicks</th>
+                    <th>LP Views</th>
+                    <th>LP Clicks</th>
+                    <th>LP CTR</th>
+                    <th>Leads</th>
+                    <th>Offer CVR</th>
+                    <th>LP CVR</th>
+                    <th>EPC</th>
+                    <th>CPC</th>
+                    <th>Rev.</th>
+                    <th>Cost</th>
+                    <th>Profit</th>
+                    <th>ROI</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="/theme/js/scripts/stats.js"></script>

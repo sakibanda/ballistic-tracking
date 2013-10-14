@@ -252,7 +252,8 @@ class OverviewController extends BTUserController {
 		foreach($stats as &$stat) {
             $actions =  '<a class="button grey small" href="/tracker/code?campaign_id=' . $stat['campaign_id'] . '"><i class="icon-pencil"></i> Edit</a> ';
             $actions .= '<a class="button grey small" href="#" onclick="return clone_campaign(' . $stat['campaign_id'] . ');"><i class="icon-copy"></i> Clone</a> ';
-            $actions .= '<a class="button grey small" href="#" onclick="return delete_campaign(' . $stat['campaign_id'] . ');"><i class="icon-remove"></i> Delete</a>';
+            $actions .= '<a class="button grey small" href="#" onclick="return delete_campaign(' . $stat['campaign_id'] . ');"><i class="icon-remove"></i> Delete</a> ';
+            $actions .= '<a class="button grey small" href="/stats/?campaign_id=' . $stat['campaign_id'] . '">Stats</a>';
             $stat['actions'] = $actions;
 		}
 		

@@ -16,7 +16,7 @@
 
     <item label="Stats" link="/stats"></item>
 
-    <item label="Reporting" link="/reports"></item>
+    <item label="Reports" link="/reports"></item>
 
 	<item label="Update Clicks" link="/updateclick"></item>
 
