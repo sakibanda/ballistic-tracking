@@ -20,7 +20,7 @@ $stats_total['net'] = 0;
 					<a href="#" onclick="exportCsv(); return false;">CSV</a>
 				</div>
 			</div>
-			<table cellpadding="0" cellspacing="0" class="styled">
+			<table cellpadding="0" cellspacing="0" class="dataTable">
 				<thead><tr>   
 					<th>Time</th>
 					<th>Clicks</th> 

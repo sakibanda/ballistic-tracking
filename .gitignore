@@ -3,7 +3,6 @@ wurfl.log
 *.ipr
 *iws
 .idea/
-v1/
 assets/
 app/bt-config/cache/*
 .DS_Store

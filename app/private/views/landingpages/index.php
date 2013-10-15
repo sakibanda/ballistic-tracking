@@ -92,7 +92,7 @@
 		</div>
 		
 		<div class="content">
-			<table class="dynamic styled with-prev-next" cellpadding="0" cellspacing="0">
+			<table class="dynamic dataTable with-prev-next" cellpadding="0" cellspacing="0">
 				<thead>
 					<tr>
 						<th>Landing Page</th>

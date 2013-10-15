@@ -20,7 +20,7 @@
 					</div>
 				</div>
 
-				<table class="styled" id="exclude_ip_holder" cellpadding="0" cellspacing="0">
+				<table class="dataTable" id="exclude_ip_holder" cellpadding="0" cellspacing="0">
 					<tr class="no_row_borders">
 						<th class="tooltip" title="The starting address for the IP range.">From</th>
 						<th></th>
@@ -69,7 +69,7 @@
 					</div>
 				</div>
 
-				<table class="styled" id="exclude_referer_holder" cellpadding="0" cellspacing="0">
+				<table class="dataTable" id="exclude_referer_holder" cellpadding="0" cellspacing="0">
 					<tr class="no_row_borders">
 						<th class="tooltip" title="You can either use an asterisk (*) as a simple wildcard, or check this box to use regular expressions">Regex</th>
 						<th class="tooltip" title="The Referer to cloak. Use * as a wildcard">Referer</th>
@@ -116,7 +116,7 @@
 					</div>
 				</div>
 
-				<table class="styled" id="exclude_hostname_holder" cellpadding="0" cellspacing="0">
+				<table class="dataTable" id="exclude_hostname_holder" cellpadding="0" cellspacing="0">
 					<tr class="no_row_borders">
 						<th class="tooltip" title="You can either use an asterisk (*) as a simple wildcard, or check this box to use regular expressions">Regex</th>
 						<th class="tooltip" title="The resolved hostname to cloak. Use * for wildcard.">Hostname</th>
@@ -163,7 +163,7 @@
 					</div>
 				</div>
 
-				<table class="styled" id="exclude_user_agent_holder" cellpadding="0" cellspacing="0">
+				<table class="dataTable" id="exclude_user_agent_holder" cellpadding="0" cellspacing="0">
 					<tr class="no_row_borders">
 						<th class="tooltip" title="You can either use an asterisk (*) as a simple wildcard, or check this box to use regular expressions">Regex</th>
 						<th class="tooltip" title="The user agent to cloak. Use * as wildcard">User Agent</th>

@@ -16,7 +16,7 @@
 			</div>
 		</div>
 			
-	<table id="states_table" class="states styled" class="styled" cellpadding="0" cellspacing="0">
+	<table id="states_table" class="states dataTable" cellpadding="0" cellspacing="0">
 		<thead>
 		<tr>   
 			<th>Countries</th>

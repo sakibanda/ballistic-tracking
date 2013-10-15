@@ -19,6 +19,8 @@ class ReportsController extends BTUserController {
     public function customReportAction() {
 
         $camp_id = getArrayVar($_POST,'campaign_id');
+        $traffic_source_id = getArrayVar($_POST,'traffic_source_id');
+        $click_filter = getArrayVar($_POST,'click_filter');
         $cvr = getArrayVar($_POST,'cvr');
         $user_id = DB::quote(getUserID());
         $sql_select = "SELECT ";
@@ -35,7 +37,10 @@ class ReportsController extends BTUserController {
         if(!empty($_POST['campaignData'])) {
             foreach($_POST['campaignData'] as $option){
                 if($option != ""){
-                    $sql_select .="$option,";
+                    if($option=="cpc")
+                        $sql_select .="0 as $option,";
+                    else
+                        $sql_select .="$option,";
                 }
             }
         }
@@ -50,9 +55,10 @@ class ReportsController extends BTUserController {
 
         if(!empty($_POST['carrierData'])) {
             foreach($_POST['carrierData'] as $option){
-                if($option != ""){
+                if($option=="isp" || $option=="carrier")
+                    $sql_select .="'' as $option,";
+                else
                     $sql_select .="$option,";
-                }
             }
         }
 
@@ -67,33 +73,29 @@ class ReportsController extends BTUserController {
         $sql_select = trim($sql_select, ',');
         $sql_from =" FROM
             bt_u_campaigns AS c
-                JOIN
-            bt_u_campaign_offers co ON (co.campaign_id = c.campaign_id)
-                JOIN
-            bt_u_offers o ON (co.offer_id = o.offer_id)
-                JOIN
-            bt_s_clicks click ON (click.campaign_id = c.campaign_id)
-                JOIN
-            bt_s_clicks_site cs USING (click_id)
-                JOIN
-            bt_s_clicks_advanced adv USING (click_id)
-                JOIN
-            bt_s_ips ON (bt_s_ips.ip_id = adv.ip_id)
-                JOIN
-            bt_s_device_data d ON (d.device_id = adv.platform_id)
-                JOIN
-            bt_s_keywords k ON (k.keyword_id = adv.keyword_id)
-                JOIN
-            bt_g_geo_locations l ON (l.location_id = adv.location_id)";
+            JOIN bt_u_campaign_offers co ON (co.campaign_id = c.campaign_id)
+            JOIN bt_u_offers o ON (co.offer_id = o.offer_id)
+            JOIN bt_s_clicks click ON (click.campaign_id = c.campaign_id)
+            JOIN bt_s_clicks_site cs USING (click_id)
+            JOIN bt_s_clicks_advanced adv USING (click_id)
+            JOIN bt_u_traffic_sources ts ON (ts.traffic_source_id = click.traffic_source_id)
+            JOIN bt_s_ips ON (bt_s_ips.ip_id = adv.ip_id)
+            JOIN bt_s_device_data d ON (d.device_id = adv.platform_id)
+            JOIN bt_s_keywords k ON (k.keyword_id = adv.keyword_id)
+            JOIN bt_g_geo_locations l ON (l.location_id = adv.location_id)";
 
         $sql_where =" WHERE ";
         if($camp_id)
             $sql_where .="c.campaign_id = '$camp_id' AND ";
 
+        if($traffic_source_id)
+            $sql_where .="ts.traffic_source_id = '$traffic_source_id' AND ";
+
         if($cvr)
             $sql_where .="click.lead > 0 AND ";
 
-        $sql_where .="c.deleted = 0 AND o.deleted = 0 AND c.user_id = '$user_id' ";
+        if ($click_filter == 'real') { $sql_where .= " click.filtered='0' AND "; }
+        $sql_where .="c.deleted = 0 AND o.deleted = 0 AND ts.deleted=0 AND c.user_id = '$user_id' ";
         $limit = "LIMIT ".intval($_POST['iDisplayStart']).",".intval($_POST['iDisplayLength']);
 
         $sql_count = $sql_total.$sql_from.$sql_where;
@@ -110,6 +112,7 @@ class ReportsController extends BTUserController {
             "aaData" => array()
         );
 
+        $lead_val = "";
         foreach($report_rows as $row => $innerArray){
             $arr = array();
             foreach($innerArray as $innerRow => $value){
@@ -130,10 +133,24 @@ class ReportsController extends BTUserController {
                 }else if($innerRow=="browser"){
                     if($value==""){ $arr[] = "No User Agent"; }
                     else{$arr[] = BTHtml::encode($value);}
+                }else if($innerRow=="lead"){
+                    if($value=="0"){
+                        $arr[] = "";
+                        $lead_val="0";
+                    }else{
+                        $arr[] = BTHtml::encode($value);
+                        $lead_val="";
+                    }
+                }else if($innerRow=="payout"){
+                    if($lead_val=="0"){
+                        $arr[] = "";
+                    }else{
+                        $arr[] = BTHtml::encode($value);
+                    }
                 }else if($innerRow=="lead_time"){
                     $arr[] = date('m/d/y g:ia',$value);
                 }else if($innerRow=="lifetime"){
-                    $arr[] = date('m/d/y g:ia',$value);//DD:HH:MM
+                    $arr[] = date('m/d/y',$value);//DD:HH:MM
                 }else if($innerRow=="postalcode"){
                     if($value==""){ $arr[] = "null"; }
                     else{$arr[] = BTHtml::encode($value);}

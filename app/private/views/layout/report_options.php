@@ -256,8 +256,8 @@ $html['page'] = BTHtml::encode($page); ?>
                 <p class="reportSelect">Restrict to Converting Subids</p>
                 <!--<input type="checkbox" name="opt" value="1">
                 <p class="reportSelect">Restrict to Opt-ins</p>-->
-                <input type="checkbox" name="filtered" value="1">
-                <p class="reportSelect">Include Filtered Clicks</p>
+                <!--<input type="checkbox" name="filtered" value="1">
+                <p class="reportSelect">Include Filtered Clicks</p>-->
             </div>
             <div class="reportOptions">
                 <input type="checkbox" id="allData">
@@ -292,7 +292,7 @@ $html['page'] = BTHtml::encode($page); ?>
                 <div class="reportOptions">
                     <input type="checkbox" name="campaignData[]" data-column="Camp Id" value="c.campaign_id"><p>Campaign ID</p>
                     <input type="checkbox" name="campaignData[]" data-column="Campaign Name" value="c.name as cName"><p>Campaign Name</p>
-                    <input type="checkbox" name="campaignData[]" value=""><p>CPC</p>
+                    <input type="checkbox" name="campaignData[]" data-column="CPC" value="cpc"><p>CPC</p>
                     <input type="checkbox" name="campaignData[]" data-column="Offer Name" value="o.name as oName"><p>Offer Name</p>
                     <input type="checkbox" name="campaignData[]" data-column="Lead" value="click.lead"><p>Lead</p>
                     <input type="checkbox" name="campaignData[]" data-column="Payout" value="click.payout"><p>Payout</p>
@@ -322,8 +322,8 @@ $html['page'] = BTHtml::encode($page); ?>
                     <p class="reportSelect">Select All Carrier Data</p>
                 </div>
                 <div class="reportOptions">
-                    <input type="checkbox" name="carrierData[]" data-column="Carrier" value=""><p>Carrier</p>
-                    <input type="checkbox" name="carrierData[]" data-column="ISP" value=""><p>ISP</p>
+                    <input type="checkbox" name="carrierData[]" data-column="Carrier" value="carrier"><p>Carrier</p>
+                    <input type="checkbox" name="carrierData[]" data-column="ISP" value="isp"><p>ISP</p>
                     <input type="checkbox" name="carrierData[]" data-column="Country Code" value="l.country"><p>Country Code</p>
                     <input type="checkbox" name="carrierData[]" data-column="Country Name" value="l.country_full"><p>Country Name</p>
                 </div>

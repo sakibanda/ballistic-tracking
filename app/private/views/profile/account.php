@@ -139,7 +139,7 @@
 	<div class="grid_12">
 		<div class="box with-table">
 			<div class="content">			
-				<table class="styled" cellpadding="0" cellspacing="0" id="login_log_table">
+				<table class="dataTable" cellpadding="0" cellspacing="0" id="login_log_table">
 					<thead>
 						<tr>
 							<th>Status</th>

@@ -16,7 +16,7 @@
 			</div>
 		</div>
 			
-	<table id="ips_table" class="styled" cellpadding="0" cellspacing="0">
+	<table id="ips_table" class="dataTable" cellpadding="0" cellspacing="0">
 		<thead>
 		<tr>   
 			<th class="sortable">IP Address</th>

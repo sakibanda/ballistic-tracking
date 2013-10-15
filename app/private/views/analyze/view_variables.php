@@ -16,7 +16,7 @@
 			</div>
 		</div>
 			
-			<table id="variables_table" class="styled" cellpadding="0" cellspacing="0">
+			<table id="variables_table" class="dataTable" cellpadding="0" cellspacing="0">
 				<thead>
 				<tr>   
 					<th class="sortable">Subid1</th>

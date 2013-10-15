@@ -34,7 +34,7 @@
 				<div class="right"></div>
 			</div>
 		
-			<table class="styled with-prev-next" id="syslog_table" cellpadding="0" cellspacing="0">
+			<table class="dataTable with-prev-next" id="syslog_table" cellpadding="0" cellspacing="0">
 				<thead>
 					<tr>
 						<th style="width: 150px !important;">Date</th>

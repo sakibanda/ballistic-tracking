@@ -9,7 +9,7 @@
 		<div class="right"></div>
 	</div>
 	<div class="content">
-		<table class="manageaccountlist styled with-prev-next" cellpadding="0" cellspacing="0">
+		<table class="manageaccountlist dataTable with-prev-next" cellpadding="0" cellspacing="0">
 			<thead>
 				<tr>
 					<th>User ID</th>

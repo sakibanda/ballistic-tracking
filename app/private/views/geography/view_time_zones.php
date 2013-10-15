@@ -16,7 +16,7 @@
 			</div>
 		</div>
 			
-	<table id="timezone_table" class="timezone styled" class="styled" cellpadding="0" cellspacing="0">
+	<table id="timezone_table" class="timezone dataTable" cellpadding="0" cellspacing="0">
 		<thead>
 		<tr>   
 			<th>Time Zone</th>

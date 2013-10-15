@@ -6,7 +6,7 @@
 		
 		<div class="content">
 			
-	<table id="weekparting_table" class="styled" cellpadding="0" cellspacing="0">
+	<table id="weekparting_table" class="dataTable" cellpadding="0" cellspacing="0">
 		<thead>
 		<tr>   
 			<th class="sortable">Day</th>
@@ -71,7 +71,7 @@
 		
 		<div class="content">
 			
-	<table id="dayparting_table" class="styled" cellpadding="0" cellspacing="0">
+	<table id="dayparting_table" class="dataTable" cellpadding="0" cellspacing="0">
 		<thead>
 		<tr>	 
 			<th class="sortable">Hour</th>

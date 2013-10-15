@@ -16,7 +16,7 @@
 			</div>
 		</div>
 			
-	<table id="variables_table" class="variables styled" class="styled" cellpadding="0" cellspacing="0">
+	<table id="variables_table" class="variables dataTable" cellpadding="0" cellspacing="0">
 		<thead>
 		<tr>   
 			<th>Browser</th>

@@ -23,7 +23,7 @@
 		</div>
 		
 		<div class="content">					
-			<table class="styled" id="exclude_org_holder" cellpadding="0" cellspacing="0">
+			<table class="dataTable" id="exclude_org_holder" cellpadding="0" cellspacing="0">
 				<tr class="no_row_borders">
 					<th class="tooltip" title="The starting address for the IP range.">Organization</th>
 					<th></th>
