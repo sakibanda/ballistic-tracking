@@ -152,6 +152,13 @@
             <show_button_report>false</show_button_report>
             <show_custom_report>true</show_custom_report>
         </reports>
+
+        <stats>
+            <show_time>true</show_time>
+            <show_traffic_source>true</show_traffic_source>
+            <show_bottom>true</show_bottom>
+            <show_campaign>true</show_campaign>
+        </stats>
     </reports>
 
 </options>

@@ -336,10 +336,10 @@ $html['page'] = BTHtml::encode($page); ?>
                     <p class="reportSelect">Select All Token Data</p>
                 </div>
                 <div class="reportOptions">
-                    <input type="checkbox" name="tokenData[]" data-column="Subid1" value="adv.v1_id"><p>Subid1</p>
-                    <input type="checkbox" name="tokenData[]" data-column="Subid2" value="adv.v2_id"><p>Subid2</p>
-                    <input type="checkbox" name="tokenData[]" data-column="Subid3" value="adv.v3_id"><p>Subid3</p>
-                    <input type="checkbox" name="tokenData[]" data-column="Subid4" value="adv.v4_id"><p>Subid4</p>
+                    <input type="checkbox" name="tokenData[]" data-column="Subid1" value="v1.var_value as v1"><p>Subid1</p>
+                    <input type="checkbox" name="tokenData[]" data-column="Subid2" value="v2.var_value as v2"><p>Subid2</p>
+                    <input type="checkbox" name="tokenData[]" data-column="Subid3" value="v3.var_value as v3"><p>Subid3</p>
+                    <input type="checkbox" name="tokenData[]" data-column="Subid4" value="v4.var_value as v4"><p>Subid4</p>
                     <input type="checkbox" name="tokenData[]" data-column="Keyword" value="k.keyword"><p>Keyword</p>
                 </div>
             </fieldset>

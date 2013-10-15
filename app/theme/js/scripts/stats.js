@@ -70,4 +70,24 @@ $(function() {
         ]
     });
 
+    $("#subid_overview").dataTable({
+        "sAjaxSource": '/ajax/stats/subidData',
+        "aoColumns": [
+            {},
+            { "sClass":"center","sType": "numeric" },
+            { "sClass":"center","sType": "numeric" },
+            { "sClass":"center","sType": "numeric" },
+            { "sClass":"center","sType": "numeric" },
+            { "sClass":"center","sType": "numeric" },
+            { "sClass":"center","sType": "numeric" },
+            { "sClass":"center","sType": "numeric" },
+            { "sClass":"center","sType": "numeric" },
+            { "sClass":"center","sType": "numeric" },
+            { "sClass":"center","sType": "numeric" },
+            { "sClass":"center","sType": "numeric" },
+            { "sClass":"center","sType": "numeric" },
+            { "sClass":"center","sType": "numeric" }
+        ]
+    });
+
 });

@@ -82,7 +82,11 @@ class ReportsController extends BTUserController {
             JOIN bt_s_ips ON (bt_s_ips.ip_id = adv.ip_id)
             JOIN bt_s_device_data d ON (d.device_id = adv.platform_id)
             JOIN bt_s_keywords k ON (k.keyword_id = adv.keyword_id)
-            JOIN bt_g_geo_locations l ON (l.location_id = adv.location_id)";
+            JOIN bt_g_geo_locations l ON (l.location_id = adv.location_id)
+            JOIN bt_s_variables v1 ON (v1.var_id = adv.v1_id)
+			JOIN bt_s_variables v2 ON (v2.var_id = adv.v2_id)
+			JOIN bt_s_variables v3 ON (v3.var_id = adv.v3_id)
+			JOIN bt_s_variables v4 ON (v4.var_id = adv.v4_id)";
 
         $sql_where =" WHERE ";
         if($camp_id)

@@ -10,15 +10,18 @@ class StatsController extends BTUserController {
     public function indexAction() {
         $this->useActionAsCurrentNav();
         $this->setVar("title", "Campaign Stats");
+        $this->render("stats/index");
+    }
 
-        if(getArrayVar($_GET,'campaign_id')) {
+    public function viewStatsAction(){
+        if(@$_POST['campaign_id']) {
             $campaign = CampaignModel::model()->getRowFromPk($_GET['campaign_id']);
         }else{
             $campaign = CampaignModel::model();
         }
 
         $this->setVar('campaign',$campaign);
-        $this->render("stats/index");
+        $this->loadView('stats/view_stats');
     }
 
     public function campaignDataAction(){
@@ -85,6 +88,34 @@ class StatsController extends BTUserController {
         for($i=0;$i<3;$i++){
             $arr = array();
             $arr[] = "LP Name".$i;
+            $arr[] = "0".$i;
+            $arr[] = "0".$i;
+            $arr[] = "0".$i;
+            $arr[] = "0".$i;
+            $arr[] = "0".$i;
+            $arr[] = "0".$i;
+            $arr[] = "0".$i;
+            $arr[] = "0".$i;
+            $arr[] = "0".$i;
+            $arr[] = "0".$i;
+            $arr[] = "0".$i;
+            $arr[] = "0".$i;
+            $arr[] = "0".$i;
+            $output['aaData'][] = $arr;
+        }
+        echo json_encode($output);
+    }
+
+    public function subidDataAction(){
+        $output = array(
+            //"sEcho" => $sEcho,
+            //"iTotalRecords" => $iTotal,
+            //"iTotalDisplayRecords" => $iTotal,
+            "aaData" => array()
+        );
+        for($i=0;$i<3;$i++){
+            $arr = array();
+            $arr[] = "Subid Name".$i;
             $arr[] = "0".$i;
             $arr[] = "0".$i;
             $arr[] = "0".$i;
