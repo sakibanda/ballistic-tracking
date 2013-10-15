@@ -99,8 +99,8 @@ class CampaignOptionModel extends BTModel {
         $campaign_id = DB::quote($campaign_id);
         $old_id = DB::quote($old_id);
 
-        $query = "insert into " . $this->tableName() . " (campaign_id, name, value, note)";
-        $query .= "select '$campaign_id', name, note value from " . $this->tableName() . " where campaign_id='$old_id'";
+        $query = "insert into " . $this->tableName() . " (campaign_id, name, value)";//  The note field that is trying to insert is not in the table
+        $query .= "select '$campaign_id', name, value from " . $this->tableName() . " where campaign_id='$old_id'";
         if(!DB::query($query)) {
             return false;
         }

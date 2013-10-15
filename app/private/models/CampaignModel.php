@@ -162,8 +162,8 @@ class CampaignModel extends BTModel {
     public function duplicate($id) {
         DB::startTransaction();
 
-        $query = "insert into " . $this->tableName() . " (name, user_id, traffic_source_id, rotate, cloaker_id, type)";
-        $query .= "select concat(name,' copy') as name, user_id, traffic_source_id, rotate, cloaker_id, type from " . $this->tableName() . " ";
+        $query = "insert into " . $this->tableName() . " (name, user_id, traffic_source_id, rotate, cloaker_id, type, allow_duplicate_conversion)";
+        $query .= "select concat(name,' copy') as name, user_id, traffic_source_id, rotate, cloaker_id, type, allow_duplicate_conversion from " . $this->tableName() . " ";
         $query .= "where campaign_id='" . DB::quote($id) . "'";
         if(!DB::query($query)) {
             DB::rollback();
