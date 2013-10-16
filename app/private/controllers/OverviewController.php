@@ -245,8 +245,9 @@ class OverviewController extends BTUserController {
 			
 			group by stat.meta1";
 			
-		$sql .= getReportOrder($cols,'stat.meta3 asc');
-		
+		//$sql .= getReportOrder($cols,'stat.meta3 asc');
+		$sql .=getReportOrder($cols);
+
 		$stats = DB::getRows($sql);
 				
 		foreach($stats as &$stat) {
