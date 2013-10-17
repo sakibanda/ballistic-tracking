@@ -37,7 +37,7 @@ class CampaignModel extends BTModel {
 	
 	public function rules() {
 		return array(
-			array('traffic_source_id','required',array('message'=>'You must select a traffic source.','for'=>array('new'))),
+			array('traffic_source_id','required',array('message'=>'You must select a traffic source.','for'=>array('new','edit'))),
 			array('cloaker_id','optional',array('for'=>array('new','edit'))),
 			array('name','required',array('message'=>'You must enter a name.','for'=>array('new','edit'))),
 			

@@ -210,6 +210,7 @@ class TrackerCodeController extends BTController {
 		}
 		
 		$campaign->name = $_POST['name'];
+        $campaign->traffic_source_id = $_POST['traffic_source_id'];
 		$campaign->cloaker_id = $_POST['cloaker_id'];
 		$campaign->slug = $_POST['slug'];
 		$campaign->save();

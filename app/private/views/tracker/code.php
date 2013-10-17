@@ -31,11 +31,11 @@
 					</div>
 				</div>
 				
-				<div class="row longLabel" <?php echo ($campaign->id()) ? 'style="display: none;"' : ''; ?>>
+				<div class="row longLabel" >
 					<label>Traffic Source</label>
 					<div>
 						<?php
-							BTForm::createSelect('traffic_source_id',$traffic_sources,null,'traffic_source_id','','name','traffic_source_id');
+							BTForm::createSelect('traffic_source_id',$traffic_sources,$campaign->traffic_source_id,'traffic_source_id','','name','traffic_source_id');
 						?>
 					</div>
 				</div>
