@@ -18,6 +18,14 @@ class ReportsController extends BTUserController {
 
     public function customReportAction() {
 
+        $time_predefined = getArrayVar($_POST,'time_predefined');
+        $to = getArrayVar($_POST,'to');
+        $from = getArrayVar($_POST,'from');
+
+        $time = $this->grab_time($time_predefined,$from,$to);
+        $start = DB::quote($time['from']);
+        $end = DB::quote($time['to']);
+
         $camp_id = getArrayVar($_POST,'campaign_id');
         $traffic_source_id = getArrayVar($_POST,'traffic_source_id');
         $click_filter = getArrayVar($_POST,'click_filter');
@@ -100,6 +108,7 @@ class ReportsController extends BTUserController {
 
         if ($click_filter == 'real') { $sql_where .= " click.filtered='0' AND "; }
         $sql_where .="c.deleted = 0 AND o.deleted = 0 AND ts.deleted=0 AND c.user_id = '$user_id' ";
+        $sql_where .="AND click.time >= '$start' and click.time <= '$end' ";
         $limit = "LIMIT ".intval($_POST['iDisplayStart']).",".intval($_POST['iDisplayLength']);
 
         $sql_count = $sql_total.$sql_from.$sql_where;
@@ -154,7 +163,9 @@ class ReportsController extends BTUserController {
                 }else if($innerRow=="lead_time"){
                     $arr[] = date('m/d/y g:ia',$value);
                 }else if($innerRow=="lifetime"){
-                    $arr[] = date('m/d/y',$value);//DD:HH:MM
+                    $nowtime = time();
+                    $oldtime = $value;
+                    $arr[] = $this->time_elapsed($nowtime-$oldtime);//DD:HH:MM
                 }else if($innerRow=="postalcode"){
                     if($value==""){ $arr[] = "null"; }
                     else{$arr[] = BTHtml::encode($value);}
@@ -219,6 +230,69 @@ class ReportsController extends BTUserController {
         $this->setVar("breakdown",$breakdown);
         $this->setVar("breakdown_result",$breakdown_result);
         $this->loadView('reports/view_breakdown');
+    }
+
+
+    public function grab_time($time_predefined,$time_from,$time_to) {
+        if (($time_predefined == 'today') or ($time_from != '')) {
+            $time['from'] = mktime(0,0,0,date('m',time()),date('d',time()),date('Y',time()));
+            $time['to'] = mktime(23,59,59,date('m',time()),date('d',time()),date('Y',time()));
+        }
+
+        if($time_predefined == 'yesterday') {
+            $time['from'] = mktime(0,0,0,date('m',time()-86400),date('d',time()-86400),date('Y',time()-86400));
+            $time['to'] = mktime(23,59,59,date('m',time()-86400),date('d',time()-86400),date('Y',time()-86400));
+        }
+
+        if($time_predefined == 'last7') {
+            $time['from'] = mktime(0,0,0,date('m',time()-86400*7),date('d',time()-86400*7),date('Y',time()-86400*7));
+            $time['to'] = mktime(23,59,59,date('m',time()),date('d',time()),date('Y',time()));
+        }
+
+        if($time_predefined == 'last14') {
+            $time['from'] = mktime(0,0,0,date('m',time()-86400*14),date('d',time()-86400*14),date('Y',time()-86400*14));
+            $time['to'] = mktime(23,59,59,date('m',time()),date('d',time()),date('Y',time()));
+        }
+
+        if($time_predefined == 'last30') {
+            $time['from'] = mktime(0,0,0,date('m',time()-86400*30),date('d',time()-86400*30),date('Y',time()-86400*30));
+            $time['to'] = mktime(23,59,59,date('m',time()),date('d',time()),date('Y',time()));
+        }
+
+        if($time_predefined == 'thismonth') {
+            $time['from'] = mktime(0,0,0,date('m',time()),1,date('Y',time()));
+            $time['to'] = mktime(23,59,59,date('m',time()),date('d',time()),date('Y',time()));
+        }
+
+        if($time_predefined == 'lastmonth') {
+            $time['from'] = mktime(0,0,0,date('m',time()-2629743),1,date('Y',time()-2629743));
+            $time['to'] = mktime(23,59,59,date('m',time()-2629743),getLastDayOfMonth(date('m',time()-2629743), date('Y',time()-2629743)),date('Y',time()-2629743));
+        }
+
+        if($time_predefined == '') {
+            $time['from'] = $time_from;
+            $time['to'] = $time_to;
+        }
+
+
+        $time['time_predefined'] = $time_predefined;
+        return $time;
+    }
+
+    function time_elapsed($secs){
+        $bit = array(
+            //'y' => $secs / 31556926 % 12,
+            'w' => $secs / 604800 % 52,
+            'd' => $secs / 86400 % 7,
+            'h' => $secs / 3600 % 24,
+            'm' => $secs / 60 % 60,
+            's' => $secs % 60
+        );
+
+        foreach($bit as $k => $v)
+            if($v > 0)$ret[] = $v . $k;
+
+        return join(' ', $ret);
     }
 
 }
