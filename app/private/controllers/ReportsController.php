@@ -233,7 +233,6 @@ class ReportsController extends BTUserController {
         $this->loadView('reports/view_breakdown');
     }
 
-
     public function grab_time($time_predefined,$time_from,$time_to) {
         if (($time_predefined == 'today') or ($time_from != '')) {
             $time['from'] = mktime(0,0,0,date('m',time()),date('d',time()),date('Y',time()));
