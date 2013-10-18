@@ -45,10 +45,7 @@ class ReportsController extends BTUserController {
         if(!empty($_POST['campaignData'])) {
             foreach($_POST['campaignData'] as $option){
                 if($option != ""){
-                    if($option=="cpc")
-                        $sql_select .="0 as $option,";
-                    else
-                        $sql_select .="$option,";
+                    $sql_select .="$option,";
                 }
             }
         }
@@ -63,7 +60,7 @@ class ReportsController extends BTUserController {
 
         if(!empty($_POST['carrierData'])) {
             foreach($_POST['carrierData'] as $option){
-                if($option=="isp" || $option=="carrier")
+                if($option=="carrier")
                     $sql_select .="'' as $option,";
                 else
                     $sql_select .="$option,";
@@ -91,6 +88,7 @@ class ReportsController extends BTUserController {
             JOIN bt_s_device_data d ON (d.device_id = adv.platform_id)
             JOIN bt_s_keywords k ON (k.keyword_id = adv.keyword_id)
             JOIN bt_g_geo_locations l ON (l.location_id = adv.location_id)
+            JOIN bt_g_organizations org ON (org.org_id = adv.org_id)
             JOIN bt_s_variables v1 ON (v1.var_id = adv.v1_id)
 			JOIN bt_s_variables v2 ON (v2.var_id = adv.v2_id)
 			JOIN bt_s_variables v3 ON (v3.var_id = adv.v3_id)
@@ -143,9 +141,6 @@ class ReportsController extends BTUserController {
                     }
                 }else if($innerRow=="ip_address"){
                     $arr[] = sprintf('<a target="_new" href="http://whois.arin.net/rest/ip/%s" class="tablelink">%s</a>',$value,$value);
-                }else if($innerRow=="browser"){
-                    if($value==""){ $arr[] = "No User Agent"; }
-                    else{$arr[] = BTHtml::encode($value);}
                 }else if($innerRow=="lead"){
                     if($value=="0"){
                         $arr[] = "";
@@ -161,14 +156,20 @@ class ReportsController extends BTUserController {
                         $arr[] = BTHtml::encode($value);
                     }
                 }else if($innerRow=="lead_time"){
-                    $arr[] = date('m/d/y g:ia',$value);
+                    if($lead_val=="0"){
+                        $arr[] = "";
+                    }else{
+                        $arr[] = date('m/d/y g:ia',$value);
+                    }
                 }else if($innerRow=="lifetime"){
-                    $nowtime = time();
-                    $oldtime = $value;
-                    $arr[] = $this->time_elapsed($nowtime-$oldtime);//DD:HH:MM
-                }else if($innerRow=="postalcode"){
-                    if($value==""){ $arr[] = "null"; }
-                    else{$arr[] = BTHtml::encode($value);}
+                    if($lead_val=="0"){
+                        $arr[] = "";
+                    }else{
+                        //$nowtime = time();
+                        //$oldtime = $value;
+                        $arr[] = $this->seconds2human($value);
+                        //$arr[] = $this->time_elapsed($nowtime-$oldtime);//DD:HH:MM
+                    }
                 }else{
                     $arr[] = BTHtml::encode($value);
                 }
@@ -270,8 +271,8 @@ class ReportsController extends BTUserController {
         }
 
         if($time_predefined == '') {
-            $time['from'] = $time_from;
-            $time['to'] = $time_to;
+            $time['from'] = strtotime($time_from);
+            $time['to'] = strtotime($time_to);
         }
 
 
@@ -286,13 +287,20 @@ class ReportsController extends BTUserController {
             'd' => $secs / 86400 % 7,
             'h' => $secs / 3600 % 24,
             'm' => $secs / 60 % 60,
-            's' => $secs % 60
+            //'s' => $secs % 60
         );
 
         foreach($bit as $k => $v)
             if($v > 0)$ret[] = $v . $k;
 
         return join(' ', $ret);
+    }
+
+    function seconds2human($ss) {
+        $m = floor(($ss%3600)/60);
+        $h = floor(($ss%86400)/3600);
+        $d = floor(($ss%2592000)/86400);
+        return "$d days, $h hours, $m minutes";
     }
 
 }
