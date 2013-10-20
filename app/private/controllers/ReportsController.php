@@ -21,7 +21,6 @@ class ReportsController extends BTUserController {
         $time_predefined = getArrayVar($_POST,'time_predefined');
         $to = getArrayVar($_POST,'to');
         $from = getArrayVar($_POST,'from');
-
         $time = $this->grab_time($time_predefined,$from,$to);
         $start = DB::quote($time['from']);
         $end = DB::quote($time['to']);
@@ -32,12 +31,19 @@ class ReportsController extends BTUserController {
         $cvr = getArrayVar($_POST,'cvr');
         $user_id = DB::quote(getUserID());
         $sql_select = "SELECT ";
-        $sql_total = "SELECT count(*) as total ";
+        $sql_total = "SELECT count(*) ";
+
+        $aColumns = array();
 
         if(!empty($_POST['clickData'])) {
             foreach($_POST['clickData'] as $option){
                 if($option != ""){
                     $sql_select .="$option,";
+                    if($option == "click.time as date"){
+                        array_push($aColumns,"click.time");
+                    }else{
+                        array_push($aColumns,$option);
+                    }
                 }
             }
         }
@@ -46,6 +52,9 @@ class ReportsController extends BTUserController {
             foreach($_POST['campaignData'] as $option){
                 if($option != ""){
                     $sql_select .="$option,";
+                    if($option == "c.name as cName"){ array_push($aColumns,"c.name"); }
+                    else if($option == "o.name as oName"){ array_push($aColumns,"o.name"); }
+                    else{ array_push($aColumns,$option); }
                 }
             }
         }
@@ -54,6 +63,7 @@ class ReportsController extends BTUserController {
             foreach($_POST['deviceData'] as $option){
                 if($option != ""){
                     $sql_select .="$option,";
+                    array_push($aColumns,$option);
                 }
             }
         }
@@ -64,6 +74,7 @@ class ReportsController extends BTUserController {
                     $sql_select .="'' as $option,";
                 else
                     $sql_select .="$option,";
+                array_push($aColumns,$option);
             }
         }
 
@@ -71,28 +82,36 @@ class ReportsController extends BTUserController {
             foreach($_POST['tokenData'] as $option){
                 if($option != ""){
                     $sql_select .="$option,";
+                    if($option == "v1.var_value as v1"){ array_push($aColumns,"v1.var_value"); }
+                    else if($option == "v2.var_value as v2"){ array_push($aColumns,"v2.var_value"); }
+                    else if($option == "v3.var_value as v3"){ array_push($aColumns,"v3.var_value"); }
+                    else if($option == "v4.var_value as v4"){ array_push($aColumns,"v4.var_value"); }
+                    else{ array_push($aColumns,$option); }
                 }
             }
         }
 
+        $sort_col = $_POST['iSortCol_0'];
+        $sort_dir = $_POST['sSortDir_0'];
+        $sort = $aColumns[$sort_col]." ".$sort_dir;
+
         $sql_select = trim($sql_select, ',');
-        $sql_from =" FROM
-            bt_u_campaigns AS c
-            JOIN bt_u_campaign_offers co ON (co.campaign_id = c.campaign_id)
-            JOIN bt_u_offers o ON (co.offer_id = o.offer_id)
-            JOIN bt_s_clicks click ON (click.campaign_id = c.campaign_id)
-            JOIN bt_s_clicks_site cs USING (click_id)
-            JOIN bt_s_clicks_advanced adv USING (click_id)
-            JOIN bt_u_traffic_sources ts ON (ts.traffic_source_id = click.traffic_source_id)
-            JOIN bt_s_ips ON (bt_s_ips.ip_id = adv.ip_id)
-            JOIN bt_s_device_data d ON (d.device_id = adv.platform_id)
-            JOIN bt_s_keywords k ON (k.keyword_id = adv.keyword_id)
-            JOIN bt_g_geo_locations l ON (l.location_id = adv.location_id)
-            JOIN bt_g_organizations org ON (org.org_id = adv.org_id)
-            JOIN bt_s_variables v1 ON (v1.var_id = adv.v1_id)
-			JOIN bt_s_variables v2 ON (v2.var_id = adv.v2_id)
-			JOIN bt_s_variables v3 ON (v3.var_id = adv.v3_id)
-			JOIN bt_s_variables v4 ON (v4.var_id = adv.v4_id)";
+        $sql_from =" FROM bt_u_campaigns AS c
+        JOIN bt_u_campaign_offers co ON (co.campaign_id = c.campaign_id)
+        JOIN bt_u_offers o ON (co.offer_id = o.offer_id)
+        JOIN bt_s_clicks click ON (click.campaign_id = c.campaign_id)
+        JOIN bt_s_clicks_site cs USING (click_id)
+        JOIN bt_s_clicks_advanced adv USING (click_id)
+        JOIN bt_u_traffic_sources ts ON (ts.traffic_source_id = click.traffic_source_id)
+        JOIN bt_s_ips ON (bt_s_ips.ip_id = adv.ip_id)
+        JOIN bt_s_device_data d ON (d.device_id = adv.platform_id)
+        JOIN bt_s_keywords k ON (k.keyword_id = adv.keyword_id)
+        JOIN bt_g_geo_locations l ON (l.location_id = adv.location_id)
+        JOIN bt_g_organizations org ON (org.org_id = adv.org_id)
+        JOIN bt_s_variables v1 ON (v1.var_id = adv.v1_id)
+        JOIN bt_s_variables v2 ON (v2.var_id = adv.v2_id)
+        JOIN bt_s_variables v3 ON (v3.var_id = adv.v3_id)
+        JOIN bt_s_variables v4 ON (v4.var_id = adv.v4_id)";
 
         $sql_where =" WHERE ";
         if($camp_id)
@@ -107,19 +126,20 @@ class ReportsController extends BTUserController {
         if ($click_filter == 'real') { $sql_where .= " click.filtered='0' AND "; }
         $sql_where .="c.deleted = 0 AND o.deleted = 0 AND ts.deleted=0 AND c.user_id = '$user_id' ";
         $sql_where .="AND click.time >= '$start' and click.time <= '$end' ";
-        $limit = "LIMIT ".intval($_POST['iDisplayStart']).",".intval($_POST['iDisplayLength']);
+        $sql_group = " GROUP BY click.click_id";
+        $sql_order = " ORDER BY ".$sort;
+        $limit = " LIMIT ".intval($_POST['iDisplayStart']).",".intval($_POST['iDisplayLength']);
+        $sql_count = $sql_total.$sql_from.$sql_where.$sql_group;
+        $sql_query = $sql_select.$sql_from.$sql_where.$sql_group.$sql_order.$limit;
 
-        $sql_count = $sql_total.$sql_from.$sql_where;
-        $sql_query = $sql_select.$sql_from.$sql_where.$limit;
-
-        $iTotal = DB::getVar($sql_count);
+        $iTotal = DB::getRows($sql_count);
         $report_rows = DB::getRows($sql_query);
 
         $sEcho = $_POST['sEcho'];
         $output = array(
             "sEcho" => $sEcho,
-            "iTotalRecords" => $iTotal,
-            "iTotalDisplayRecords" => $iTotal,
+            "iTotalRecords" => count($iTotal),
+            "iTotalDisplayRecords" => count($iTotal),
             "aaData" => array()
         );
 

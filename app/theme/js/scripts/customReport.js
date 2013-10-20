@@ -48,7 +48,7 @@ $(document).ready(function() {
             "bRetrieve": true,
             "bDestroy": true,
             "bFilter": false,
-            "bSort": false,
+            "bSort": true,
             "sServerMethod": "POST",
             fnServerParams:function(aoData) {
                 var serializedForm = $('form#user_prefs').serializeArray();
