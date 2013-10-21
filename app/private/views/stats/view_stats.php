@@ -1,4 +1,10 @@
-<h2 class="grid_12" style="text-align: center;margin: 30px auto;"><?php echo @$campaign->offer->name; ?></h2>
+<?php if(isset($campaign) && $campaign->id()){ ?>
+    <div class="grid_12" style="text-align: center; margin-bottom: 15px;">
+        <h2><?php echo $campaign->name; ?></h2>
+        <a href="/tracker/code?campaign_id=<?=$campaign->id()?>"><b>Edit Campaign</b></a>
+        <input type="hidden" id="camp_id" value="<?=$campaign->id()?>"/>
+    </div>
+<?php } ?>
 
 <div class="grid_12">
     <div class="box with-table">

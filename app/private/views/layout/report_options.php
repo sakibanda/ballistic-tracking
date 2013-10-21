@@ -360,7 +360,7 @@ $html['page'] = BTHtml::encode($page); ?>
 			
 </form>
 
-<div id="m-content"></div>                                
+<div id="m-content"></div>
 
 <script type="text/javascript">
 
@@ -443,5 +443,11 @@ $html['page'] = BTHtml::encode($page); ?>
 		$('#to').val(todate);  
 	}
 
+    <?php
+        $campaign_id = @$_GET['campaign_id'];
+        if($campaign_id){
+            $page .= "/?campaign_id=".$campaign_id;
+        }
+    ?>
 	loadContent('<?php echo $page; ?>');
 </script>

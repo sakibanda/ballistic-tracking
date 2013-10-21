@@ -14,10 +14,12 @@ class StatsController extends BTUserController {
     }
 
     public function viewStatsAction(){
-        if(@$_POST['campaign_id']) {
+
+        if(@$_GET['campaign_id']) {
             $campaign = CampaignModel::model()->getRowFromPk($_GET['campaign_id']);
         }else{
-            $campaign = CampaignModel::model();
+            $campaign_id = BTAuth::user()->getPref('campaign_id');
+            $campaign = CampaignModel::model()->getRowFromPk($campaign_id);
         }
 
         $this->setVar('campaign',$campaign);
@@ -26,8 +28,9 @@ class StatsController extends BTUserController {
 
     public function campaignDataAction(){
 
+        $campaign_id = @$_GET['campaign_id'];
         $mysql['user_id'] = DB::quote(getUserID());
-        $sql_query = "SELECT * FROM bt_c_statcache WHERE user_id='".$mysql['user_id']."' AND meta1 IS NOT NULL group by meta1 order by meta1 ";
+        $sql_query = "SELECT * FROM bt_c_statcache WHERE user_id='".$mysql['user_id']."' AND meta1='".$campaign_id."' ";
         $result = DB::getRows($sql_query);
         $output = array(
             //"sEcho" => $sEcho,
@@ -57,6 +60,8 @@ class StatsController extends BTUserController {
     }
 
     public function offerDataAction(){
+        $campaign_id = @$_GET['campaign_id'];
+        $mysql['user_id'] = DB::quote(getUserID());
         $output = array(
             //"sEcho" => $sEcho,
             //"iTotalRecords" => $iTotal,
@@ -83,6 +88,8 @@ class StatsController extends BTUserController {
     }
 
     public function lpDataAction(){
+        $campaign_id = @$_GET['campaign_id'];
+        $mysql['user_id'] = DB::quote(getUserID());
         $output = array(
             //"sEcho" => $sEcho,
             //"iTotalRecords" => $iTotal,
@@ -111,6 +118,8 @@ class StatsController extends BTUserController {
     }
 
     public function subidDataAction(){
+        $campaign_id = @$_GET['campaign_id'];
+        $mysql['user_id'] = DB::quote(getUserID());
         $output = array(
             //"sEcho" => $sEcho,
             //"iTotalRecords" => $iTotal,

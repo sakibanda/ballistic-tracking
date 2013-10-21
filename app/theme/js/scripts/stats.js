@@ -12,8 +12,9 @@ $(function() {
         "bDeferRender": true
     });
 
+    var camp_id = $("#camp_id").val();
     $("#campaign_overview").dataTable({
-        "sAjaxSource": '/ajax/stats/campaignData',
+        "sAjaxSource": '/ajax/stats/campaignData?campaign_id='+camp_id,
         "aoColumns": [
             {},
             { "sClass":"center","sType": "numeric" },
@@ -33,7 +34,7 @@ $(function() {
     });
 
     $("#offer_overview").dataTable({
-        "sAjaxSource": '/ajax/stats/offerData',
+        "sAjaxSource": '/ajax/stats/offerData?campaign_id='+camp_id,
         "aoColumns": [
             {},
             { "sClass":"center","sType": "numeric" },
@@ -51,7 +52,7 @@ $(function() {
     });
 
     $("#lp_overview").dataTable({
-        "sAjaxSource": '/ajax/stats/lpData',
+        "sAjaxSource": '/ajax/stats/lpData?campaign_id='+camp_id,
         "aoColumns": [
             {},
             { "sClass":"center","sType": "numeric" },
@@ -71,7 +72,7 @@ $(function() {
     });
 
     $("#subid_overview").dataTable({
-        "sAjaxSource": '/ajax/stats/subidData',
+        "sAjaxSource": '/ajax/stats/subidData?campaign_id='+camp_id,
         "aoColumns": [
             {},
             { "sClass":"center","sType": "numeric" },
