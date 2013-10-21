@@ -9,8 +9,17 @@ class SpyController extends BTUserController {
 	public function dataAction() {		
 		$this->loadModel("ClickModel");
 		$model = new ClickModel();
-		
-		$data = $model->clickSpy(getUserId(),$_GET['iDisplayStart'],$_GET['iDisplayLength']);
+
+        $colSearchs = array('camp.name','ip_address');
+        $like = "";
+        if ( isset($_GET['sSearch']) && $_GET['sSearch'] != "" ){
+            for ( $i=0 ; $i<count($colSearchs) ; $i++ ){
+                $like .= $colSearchs[$i]." LIKE '%".mysql_real_escape_string($_GET['sSearch'])."%' OR ";
+            }
+            $like = substr_replace( $like, "", -3 );
+        }
+
+		$data = $model->clickSpy(getUserId(),$_GET['iDisplayStart'],$_GET['iDisplayLength'],$like);
 		$cnt = $data['count'];
 		$click_rows = $data['click_rows'];
 		

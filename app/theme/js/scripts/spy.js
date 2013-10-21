@@ -24,14 +24,14 @@ $(document).ready(function(){
             setupTooltip();
         },
         aoColumns: [
-            { "bSortable": false,"sClass":"center" },
-            { "bSortable": false },
-            { "bSortable": false },
-            { "bSortable": false },
-            { "bSortable": false },
-            { "bSortable": false },
-            { "bSortable": false },
-            { "bSortable": false, "sClass":"center" }
+            { "bSortable": false,"sType": "string", "sClass":"center" },
+            { "bSortable": false,"bSearchable": false },
+            { "bSortable": false, "sType": "string", "bSearchable": false },
+            { "bSortable": false,"bSearchable": false },
+            { "bSortable": false, "sType": "string" },
+            { "bSortable": false,"bSearchable": false },
+            { "bSortable": false,"bSearchable": false },
+            { "bSortable": false,"bSearchable": false, "sClass":"center" }
         ]
     });
 
@@ -39,8 +39,11 @@ $(document).ready(function(){
 
 });
 
+
+
+
 function startSpyTimer() {
-    theSpyTimer = setInterval(function() { runSpy(); },50000);
+    theSpyTimer = setInterval(function() { runSpy(); },5000);
 }
 
 function stopSpyTimer() {

@@ -39,7 +39,7 @@ class ClickModel extends BTModel {
 	}
 
 	//returns an array with the count, and the click rows. 
-	public function clickSpy($user_id,$start,$length) {
+	public function clickSpy($user_id,$start,$length,$like = "") {
 		$cnt = DB::getVar("select count(1) from bt_s_clicks click
 			LEFT JOIN bt_u_campaigns camp ON (click.campaign_id = camp.campaign_id)
 			LEFT JOIN bt_u_traffic_sources ts ON (ts.traffic_source_id = click.traffic_source_id)
@@ -71,9 +71,13 @@ class ClickModel extends BTModel {
 										LEFT JOIN bt_u_traffic_sources ts ON (ts.traffic_source_id = click.traffic_source_id)
 										LEFT JOIN bt_s_ips ON (bt_s_ips.ip_id = adv.ip_id)
 										LEFT JOIN bt_s_keywords ON (bt_s_keywords.keyword_id = adv.keyword_id)
-										LEFT JOIN bt_u_campaigns camp ON (click.campaign_id = camp.campaign_id)
-										
-					  WHERE ts.deleted=0 and camp.deleted=0 order by click.click_id desc limit " . DB::quote($start) . ',' . DB::quote($length);		
+										LEFT JOIN bt_u_campaigns camp ON (click.campaign_id = camp.campaign_id)";
+                      if($like <> ""){
+                        $click_sql .="WHERE ts.deleted=0 and camp.deleted=0 and ".$like;
+                      }else{
+                        $click_sql .="WHERE ts.deleted=0 and camp.deleted=0 ";
+                      }
+					  $click_sql .= " order by click.click_id desc limit " . DB::quote($start) . ',' . DB::quote($length);
 				
 		$click_rows = DB::getRows($click_sql);
 				
