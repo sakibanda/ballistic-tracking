@@ -60,14 +60,14 @@ class OverviewController extends BTUserController {
 			0 as epc, 0 as cpc, 
 			SUM(click.payout*click.lead) AS income,
 			0 as cost, 0 as net, 0 as roi,
-			click.campaign_id as meta1, camp.type as meta2, click.offer_id as meta3, null as meta4
+			click.campaign_id as meta1, camp.type as meta2, null as meta3, null as meta4
 			
 			from
 			";
 			
 		$sql .= getReportFilters('overview/overview');
 		
-		$sql .= "group by click.campaign_id, click.offer_id
+		$sql .= "group by click.campaign_id
 			order by null";
 									
 		DB::query($sql);
@@ -241,9 +241,9 @@ class OverviewController extends BTUserController {
 			
 			left join bt_u_offers offer on (stat.meta3=offer.offer_id)
 			
-			where stat.user_id='$user_id' and stat.type='overview'
+			where stat.user_id='$user_id' and stat.type='overview'";
 			
-			group by stat.meta1";
+			//group by stat.meta1";
 			
 		//$sql .= getReportOrder($cols,'stat.meta3 asc');
 		$sql .=getReportOrder($cols);
