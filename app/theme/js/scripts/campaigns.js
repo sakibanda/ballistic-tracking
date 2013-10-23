@@ -185,7 +185,8 @@ function addExistingOffer(){
     $.get('/tracker/code/offerExistingRow',{"offer_id":offer_id,"offer_type":type}, function(data) {
         if(type!="lp"){
             var offer = $('#offer_holder');
-            if(offer.find('.offer_table').length == 1 && countOffer == 0){
+            var tagb = offer.find('b');
+            if(offer.find('.offer_table').length == 1 && countOffer == 0 && tagb.length == 0)   {
                 offer.find('.offer_table:lt(1)').remove();
                 countOffer++;
             }
@@ -193,7 +194,8 @@ function addExistingOffer(){
             calculateWeights(offer.find(".content"));
         }else{
             var lpOffer = $('#lpoffer_holder');
-            if(lpOffer.find('.offer_table').length == 1 && countLPOffer == 0){
+            var tagb = lpOffer.find('b');
+            if(lpOffer.find('.offer_table').length == 1 && countLPOffer == 0 && tagb.length == 0){
                 lpOffer.find('.offer_table:lt(1)').remove();
                 countLPOffer++;
             }

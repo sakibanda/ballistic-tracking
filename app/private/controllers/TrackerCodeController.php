@@ -224,9 +224,10 @@ class TrackerCodeController extends BTController {
 				}
 				
 				for($i = 0,$cnt = count($_POST['campaign_lpoffer_id']);$i < $cnt;$i++) {
-					$id = $_POST['campaign_lpoffer_id'][$i];
-					
+					//$id = $_POST['campaign_lpoffer_id'][$i];
+                    $id = $_POST['lpoffer_id'][$i];
 					if(!$id) { //new
+
 						$offer = OfferModel::model();
 						$offer->aff_network_id = $_POST['lpoffer_aff_network_id'][$i];
 						$offer->name = $_POST['lpoffer_name'][$i];
@@ -251,7 +252,24 @@ class TrackerCodeController extends BTController {
 							BTApp::end();
 						}
 					}else{ //edit
-						$campoffer = CampaignOfferModel::model()->getRowFRomPk($id);
+                        $id_campaing = $_POST['campaign_lpoffer_id'][$i];
+                        if(!$id_campaing){
+                            $campoffer = CampaignOfferModel::model();
+                            $campoffer->campaign_id = $campaign->id();
+                            $campoffer->position = 0;
+                            $campoffer->weight = 0;
+                            $campoffer->offer_id = $id;
+
+                            if(!$campoffer->save()) {
+                                echo json_encode(array('message'=>'Could not add campaign offers'));
+                                DB::rollback();
+                                BTApp::end();
+                            }
+                        }
+                        else{
+                            $campoffer = CampaignOfferModel::model()->getRowFRomPk($id_campaing);
+                        }
+
 						$offer = $campoffer->offer;
                         $offer->aff_network_id = $_POST['lpoffer_aff_network_id'][$i];
 						$offer->name = $_POST['lpoffer_name'][$i];
