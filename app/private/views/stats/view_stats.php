@@ -13,9 +13,6 @@
                 <div class="left">
                     <h3>Campaign Overview</h3>
                 </div>
-                <div class="right">
-                    <a href="#" onclick="exportCsv(); return false;">CSV</a>
-                </div>
             </div>
             <table class="dataTable" id="campaign_overview">
                 <thead>
@@ -48,9 +45,6 @@
                 <div class="left">
                     <h3>Offer Overview</h3>
                 </div>
-                <div class="right">
-                    <a href="#" onclick="exportCsv(); return false;">CSV</a>
-                </div>
             </div>
             <table class="dataTable" id="offer_overview">
                 <thead>
@@ -80,9 +74,6 @@
             <div class="tabletools">
                 <div class="left">
                     <h3>Landing Page Overview</h3>
-                </div>
-                <div class="right">
-                    <a href="#" onclick="exportCsv(); return false;">CSV</a>
                 </div>
             </div>
             <table class="dataTable" id="lp_overview">
@@ -115,9 +106,6 @@
             <div class="tabletools">
                 <div class="left">
                     <h3>Subid Overview</h3>
-                </div>
-                <div class="right">
-                    <a href="#" onclick="exportCsv(); return false;">CSV</a>
                 </div>
             </div>
             <table class="dataTable" id="subid_overview">
