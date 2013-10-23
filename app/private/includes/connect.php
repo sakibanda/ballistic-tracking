@@ -37,6 +37,7 @@ require_once(BT_ROOT . '/private/includes/BTAuth.php');
 require_once(BT_ROOT . '/private/includes/traffic/functions-tracking.php');
 require_once(BT_ROOT . '/private/includes/browser.php');
 require_once(BT_ROOT . '/private/includes/reporting/breakdown.php');
+require_once(BT_ROOT . '/private/includes/reporting/stats.php');
 require_once(BT_ROOT . '/private/includes/reporting/general.php');
 require_once(BT_ROOT . '/private/includes/traffic/filter.php');
 require_once(BT_ROOT . '/private/includes/reporting/dayparting.php');
