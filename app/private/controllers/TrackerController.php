@@ -122,7 +122,7 @@ class TrackerController extends BTController {
 		$_GET['t'] = $campaign->option('redirect_method')->value;
 		
 		var_dump($_GET);
-		exit;
+		//exit; Solved a problem with redirection-- Ticket146
 		
 		$this->redirectAction();
 		
