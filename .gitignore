@@ -6,3 +6,5 @@ wurfl.log
 assets/
 app/bt-config/cache/*
 .DS_Store
+
+app/bt-config/*.dat
