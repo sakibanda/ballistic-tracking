@@ -131,28 +131,48 @@ class StatsController extends BTUserController {
     public function subidDataAction(){
         $campaign_id = @$_GET['campaign_id'];
         $mysql['user_id'] = DB::quote(getUserID());
+
+        $cols = array('v1', 'v2', 'v3', 'v4', 'clicks', 'click_throughs', 'leads', 'conv', 'payout', 'epc', 'income');
+        $cnt_query = "select count(1) from (select 1 from";
+        $cnt_query .= getReportFilters('reports/stats','left join bt_s_clicks_advanced as adv on (click.click_id=adv.click_id)');
+        $cnt_query .= " and adv.v1_id>0 and adv.v2_id>0 and adv.v3_id>0 and adv.v4_id>0 GROUP BY adv.v1_id, adv.v2_id, adv.v3_id, adv.v4_id) thedata";
+        $cnt = DB::getVar($cnt_query);
+        $sql = 'select tv1.var_value as v1,
+				tv2.var_value as v2,
+				tv3.var_value as v3,
+				tv4.var_value as v4,';
+        $sql .= getReportGeneralSelects() . ' from ';
+        $sql .= getReportFilters('reports/stats','
+			left join bt_s_clicks_advanced as adv on (click.click_id=adv.click_id)
+			LEFT JOIN bt_s_variables AS tv1 on tv1.var_id=adv.v1_id
+			LEFT JOIN bt_s_variables AS tv2 on tv2.var_id=adv.v2_id
+			LEFT JOIN bt_s_variables AS tv3 on tv3.var_id=adv.v3_id
+			LEFT JOIN bt_s_variables AS tv4 on tv4.var_id=adv.v4_id
+		');
+        $sql .= ' and adv.v1_id>0 and adv.v2_id>0 and adv.v3_id>0 and adv.v4_id>0 group by adv.v1_id, adv.v2_id, adv.v3_id, adv.v4_id ';
+        //$sql .= getReportOrder($cols);
+        //$sql .= getReportLimits();
+        $result = DB::getRows($sql);
+
         $output = array(
             //"sEcho" => $sEcho,
             //"iTotalRecords" => $iTotal,
             //"iTotalDisplayRecords" => $iTotal,
             "aaData" => array()
         );
-        for($i=0;$i<3;$i++){
+        foreach($result as $row) {
             $arr = array();
-            $arr[] = "Subid Name".$i;
-            $arr[] = "0".$i;
-            $arr[] = "0".$i;
-            $arr[] = "0".$i;
-            $arr[] = "0".$i;
-            $arr[] = "0".$i;
-            $arr[] = "0".$i;
-            $arr[] = "0".$i;
-            $arr[] = "0".$i;
-            $arr[] = "0".$i;
-            $arr[] = "0".$i;
-            $arr[] = "0".$i;
-            $arr[] = "0".$i;
-            $arr[] = "0".$i;
+            $arr[] = BTHtml::encode($row['v1']); //Subid1
+            $arr[] = BTHtml::encode($row['v2']); //Subid2
+            $arr[] = BTHtml::encode($row['v3']); //Subid3
+            $arr[] = BTHtml::encode($row['v4']); //Subid4
+            $arr[] = BTHtml::encode($row['clicks']); //Clicks
+            $arr[] = BTHtml::encode($row['click_throughs']); //Click Throughs
+            $arr[] = BTHtml::encode($row['leads']); //Leads
+            $arr[] = BTHtml::encode($row['conv']); //Conv %
+            $arr[] = BTHtml::encode($row['payout']); //Payout
+            $arr[] = BTHtml::encode($row['epc']); //EPC
+            $arr[] = BTHtml::encode($row['income']); //Income
             $output['aaData'][] = $arr;
         }
         echo json_encode($output);

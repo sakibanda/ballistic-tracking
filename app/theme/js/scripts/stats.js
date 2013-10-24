@@ -84,9 +84,6 @@ $(function() {
             { "sClass":"center","sType": "numeric" },
             { "sClass":"center","sType": "numeric" },
             { "sClass":"center","sType": "numeric" },
-            { "sClass":"center","sType": "numeric" },
-            { "sClass":"center","sType": "numeric" },
-            { "sClass":"center","sType": "numeric" },
             { "sClass":"center","sType": "numeric" }
         ]
     });

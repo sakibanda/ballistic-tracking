@@ -111,20 +111,17 @@
             <table class="dataTable" id="subid_overview">
                 <thead>
                 <tr>
-                    <th>Subid</th>
+                    <th>Subid1</th>
+                    <th>Subid2</th>
+                    <th>Subid3</th>
+                    <th>Subid4</th>
                     <th>Clicks</th>
-                    <th>LP Views</th>
-                    <th>LP Clicks</th>
-                    <th>LP CTR</th>
+                    <th>Click Throughs</th>
                     <th>Leads</th>
-                    <th>Offer CVR</th>
-                    <th>LP CVR</th>
+                    <th>Conv %</th>
+                    <th>Payout</th>
                     <th>EPC</th>
-                    <th>CPC</th>
-                    <th>Rev.</th>
-                    <th>Cost</th>
-                    <th>Profit</th>
-                    <th>ROI</th>
+                    <th>Income</th>
                 </tr>
                 </thead>
             </table>
