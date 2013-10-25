@@ -104,8 +104,10 @@ or (cloak.slug = '' and concat('/',camp.slug)='" . DB::quote($slug) . "'))");
 			$orgs_data = json_decode($opts['organizations']);
 			$orgs = array();
 				
-			foreach($orgs_data as $data) {
-				$orgs[] = $data[0];
+			    foreach($orgs_data as $data) {
+				    if(isset($data[0])){
+                        $orgs[] = $data[0];
+                    }
 			}
 	
 			//CHECK BALLISTIC API SERVER
