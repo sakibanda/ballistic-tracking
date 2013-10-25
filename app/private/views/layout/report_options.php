@@ -210,7 +210,7 @@ $html['page'] = BTHtml::encode($page); ?>
         <?php if($show_options['show_timezone']) { ?>
             <div class="grid_2">
                 <div class="box">
-                    <label>Default Time - America/Anchorage</label>
+                    <label>Default Time</label>
                     <select name="timezone">
                         <?php
                         static $regions = array(
@@ -271,9 +271,9 @@ $html['page'] = BTHtml::encode($page); ?>
                     <p class="reportSelect">Select All Click Data</p>
                 </div>
                 <div class="reportOptions">
-                    <input type="checkbox" name="clickData[]" data-column="Click ID" value="click.click_id"><p>Click ID</p>
-                    <input type="checkbox" name="clickData[]" data-column="Timestamp" value="click.time"><p>Timestamp</p>
-                    <input type="checkbox" name="clickData[]" data-column="Date/Time" value="click.time as date"><p>Date/Time</p>
+                    <input type="checkbox" name="clickData[]" data-column="Click ID" value="c.click_id"><p>Click ID</p>
+                    <input type="checkbox" name="clickData[]" data-column="Timestamp" value="c.time"><p>Timestamp</p>
+                    <input type="checkbox" name="clickData[]" data-column="Date/Time" value="c.time as date"><p>Date/Time</p>
                     <input type="checkbox" name="clickData[]" data-column="IP" value="ip_address"><p>IP Address</p>
                     <input type="checkbox" name="clickData[]" data-column="Referer" value="cs.referer_url"><p>Referer</p>
                     <input type="checkbox" name="clickData[]" data-column="User Agent" value="d.browser"><p>User Agent</p>
@@ -290,14 +290,14 @@ $html['page'] = BTHtml::encode($page); ?>
                     <p class="reportSelect">Select All Campaign Data</p>
                 </div>
                 <div class="reportOptions">
-                    <input type="checkbox" name="campaignData[]" data-column="Camp Id" value="c.campaign_id"><p>Campaign ID</p>
-                    <input type="checkbox" name="campaignData[]" data-column="Campaign Name" value="c.name as cName"><p>Campaign Name</p>
+                    <input type="checkbox" name="campaignData[]" data-column="Camp Id" value="cp.campaign_id"><p>Campaign ID</p>
+                    <input type="checkbox" name="campaignData[]" data-column="Campaign Name" value="cp.name as cName"><p>Campaign Name</p>
                     <!--<input type="checkbox" name="campaignData[]" data-column="CPC" value="cpc"><p>CPC</p>-->
                     <input type="checkbox" name="campaignData[]" data-column="Offer Name" value="o.name as oName"><p>Offer Name</p>
-                    <input type="checkbox" name="campaignData[]" data-column="Lead" value="click.lead"><p>Lead</p>
-                    <input type="checkbox" name="campaignData[]" data-column="Payout" value="click.payout"><p>Payout</p>
-                    <input type="checkbox" name="campaignData[]" data-column="Lead Time" value="click.lead_time"><p>Lead Time</p>
-                    <input type="checkbox" name="campaignData[]" data-column="Lifetime" value="click.lifetime"><p>Lifetime</p>
+                    <input type="checkbox" name="campaignData[]" data-column="Lead" value="c.lead"><p>Lead</p>
+                    <input type="checkbox" name="campaignData[]" data-column="Payout" value="c.payout"><p>Payout</p>
+                    <input type="checkbox" name="campaignData[]" data-column="Lead Time" value="c.lead_time"><p>Lead Time</p>
+                    <input type="checkbox" name="campaignData[]" data-column="Lifetime" value="c.lifetime"><p>Lifetime</p>
                 </div>
             </fieldset>
 

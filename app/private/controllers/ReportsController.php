@@ -39,8 +39,8 @@ class ReportsController extends BTUserController {
             foreach($_POST['clickData'] as $option){
                 if($option != ""){
                     $sql_select .="$option,";
-                    if($option == "click.time as date"){
-                        array_push($aColumns,"click.time");
+                    if($option == "c.time as date"){
+                        array_push($aColumns,"c.time");
                     }else{
                         array_push($aColumns,$option);
                     }
@@ -52,7 +52,7 @@ class ReportsController extends BTUserController {
             foreach($_POST['campaignData'] as $option){
                 if($option != ""){
                     $sql_select .="$option,";
-                    if($option == "c.name as cName"){ array_push($aColumns,"c.name"); }
+                    if($option == "cp.name as cName"){ array_push($aColumns,"cp.name"); }
                     else if($option == "o.name as oName"){ array_push($aColumns,"o.name"); }
                     else{ array_push($aColumns,$option); }
                 }
@@ -96,37 +96,41 @@ class ReportsController extends BTUserController {
         $sort = $aColumns[$sort_col]." ".$sort_dir;
 
         $sql_select = trim($sql_select, ',');
-        $sql_from =" FROM bt_u_campaigns AS c
-        JOIN bt_u_campaign_offers co ON (co.campaign_id = c.campaign_id)
-        JOIN bt_u_offers o ON (co.offer_id = o.offer_id)
-        JOIN bt_s_clicks click ON (click.campaign_id = c.campaign_id)
-        JOIN bt_s_clicks_site cs USING (click_id)
-        JOIN bt_s_clicks_advanced adv USING (click_id)
-        JOIN bt_u_traffic_sources ts ON (ts.traffic_source_id = click.traffic_source_id)
-        JOIN bt_s_ips ON (bt_s_ips.ip_id = adv.ip_id)
-        JOIN bt_s_device_data d ON (d.device_id = adv.platform_id)
-        JOIN bt_s_keywords k ON (k.keyword_id = adv.keyword_id)
-        JOIN bt_g_geo_locations l ON (l.location_id = adv.location_id)
-        JOIN bt_g_organizations org ON (org.org_id = adv.org_id)
-        JOIN bt_s_variables v1 ON (v1.var_id = adv.v1_id)
-        JOIN bt_s_variables v2 ON (v2.var_id = adv.v2_id)
-        JOIN bt_s_variables v3 ON (v3.var_id = adv.v3_id)
-        JOIN bt_s_variables v4 ON (v4.var_id = adv.v4_id)";
+        $sql_from =" FROM bt_s_clicks c
+        LEFT JOIN bt_s_clicks_site cs ON c.click_id = cs.click_id
+        LEFT JOIN bt_s_clicks_advanced ca ON c.click_id = ca.click_id ";
+        if(!empty($_POST['deviceData'])) {
+            $sql_from .="LEFT JOIN bt_s_device_data d ON ca.device_id = d.device_id ";
+        }
+        $sql_from .="LEFT JOIN bt_s_ips i ON (ca.ip_id = i.ip_id)
+        LEFT JOIN bt_s_keywords k ON (ca.keyword_id = k.keyword_id)
+        LEFT JOIN bt_g_geo_locations l ON (ca.location_id = l.location_id)
+        LEFT JOIN bt_g_organizations org ON (ca.org_id = org.org_id) ";
+        if(!empty($_POST['tokenData'])){
+            $sql_from .="LEFT JOIN bt_s_variables v1 ON (ca.v1_id = v1.var_id)
+            LEFT JOIN bt_s_variables v2 ON (ca.v2_id = v2.var_id)
+            LEFT JOIN bt_s_variables v3 ON (ca.v3_id = v3.var_id)
+            LEFT JOIN bt_s_variables v4 ON (ca.v4_id = v4.var_id) ";
+        }
+        $sql_from .="LEFT JOIN bt_u_campaigns cp ON c.campaign_id = cp.campaign_id
+        LEFT JOIN bt_u_campaign_offers co ON (cp.campaign_id = co.campaign_id)
+        LEFT JOIN bt_u_offers o ON (co.offer_id = o.offer_id)
+        LEFT JOIN bt_u_traffic_sources ts ON (c.traffic_source_id = c.traffic_source_id)";
 
         $sql_where =" WHERE ";
         if($camp_id)
-            $sql_where .="c.campaign_id = '$camp_id' AND ";
+            $sql_where .="cp.campaign_id = '$camp_id' AND ";
 
         if($traffic_source_id)
             $sql_where .="ts.traffic_source_id = '$traffic_source_id' AND ";
 
         if($cvr)
-            $sql_where .="click.lead > 0 AND ";
+            $sql_where .="c.lead > 0 AND ";
 
-        if ($click_filter == 'real') { $sql_where .= " click.filtered='0' AND "; }
-        $sql_where .="c.deleted = 0 AND o.deleted = 0 AND ts.deleted=0 AND c.user_id = '$user_id' ";
-        $sql_where .="AND click.time >= '$start' and click.time <= '$end' ";
-        $sql_group = " GROUP BY click.click_id";
+        if ($click_filter == 'real') { $sql_where .= " c.filtered='0' AND "; }
+        $sql_where .="cp.deleted = 0 AND o.deleted = 0 AND ts.deleted=0 AND cp.user_id = '$user_id' ";
+        $sql_where .="AND c.time >= '$start' and c.time <= '$end' ";
+        $sql_group = " GROUP BY c.click_id";
         $sql_order = " ORDER BY ".$sort;
         $limit = " LIMIT ".intval($_POST['iDisplayStart']).",".intval($_POST['iDisplayLength']);
         $sql_count = $sql_total.$sql_from.$sql_where.$sql_group;
