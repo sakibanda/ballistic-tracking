@@ -15,6 +15,7 @@ class CloakerController extends BTUserController {
 		$this->loadModel('CloakerRefererModel');
 		$this->loadModel('CloakerHostnameModel');
 		$this->loadModel('CloakerUaModel');
+        $this->loadModel('SettingsModel');
 		
 		require_once(BT_ROOT . '/private/includes/cloaker.php');
 		
@@ -23,8 +24,17 @@ class CloakerController extends BTUserController {
 	
 	public function indexAction() {		
 		$this->setVar("title","Manage Cloakers");
-		
-		$this->render("cloaker/index");
+
+        $settings = SettingsModel::model()->getRow(array(
+            'conditions'=>array(
+                'user_id'=>getUserID()
+            )
+        ));
+        if(!$settings) {
+            $this->render("cloaker/no_key");
+        }else{
+            $this->render("cloaker/index");
+        }
 	}
 	
 	public function editAction($param = array()) {
