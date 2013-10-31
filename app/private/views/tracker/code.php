@@ -13,7 +13,7 @@
 					<label class="tooltip" title="Give a descriptive name. This is used on the overview and manage campaign pages">Name</label>
 					
 					<div>
-						<input type="text" name="name" value="<?php echo $campaign->name;?>" />
+						<input maxlength="100" type="text" name="name" value="<?php echo $campaign->name;?>" />
 					</div>
 				</div>
 				
@@ -173,27 +173,27 @@
 					<tbody>
 						<tr>
 							<td>Keyword</td>
-							<td><input type="text" value="<?php echo BTHtml::encode($campaign->option('var_kw')->value); ?>" name="opt[var_kw]" /></td>
+							<td><input maxlength="45" type="text" value="<?php echo BTHtml::encode($campaign->option('var_kw')->value); ?>" name="opt[var_kw]" /></td>
 							<td><input type="text" value="<?php echo BTHtml::encode($campaign->option('default_var_kw')->value); ?>" name="opt[default_var_kw]" /></td>
 						</tr>
 						<tr>
 							<td>Subid1</td>
-							<td><input type="text" value="<?php echo BTHtml::encode($campaign->option('var_v1')->value); ?>" name="opt[var_v1]" /></td>
+							<td><input maxlength="45" type="text" value="<?php echo BTHtml::encode($campaign->option('var_v1')->value); ?>" name="opt[var_v1]" /></td>
 							<td><input type="text" value="<?php echo BTHtml::encode($campaign->option('default_var_v1')->value); ?>" name="opt[default_var_v1]" /></td>
 						</tr>
 						<tr>
 							<td>Subid2</td>
-							<td><input type="text" value="<?php echo BTHtml::encode($campaign->option('var_v2')->value); ?>" name="opt[var_v2]" /></td>
+							<td><input maxlength="45" type="text" value="<?php echo BTHtml::encode($campaign->option('var_v2')->value); ?>" name="opt[var_v2]" /></td>
 							<td><input type="text" value="<?php echo BTHtml::encode($campaign->option('default_var_v2')->value); ?>" name="opt[default_var_v2]" /></td>
 						</tr>
 						<tr>
 							<td>Subid3</td>
-							<td><input type="text" value="<?php echo BTHtml::encode($campaign->option('var_v3')->value); ?>" name="opt[var_v3]" /></td>
+							<td><input maxlength="45" type="text" value="<?php echo BTHtml::encode($campaign->option('var_v3')->value); ?>" name="opt[var_v3]" /></td>
 							<td><input type="text" value="<?php echo BTHtml::encode($campaign->option('default_var_v3')->value); ?>" name="opt[default_var_v3]" /></td>
 						</tr>
 						<tr>
 							<td>Subid4</td>
-							<td><input type="text" value="<?php echo BTHtml::encode($campaign->option('var_v4')->value); ?>" name="opt[var_v4]" /></td>
+							<td><input maxlength="45" type="text" value="<?php echo BTHtml::encode($campaign->option('var_v4')->value); ?>" name="opt[var_v4]" /></td>
 							<td><input type="text" value="<?php echo BTHtml::encode($campaign->option('default_var_v4')->value); ?>" name="opt[default_var_v4]" /></td>
 						</tr>
 					</tbody>

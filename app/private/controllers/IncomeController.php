@@ -50,18 +50,22 @@ class IncomeController extends BtUserController {
 
                 //$sEcho = $_GET['sEcho'];
                 $output = array(
-                    //'sEcho'=>(int)$sEcho,
-                    //'iTotalRecords'=>(int)$total_incomes,
-                    //'iTotalDisplayRecords'=>(int)$total_incomes,
+//                    'sEcho'=>(int)$sEcho,
+//                    'iTotalRecords'=>(int)$total_incomes,
+//                    'iTotalDisplayRecords'=>(int)$total_incomes,
                     'aaData'=>array());
 
                 foreach($incomes as $income) {
                     $arr = array();
-                    $arr[] = $income->date;
-                    $arr[] = $income->campaign_id . ' - ' . $income->campaign->name;
-                    $arr[] = $income->amount;
-                    $arr[] = '<input type="hidden" class="income_id" value="' . $income->income_id . '" /> <a href="#" class="delete_income button small grey tooltip"><i class="icon-remove"></i></a>';
-                    $output['aaData'][] = $arr;
+                    if($income->campaign!=null)
+                    {
+                        $arr[] = $income->date;
+                        $arr[] = $income->campaign_id . ' - ' . $income->campaign->name;
+
+                        $arr[] = $income->amount;
+                        $arr[] = '<input type="hidden" class="income_id" value="' . $income->income_id . '" /> <a href="#" class="delete_income button small grey tooltip"><i class="icon-remove"></i></a>';
+                        $output['aaData'][] = $arr;
+                    }
                 }
                 echo json_encode($output);
                 break;

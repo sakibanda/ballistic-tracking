@@ -20,7 +20,7 @@
 			<div class="row">
 				<label for="">Affiliate Network</label>
 				<div>
-					<input type="text" id="name" name="name" value="<?php echo $network->name;?>" />
+					<input  type="text" id="name" name="name" value="<?php echo $network->name;?>" />
 					<input type="hidden" id="aff_network_id" name="aff_network_id" value="<?php echo $network->aff_network_id;?>" />
 				</div>
 			</div>
