@@ -1,4 +1,4 @@
-<h1 class="grid_12"><span>Update Your Clicks</span></h1>
+<h1 class="grid_12"><span>Update Clicks</span></h1>
 
 
 

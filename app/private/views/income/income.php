@@ -1,4 +1,4 @@
-<h1 class="grid_12"><span>Update Income</span></h1>
+<h1 class="grid_12"><span>Income</span></h1>
 
 <?php $this->loadTemplate('message_boxes');  ?>
 

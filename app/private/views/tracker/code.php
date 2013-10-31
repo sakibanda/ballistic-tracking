@@ -1,4 +1,4 @@
-<h1 class="grid_12"><span><?php echo ($campaign->id()) ? 'Edit' : 'Add A';?> Campaign</span></h1>
+<h1 class="grid_12"><span><?php echo ($campaign->id()) ? 'Edit' : 'New';?> Campaign</span></h1>
 
 <form id="tracking_form" method="post">
 	<input type="hidden" name="campaign_id" value="<?php echo $campaign->id(); ?>" />

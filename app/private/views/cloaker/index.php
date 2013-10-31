@@ -10,7 +10,7 @@
 	<span class="message"></span>
 </div>
 
-<h1 class="grid_12"><span>Manage Redirects</span></h1>
+<h1 class="grid_12"><span>Advanced Redirects</span></h1>
 
 <div class="grid_12 minwidth">
 	<div class="box with-table">

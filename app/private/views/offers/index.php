@@ -1,6 +1,6 @@
 <?php $this->loadTemplate('message_boxes');  ?>
 
-<h1 class="grid_12"><span>My Offers</span></h1>
+<h1 class="grid_12"><span>Offers</span></h1>
 
 <div class="grid_12 minwidth">
 	<div class="box with-table">

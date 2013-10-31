@@ -35,7 +35,7 @@
 <script type="text/javascript">
 
 
-	$("#variables_table").table({
+	$("#variables_table").dataTable({
 		bServerSide: true,
 		bSearchable: false,
 		bFilter: false,

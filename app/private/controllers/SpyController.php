@@ -10,11 +10,15 @@ class SpyController extends BTUserController {
 		$this->loadModel("ClickModel");
 		$model = new ClickModel();
 
-        $colSearchs = array('camp.name','ip_address');
+        $colSearchs = array('click.click_id','camp.name','ip_address','referer_domain');
         $like = "";
         if ( isset($_GET['sSearch']) && $_GET['sSearch'] != "" ){
             for ( $i=0 ; $i<count($colSearchs) ; $i++ ){
-                $like .= $colSearchs[$i]." LIKE '%".mysql_real_escape_string($_GET['sSearch'])."%' OR ";
+                if ($colSearchs[$i]=="click.click_id"){
+                    $like .= $colSearchs[$i]." = '".BTHtml::decode(base_convert($_GET['sSearch'],36,10))."' OR ";
+                }else{
+                    $like .= $colSearchs[$i]." LIKE '%".mysql_real_escape_string($_GET['sSearch'])."%' OR ";
+                }
             }
             $like = substr_replace( $like, "", -3 );
         }
