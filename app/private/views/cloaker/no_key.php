@@ -1,7 +1,7 @@
 <h1 class="grid_12"><span>Advanced Redirects</span></h1>
 
 <div class="grid_12 minwidth">
-    <p>text</p>
+    <p>You do not have access. Do you need a key?</p>
     <button ype="button" id="purchase">Purchase a Key</button>
 </div>
 

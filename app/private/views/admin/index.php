@@ -4,13 +4,32 @@
 	<span>Admin Settings</span>
 </h1>
 
-<div class="grid_12">
+<div class="grid_6" id="settings">
     <form action="/admin/settings/save" method="post">
         <input type="hidden" name="id" value="<?php echo @$settings->Id(); ?>"/>
-        <label for="keyId">Key Id</label>
-        <input type="text" name="keyId" value="<?php echo @$settings->keyId; ?>"/>
-        <label for="domain">Domain</label>
-        <input type="text" name="domain" value="<?php echo @$settings->domain; ?>"/>
-        <button>Save</button>
+        <div class="box">
+            <div class="header">
+                <h2>Register a Key</h2>
+            </div>
+            <div class="content">
+                <div class="row">
+                    <label for="keyId">Key Id</label>
+                    <div>
+                        <input type="text" name="keyId" value="<?php echo @$settings->keyId; ?>"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <label for="domain">Domain</label>
+                    <div>
+                        <input type="text" name="domain" value="<?php echo @$settings->domain; ?>"/>
+                    </div>
+                </div>
+            </div>
+            <div class="actions">
+                <div class="right">
+                    <button>Save</button>
+                </div>
+            </div>
+        </div>
     </form>
 </div>

@@ -70,7 +70,7 @@ $(document).ready(function() {
 		fnServerParams: function(aoData) {
 			aoData.push({"name":"filtertype","value":$("#filtertype").val()});
 			aoData.push({"name":"filterlevel","value":$("#filterlevel").val()});
-	    },
+	    }
 	});
 });
 </script>
