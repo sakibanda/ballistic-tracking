@@ -12,9 +12,9 @@ class AdminSettingsController extends AdminController {
 
         $success = false;
         $error = array();
-        $settings = null;
+        $settings = new SettingsModel();
 
-        if(isset($_POST['keyId'])){
+        if(isset($_POST['keyId']) && !empty($_POST['keyId'])){
             if(!($settings = SettingsModel::model()->getRowFromPk($_POST['id']))) {
                 $settings = SettingsModel::model();
                 $settings->useRuleSet('new');
