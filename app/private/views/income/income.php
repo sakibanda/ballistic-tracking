@@ -35,7 +35,7 @@
                 <div class="row">
                     <label for="">Amount</label>
                     <div>
-                        <input type="text" id="amount" name="amount" value="" style="display: inline;" />
+                        <input onkeydown="validateOnlyNumber(event);" type="text" id="amount" name="amount" value="" style="display: inline;" />
                     </div>
                 </div>
             </div>

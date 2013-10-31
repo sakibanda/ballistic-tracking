@@ -10,7 +10,7 @@
             <div class="row">
                 <label class="tooltip" title="Name your offer">Offer Name:</label>
                 <div>
-                    <input type="text" name="name" id="name" class="required" value="<?php echo $offer->name; ?>" />
+                    <input maxlength="50" type="text" name="name" id="name" class="required" value="<?php echo $offer->name; ?>" />
                 </div>
             </div>
             <div class="row">
@@ -30,7 +30,7 @@
             <div class="row">
                 <label class="tooltip" title="Payout">Payout</label>
                 <div>
-                    <input type="text" class="required" value="<?php echo $offer->payout; ?>" name="payout" /> <br />
+                    <input onkeydown="validateNumber(event);" type="text" class="required" value="<?php echo $offer->payout; ?>" name="payout" /> <br />
                 </div>
             </div>
             <div class="row">

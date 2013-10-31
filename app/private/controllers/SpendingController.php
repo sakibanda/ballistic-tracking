@@ -58,13 +58,15 @@ class SpendingController extends BtUserController {
 					
 				foreach($spends as $spend) {
 					$arr = array();
-												
-					$arr[] = $spend->date;
-					$arr[] = $spend->campaign_id . ' - ' . $spend->campaign->name;
-					$arr[] = $spend->amount;
-					$arr[] = '<input type="hidden" class="spending_id" value="' . $spend->spending_id . '" /> <a href="#" class="delete_spend button small grey tooltip"><i class="icon-remove"></i></a>';
-				
-					$data['aaData'][] = $arr;
+                    if($spend->campaign!=null)
+                    {
+                        $arr[] = $spend->date;
+                        $arr[] = $spend->campaign_id . ' - ' . $spend->campaign->name;
+                        $arr[] = $spend->amount;
+                        $arr[] = '<input type="hidden" class="spending_id" value="' . $spend->spending_id . '" /> <a href="#" class="delete_spend button small grey tooltip"><i class="icon-remove"></i></a>';
+
+                        $data['aaData'][] = $arr;
+                    }
 				}
 				
 				echo json_encode($data);

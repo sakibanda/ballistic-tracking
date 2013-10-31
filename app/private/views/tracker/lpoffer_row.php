@@ -8,13 +8,13 @@
 				<td style="width: 550px;">
                     <?php if(@$campoffer->offer->offer_id) { ?>
                         <b><?php echo @$campoffer->offer->offer_id; ?>: <?php echo @$campoffer->offer->name; ?></b>
-                        <input name="lpoffer_name[]" type="hidden" value="<?php echo @$campoffer->offer->name; ?>" />
+                        <input maxlength="50" name="lpoffer_name[]" type="hidden" value="<?php echo @$campoffer->offer->name; ?>" />
                     <?php } else { ?>
-                        <input name="lpoffer_name[]" type="text" value="<?php echo @$campoffer->offer->name; ?>" />
+                        <input maxlength="50" name="lpoffer_name[]" type="text" value="<?php echo @$campoffer->offer->name; ?>" />
                     <?php } ?>
                 </td>
 				<td style="width: 90px;">Payout: $</td>
-				<td> <input name="lpoffer_payout[]" type="text" value="<?php echo @$campoffer->offer->payout; ?>" /></td>
+				<td> <input onkeydown="validateNumber(event);" name="lpoffer_payout[]" type="text" value="<?php echo @$campoffer->offer->payout; ?>" /></td>
 			</tr>
 			<tr class="no_row_borders">
 				<td style="width: 90px;">URL:</td>

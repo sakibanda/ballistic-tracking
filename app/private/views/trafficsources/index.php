@@ -13,7 +13,7 @@
 				<label>Name</label>
 				
 				<div>
-					<input type="text" value="<?php echo $source->name; ?>" name="name" />
+					<input maxlength="70" type="text" value="<?php echo $source->name; ?>" name="name" />
 				</div>
 			</div>
 		</div>
