@@ -75,17 +75,16 @@ $(function() {
         "sAjaxSource": '/ajax/stats/subidData?campaign_id='+camp_id,
         "aoColumns": [
             {},
-            { "sClass":"center","sType": "numeric" },
-            { "sClass":"center","sType": "numeric" },
-            { "sClass":"center","sType": "numeric" },
-            { "sClass":"center","sType": "numeric" },
-            { "sClass":"center","sType": "numeric" },
-            { "sClass":"center","sType": "numeric" },
-            { "sClass":"center","sType": "numeric" },
-            { "sClass":"center","sType": "numeric" },
-            { "sClass":"center","sType": "numeric" },
-            { "sClass":"center","sType": "numeric" }
+            { "sClass":"center","sType": "numeric","bSortable": true },
+            { "sClass":"center","sType": "numeric","bSortable": true },
+            { "sClass":"center","sType": "numeric","bSortable": true },
+            { "sClass":"center","sType": "numeric","bSortable": true },
+            { "sClass":"center","sType": "numeric","bSortable": true },
+            { "sClass":"center","sType": "numeric","bSortable": true },
+            { "sClass":"center","sType": "numeric","bSortable": true },
+            { "sClass":"center","sType": "numeric","bSortable": true },
+            { "sClass":"center","sType": "numeric","bSortable": true },
+            { "sClass":"center","sType": "numeric","bSortable": true }
         ]
     });
-
 });

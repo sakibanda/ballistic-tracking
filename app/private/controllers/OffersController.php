@@ -62,7 +62,11 @@ class OffersController extends BTUserController {
         );
         foreach($offers as $offer) {
             $arr = array();
+            if($offer->network!=null){
+
+
             $arr[] = $offer->offer_id;
+            //$arr[] = $offer->network->name;
             $arr[] = $offer->network->name;
             $arr[] = $offer->name;
             $arr[] = $offer->payout;
@@ -70,8 +74,9 @@ class OffersController extends BTUserController {
             $actions =  '<a href="/offers/edit?id='.$offer->offer_id.'" class="button small grey tooltip" title="Edit"><i class="icon-pencil"></i> Edit</a> ';
             $actions .= '<a rel="'.$offer->offer_id.'" class="button small grey tooltip delete_offer" title="Delete" href="#"><i class="icon-remove"></i> Delete</a>';
             $arr[] = $actions;
-            $output['aaData'][] = $arr;
-        }
+                $output['aaData'][] = $arr;
+            }
+            }
         echo json_encode($output);
 		//$this->setVar('offers',$offers);
 		//$this->loadView('offers/view_offers');

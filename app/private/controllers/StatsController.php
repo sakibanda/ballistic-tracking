@@ -31,11 +31,15 @@ class StatsController extends BTUserController {
 
     public function campaignDataAction(){
 
-        $campaign_id = @$_GET['campaign_id'];
+        //$campaign_id = @$_GET['campaign_id'];
         $mysql['user_id'] = DB::quote(getUserID());
         $sql_query = "SELECT * FROM bt_c_statcache c JOIN bt_u_campaigns p ON (p.campaign_id = c.meta1) ";
         $sql_query .= "WHERE c.user_id='".$mysql['user_id']."' AND c.type='stats' AND c.meta3=0 ";
         $result = DB::getRows($sql_query);
+
+        $total = "SELECT sum(clicks) FROM bt_c_statcache WHERE user_id='".$mysql['user_id']."' AND type='stats' AND meta3!=0 ";
+        $lpclicks = DB::getVar($total);
+
         $output = array(
             //"sEcho" => $sEcho,
             //"iTotalRecords" => $iTotal,
@@ -44,14 +48,27 @@ class StatsController extends BTUserController {
         );
         foreach($result as $row) {
             $arr = array();
+            $leads = $row['leads'];
+            $clicks = $row['clicks'];
             $arr[] = BTHtml::encode($row['name']); //Campaign Name
-            $arr[] = BTHtml::encode($row['clicks']);
+            $arr[] = BTHtml::encode($clicks);
             $arr[] = "0";//BTHtml::encode($row['lpviews']); No database
-            $arr[] = "0";//BTHtml::encode($row['lpclicks']);
-            $arr[] = "0";//BTHtml::encode($row['lpctr']);
-            $arr[] = BTHtml::encode($row['leads']);
-            $arr[] = "0";//BTHtml::encode($row['offercvr']);
-            $arr[] = "0";//BTHtml::encode($row['lpcvr']);
+            $arr[] = $lpclicks;//BTHtml::encode($row['lpclicks']);
+
+            //lpctr
+            $lpctr = $lpclicks/$clicks;
+            $arr[] = number_format($lpctr,2,'.','') . '%';
+
+            $arr[] = BTHtml::encode($leads);
+
+            //offercvr
+            $offercvr = $leads/$lpclicks;
+            $arr[] = number_format($offercvr,2,'.','') . '%';
+
+            //lpcvr
+            $lpcvr = $leads/$clicks;
+            $arr[] = number_format($lpcvr,2,'.','') . '%';
+
             $arr[] = BTHtml::encode($row['epc']);
             $arr[] = BTHtml::encode($row['cpc']);
             $arr[] = "0";//BTHtml::encode($row['rev']);
@@ -59,10 +76,6 @@ class StatsController extends BTUserController {
             $arr[] = "0";//BTHtml::encode($row['profit']);
             $arr[] = BTHtml::encode($row['roi']);
             $output['aaData'][] = $arr;
-
-            //id, user_id, time_from, time_to, type
-            //clicks, click_throughs, click_throughs_rates, leads, conv, payout, epc, cpc, income, cost, net
-            //meta1, meta2, meta3, meta4
         }
         echo json_encode($output);
     }
@@ -73,6 +86,10 @@ class StatsController extends BTUserController {
         $sql_query = "SELECT * FROM bt_c_statcache c JOIN bt_u_offers o ON (o.offer_id = c.meta3) ";
         $sql_query .= "WHERE c.user_id='".$mysql['user_id']."' AND c.type='stats' AND c.meta3>0 ";
         $result = DB::getRows($sql_query);
+
+        $total = "SELECT sum(clicks) FROM bt_c_statcache WHERE user_id='".$mysql['user_id']."' AND type='stats' AND meta3=0 ";
+        $camp_clicks = DB::getVar($total);
+
         $output = array(
             //"sEcho" => $sEcho,
             //"iTotalRecords" => $iTotal,
@@ -81,12 +98,25 @@ class StatsController extends BTUserController {
         );
         foreach($result as $row) {
             $arr = array();
+            $leads = $row['leads'];
+            $clicks = $row['clicks'];
             $arr[] = BTHtml::encode($row['name']); //Campaign Name
-            $arr[] = "0";//BTHtml::encode($row['lpclicks']);
-            $arr[] = "0";//BTHtml::encode($row['lpctr']);
+            $arr[] = BTHtml::encode($row['clicks']); //lpclicks
+
+            //lpctr
+            $lpctr = $clicks/$camp_clicks;
+            $arr[] = number_format($lpctr,2,'.','') . '%';
+
             $arr[] = BTHtml::encode($row['leads']);
-            $arr[] = "0";//BTHtml::encode($row['offercvr']);
-            $arr[] = "0";//BTHtml::encode($row['lpcvr']);
+
+            //offercvr
+            $offercvr = $leads/$clicks;
+            $arr[] = number_format($offercvr,2,'.','') . '%';
+
+            //lpcvr
+            $lpcvr = $leads/$camp_clicks;
+            $arr[] = number_format($lpcvr,2,'.','') . '%';
+
             $arr[] = BTHtml::encode($row['epc']);
             $arr[] = BTHtml::encode($row['cpc']);
             $arr[] = "0";//BTHtml::encode($row['rev']);
@@ -113,10 +143,10 @@ class StatsController extends BTUserController {
             $arr[] = "0".$i;
             $arr[] = "0".$i;
             $arr[] = "0".$i;
+            $arr[] = "0%".$i;
             $arr[] = "0".$i;
-            $arr[] = "0".$i;
-            $arr[] = "0".$i;
-            $arr[] = "0".$i;
+            $arr[] = "0%".$i;
+            $arr[] = "0%".$i;
             $arr[] = "0".$i;
             $arr[] = "0".$i;
             $arr[] = "0".$i;

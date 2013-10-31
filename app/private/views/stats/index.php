@@ -1,4 +1,4 @@
-<?php $this->loadTemplate('report_links'); ?>
+<?php $this->loadTemplate('stats_links'); ?>
 <h1 class="grid_12"><span>Campaign Stats</span></h1>
 
 <?php

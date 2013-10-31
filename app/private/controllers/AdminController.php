@@ -1,9 +1,24 @@
 <?php
 
 class AdminController extends BTAdminController {
+
+    public function __construct() {
+        $this->loadModel('SettingsModel');
+    }
+
 	public function indexAction() {	
 		$this->setVar('title','Admin Settings');
-	
+
+        $settings = SettingsModel::model()->getRow(array(
+            'conditions'=>array(
+                'user_id'=>getUserID()
+            )
+        ));
+        if(!$settings) {
+            $settings = new SettingsModel();
+        }
+
+        $this->setVar("settings",$settings);
 		$this->render('admin/index');
 	}
 	
@@ -46,6 +61,11 @@ class AdminController extends BTAdminController {
 					<span class="icon icon-tasks"></span>
 					What's New?
 				</a>
+
+                <a href="/admin/purchase">
+                    <span class="icon icon-key"></span>
+                    Purchase a Key
+                </a>
 			</div>
 		</div>
 		<?php

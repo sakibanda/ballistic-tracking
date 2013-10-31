@@ -10,7 +10,7 @@ $(document).ready(function() {
         "bPaginate": true, //pagination,
         "sPaginationType": "full_numbers", //two_button or full_numbers
         "bLengthChange": true, //select to change how many rows
-        "aLengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+        "aLengthMenu": [[10, 25, 50, 100], [10, 25, 50, 100]],
         "iDisplayLength": 10, //results per page
         "iDisplayStart": 0, //page to start
         "bFilter": true, //search input
