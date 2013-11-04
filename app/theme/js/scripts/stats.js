@@ -5,7 +5,6 @@ $(function() {
 
     $.extend($.fn.dataTable.defaults, {
         "bFilter": false,
-        "bSort": false,
         "bLengthChange": false,
         "bInfo": false,
         "bPaginate": false,
@@ -15,6 +14,7 @@ $(function() {
     var camp_id = $("#camp_id").val();
     $("#campaign_overview").dataTable({
         "sAjaxSource": '/ajax/stats/campaignData?campaign_id='+camp_id,
+        "aaSorting": [[ 5, "desc" ]],
         "aoColumns": [
             {},
             { "sClass":"center","sType": "numeric" },
@@ -35,6 +35,7 @@ $(function() {
 
     $("#offer_overview").dataTable({
         "sAjaxSource": '/ajax/stats/offerData?campaign_id='+camp_id,
+        "aaSorting": [[ 3, "desc" ]],
         "aoColumns": [
             {},
             { "sClass":"center","sType": "numeric" },
@@ -53,6 +54,7 @@ $(function() {
 
     $("#lp_overview").dataTable({
         "sAjaxSource": '/ajax/stats/lpData?campaign_id='+camp_id,
+        "aaSorting": [[ 5, "desc" ]],
         "aoColumns": [
             {},
             { "sClass":"center","sType": "numeric" },
@@ -73,18 +75,19 @@ $(function() {
 
     $("#subid_overview").dataTable({
         "sAjaxSource": '/ajax/stats/subidData?campaign_id='+camp_id,
+        "aaSorting": [[ 6, "desc" ]],
         "aoColumns": [
             {},
-            { "sClass":"center","sType": "numeric","bSortable": true },
-            { "sClass":"center","sType": "numeric","bSortable": true },
-            { "sClass":"center","sType": "numeric","bSortable": true },
-            { "sClass":"center","sType": "numeric","bSortable": true },
-            { "sClass":"center","sType": "numeric","bSortable": true },
-            { "sClass":"center","sType": "numeric","bSortable": true },
-            { "sClass":"center","sType": "numeric","bSortable": true },
-            { "sClass":"center","sType": "numeric","bSortable": true },
-            { "sClass":"center","sType": "numeric","bSortable": true },
-            { "sClass":"center","sType": "numeric","bSortable": true }
+            { "sClass":"center"},
+            { "sClass":"center"},
+            { "sClass":"center"},
+            { "sClass":"center"},
+            { "sClass":"center"},
+            { "sClass":"center"},
+            { "sClass":"center"},
+            { "sClass":"center"},
+            { "sClass":"center"},
+            { "sClass":"center"}
         ]
     });
 });

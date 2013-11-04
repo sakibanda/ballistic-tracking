@@ -39,6 +39,8 @@ class StatsController extends BTUserController {
 
         $total = "SELECT sum(clicks) FROM bt_c_statcache WHERE user_id='".$mysql['user_id']."' AND type='stats' AND meta3!=0 ";
         $lpclicks = DB::getVar($total);
+        if($lpclicks==null)
+            $lpclicks="0";
 
         $output = array(
             //"sEcho" => $sEcho,
@@ -50,23 +52,27 @@ class StatsController extends BTUserController {
             $arr = array();
             $leads = $row['leads'];
             $clicks = $row['clicks'];
-            $arr[] = BTHtml::encode($row['name']); //Campaign Name
+            $arr[] = BTHtml::encode($row['campaign_id'].": ".$row['name']); //Campaign Name
             $arr[] = BTHtml::encode($clicks);
             $arr[] = "0";//BTHtml::encode($row['lpviews']); No database
             $arr[] = $lpclicks;//BTHtml::encode($row['lpclicks']);
 
             //lpctr
-            $lpctr = $lpclicks/$clicks;
+            $lpctr = (($lpclicks/$clicks)*100);
             $arr[] = number_format($lpctr,2,'.','') . '%';
 
             $arr[] = BTHtml::encode($leads);
 
             //offercvr
-            $offercvr = $leads/$lpclicks;
-            $arr[] = number_format($offercvr,2,'.','') . '%';
+            if($lpclicks>0){
+                $offercvr = (($leads/$lpclicks)*100);
+                $arr[] = number_format($offercvr,2,'.','') . '%';
+            }else{
+                $arr[] = "0.0%";
+            }
 
             //lpcvr
-            $lpcvr = $leads/$clicks;
+            $lpcvr = (($leads/$clicks)*100);
             $arr[] = number_format($lpcvr,2,'.','') . '%';
 
             $arr[] = BTHtml::encode($row['epc']);
@@ -89,6 +95,8 @@ class StatsController extends BTUserController {
 
         $total = "SELECT sum(clicks) FROM bt_c_statcache WHERE user_id='".$mysql['user_id']."' AND type='stats' AND meta3=0 ";
         $camp_clicks = DB::getVar($total);
+        if($camp_clicks==null)
+            $camp_clicks="0";
 
         $output = array(
             //"sEcho" => $sEcho,
@@ -100,22 +108,30 @@ class StatsController extends BTUserController {
             $arr = array();
             $leads = $row['leads'];
             $clicks = $row['clicks'];
-            $arr[] = BTHtml::encode($row['name']); //Campaign Name
+            $arr[] = BTHtml::encode($row['offer_id'].": ".$row['name']); //Offer Name
             $arr[] = BTHtml::encode($row['clicks']); //lpclicks
 
             //lpctr
-            $lpctr = $clicks/$camp_clicks;
-            $arr[] = number_format($lpctr,2,'.','') . '%';
+            if($camp_clicks>0){
+                $lpctr = (($clicks/$camp_clicks)*100);
+                $arr[] = number_format($lpctr,2,'.','') . '%';
+            }else{
+                $arr[] = "0.0%";
+            }
 
             $arr[] = BTHtml::encode($row['leads']);
 
             //offercvr
-            $offercvr = $leads/$clicks;
+            $offercvr = (($leads/$clicks)*100);
             $arr[] = number_format($offercvr,2,'.','') . '%';
 
             //lpcvr
-            $lpcvr = $leads/$camp_clicks;
-            $arr[] = number_format($lpcvr,2,'.','') . '%';
+            if($camp_clicks>0){
+                $lpcvr = (($leads/$camp_clicks)*100);
+                $arr[] = number_format($lpcvr,2,'.','') . '%';
+            }else{
+                $arr[] = "0.0%";
+            }
 
             $arr[] = BTHtml::encode($row['epc']);
             $arr[] = BTHtml::encode($row['cpc']);
@@ -180,6 +196,7 @@ class StatsController extends BTUserController {
 			LEFT JOIN bt_s_variables AS tv4 on tv4.var_id=adv.v4_id
 		');
         $sql .= ' and adv.v1_id>0 and adv.v2_id>0 and adv.v3_id>0 and adv.v4_id>0 group by adv.v1_id, adv.v2_id, adv.v3_id, adv.v4_id ';
+        $sql .= 'Limit 0,10';
         //$sql .= getReportOrder($cols);
         //$sql .= getReportLimits();
         $result = DB::getRows($sql);
@@ -199,9 +216,9 @@ class StatsController extends BTUserController {
             $arr[] = BTHtml::encode($row['clicks']); //Clicks
             $arr[] = BTHtml::encode($row['click_throughs']); //Click Throughs
             $arr[] = BTHtml::encode($row['leads']); //Leads
-            $arr[] = BTHtml::encode($row['conv']); //Conv %
-            $arr[] = BTHtml::encode($row['payout']); //Payout
-            $arr[] = BTHtml::encode($row['epc']); //EPC
+            $arr[] = number_format(BTHtml::encode($row['conv']),2,'.','') . '%'; //Conv %
+            $arr[] = number_format(BTHtml::encode($row['payout']),2,'.','') . '%'; //Payout
+            $arr[] = number_format(BTHtml::encode($row['epc']),2,'.','') . '%'; //EPC
             $arr[] = BTHtml::encode($row['income']); //Income
             $output['aaData'][] = $arr;
         }
