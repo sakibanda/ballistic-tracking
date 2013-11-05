@@ -77,9 +77,11 @@ class StatsController extends BTUserController {
 
             $arr[] = BTHtml::encode($row['epc']);
             $arr[] = BTHtml::encode($row['cpc']);
-            $arr[] = "0";//BTHtml::encode($row['rev']);
+            $rev = $row['payout'] + $row['income'];
+            $arr[] = BTHtml::encode($rev);//rev
             $arr[] = BTHtml::encode($row['cost']);
-            $arr[] = "0";//BTHtml::encode($row['profit']);
+            $profit = $row['payout'] - $row['cost'];
+            $arr[] = BTHtml::encode($profit);//profit
             $arr[] = BTHtml::encode($row['roi']);
             $output['aaData'][] = $arr;
         }
@@ -135,7 +137,8 @@ class StatsController extends BTUserController {
 
             $arr[] = BTHtml::encode($row['epc']);
             $arr[] = BTHtml::encode($row['cpc']);
-            $arr[] = "0";//BTHtml::encode($row['rev']);
+            $rev = $row['payout'] + $row['income'];
+            $arr[] = BTHtml::encode($rev);//rev
             $arr[] = BTHtml::encode($row['cost']);
             $arr[] = "0";//BTHtml::encode($row['profit']);
             $arr[] = BTHtml::encode($row['roi']);

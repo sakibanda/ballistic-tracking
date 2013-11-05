@@ -40,10 +40,11 @@ function runStats($user_pref){
 			0 as epc, 0 as cpc,
 			SUM(click.payout*click.lead) AS income,
 			0 as cost, 0 as net, 0 as roi,
-			click.campaign_id as meta1, camp.type as meta2, click.offer_id as meta3, null as meta4
+			click.campaign_id as meta1, camp.type as meta2, click.offer_id as meta3, click.landing_page_id as meta4
 			from
 			";
-    $sql .= getReportFilters('reports/stats');
+    $extra_join = "LEFT JOIN bt_u_landing_pages AS lp ON (lp.landing_page_id = click.landing_page_id)";
+    $sql .= getReportFilters('reports/stats',$extra_join);
     $sql .= "group by click.campaign_id, click.offer_id order by null";
     DB::query($sql);
     /** END CLICK DATA **/
@@ -63,7 +64,7 @@ function runStats($user_pref){
             on data.meta1 > 0
             set
                 c.clicks=data.clicks, c.click_throughs=data.click_throughs, c.click_through_rates=(c.click_throughs / c.clicks), c.leads=data.leads, c.conv=(c.leads / c.clicks), c.payout=data.payout, c.income=data.income
-                where (c.meta3 is null or c.meta3=0) AND type='stats' ");
+                where (c.meta3 is null or c.meta3=0) AND (c.meta4 is null or c.meta4=0) AND type='stats' ");
 
     reCalculateIncomes($incomes);
     calculateCosts($spends);
