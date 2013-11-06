@@ -35,7 +35,7 @@ class TrackerCodeController extends BTController {
 		}
 		
 		$this->setVar('campaign',$campaign);
-		$this->setVar("title","Add A Campaign");
+		$this->setVar("title","New Campaign");
 		$this->setVar('traffic_sources',TrafficSourceModel::model()->getRows());
 		$campaign->randomizeVariableNames();
 		$this->render("tracker/code");
@@ -523,6 +523,23 @@ class TrackerCodeController extends BTController {
             DB::query($sql);
         }else{
             echo json_encode(array('message'=>'Error updating the duplicate conversion'));
+        }
+    }
+
+    public function searchSlugAction(){
+        if(isset($_POST['slug'])){
+            $valid = false;
+            $sql = "SELECT campaign_id FROM bt_u_campaigns WHERE slug = '".$_POST['slug']."'";
+            $result = DB::getRows($sql);
+            if ($result!=null){
+                $valid = true;
+                echo json_encode($valid);
+            }else{
+                $valid = false;
+                echo json_encode($valid);
+            }
+        }else{
+            echo json_encode(array('message'=>'Error getting the campaign information'));
         }
     }
 }

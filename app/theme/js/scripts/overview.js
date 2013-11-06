@@ -4,6 +4,9 @@ $(function() {
     $('body').addClass('flex_width');
 
     $("#overview_table").dataTable({
+        "oTableTools": {
+            "sSwfPath": "/theme/swf/copy_csv_xls_pdf.swf"
+        },
         aaSorting: [[0,'desc']],
         bServerSide: true,
         bSearchable: false,
@@ -40,7 +43,7 @@ function exportCsv() {
     iframe = document.createElement('iframe');
     iframe.style.display = 'none';
     document.body.appendChild(iframe);
-    iframe.src = '/overview/exportOverview?iSortCol_0=0&sSortDir_0=asc';
+    iframe.src = '/overview/exportOverview?iSortCol_0=0&sSortDir_0=desc';
 }
 
 function delete_campaign(campaign_id) {

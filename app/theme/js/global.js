@@ -121,6 +121,32 @@ function validateOnlyNumber(evt) {
         // left and right arrows
         key == 37 || key == 39 ||
         // Del and Ins
+        key == 46 || key == 45 ) {
+        // input is VALID
+    }
+    else {
+        // input is INVALID
+        e.returnValue = false;
+        if (e.preventDefault) e.preventDefault();
+    }
+}
+
+function test(evt){
+    var e = evt || window.event;
+    var key = e.keyCode || e.which;
+
+    if (!e.shiftKey && !e.altKey && !e.ctrlKey &&
+        // numbers
+        key >= 48 && key <= 57 ||
+        // Numeric keypad
+        key >= 96 && key <= 105 ||
+        // Backspace and Tab and Enter
+        key == 8 || key == 9 || key == 13 ||
+        // Home and End
+        key == 35 || key == 36 ||
+        // left and right arrows
+        key == 37 || key == 39 ||
+        // Del and Ins
         key == 46 || key == 45) {
         // input is VALID
     }
@@ -128,5 +154,38 @@ function validateOnlyNumber(evt) {
         // input is INVALID
         e.returnValue = false;
         if (e.preventDefault) e.preventDefault();
+    }
+}
+
+function alphaNumeric(fieldname){
+    aler
+        template = /[A-Za-z]/;
+        console.log(fieldname.value);
+        if (!(template.test(fieldname.value)))
+        {
+            alert ("Only alphanumeric characters and spaces are valid in this field");
+        }
+}
+
+var digitsOnly = /[1234567890]/;
+var floatOnly = /[0-9\.,]/;
+var alphaOnly = /[A-Za-z]/;
+var alphaNumeric = /[a-zA-Z0-9]/;
+
+function restrictCharacters(myfield, e, restrictionType) {
+    if (!e) var e = window.event
+    if (e.keyCode) code = e.keyCode;
+    else if (e.which) code = e.which;
+
+    var character = String.fromCharCode(code);
+    if (code==27) { this.blur(); return false; }
+
+    if (!e.ctrlKey && code!=9 && code!=8 && code!=229 && code!=192 && code!=15) {
+        if (character.match(restrictionType)) {
+            return true;
+        } else {
+            return false;
+            if (e.preventDefault) e.preventDefault();
+        }
     }
 }
