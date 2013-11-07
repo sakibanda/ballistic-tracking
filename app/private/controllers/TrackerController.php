@@ -270,7 +270,8 @@ class TrackerController extends BTController {
 		
 		//set campaign id
 		$click->offer_id = $offer->id();
-		$click->payout = $offer->payout;
+        //$click->payout = $offer->payout;
+		$click->payout = 0.00;
 		$click->useRuleSet('lpoffer');
 		$click->save();
 		
@@ -310,8 +311,9 @@ class TrackerController extends BTController {
 				BTApp::log("Direct Link: Invalid Offers For Tracker: " . $campaign->id(),'direct',BT_SYSLOG_CRITICAL); 
 			}
 
-			$payout = 0.00; //$campoffer->offer->payout;
-			$offer_id = $campoffer->offer->id();
+			//$payout = $campoffer->offer->payout;
+            $payout = 0.00;
+            $offer_id = $campoffer->offer->id();
 		}
 		else if($campaign->type == 1) {
 			$camplp = rotateLPCampaign($campaign);
