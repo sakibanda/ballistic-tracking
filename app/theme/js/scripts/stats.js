@@ -8,7 +8,8 @@ $(function() {
         "bLengthChange": false,
         "bInfo": false,
         "bPaginate": false,
-        "bDeferRender": true
+        "bDeferRender": true,
+        "sDom": '<"top"lT>rt<"footer"ip><"clear">'
     });
 
     var camp_id = $("#camp_id").val();
@@ -49,7 +50,10 @@ $(function() {
             { "sClass":"center","sType": "numeric" },
             { "sClass":"center","sType": "numeric" },
             { "sClass":"center","sType": "numeric" }
-        ]
+        ],
+        "oTableTools": {
+            "sSwfPath": "/theme/swf/copy_csv_xls_pdf.swf"
+        }
     });
 
     $("#lp_overview").dataTable({
@@ -70,12 +74,17 @@ $(function() {
             { "sClass":"center","sType": "numeric" },
             { "sClass":"center","sType": "numeric" },
             { "sClass":"center","sType": "numeric" }
-        ]
+        ],
+        "oTableTools": {
+            "sSwfPath": "/theme/swf/copy_csv_xls_pdf.swf"
+        }
     });
 
     $("#subid_overview").dataTable({
         "sAjaxSource": '/ajax/stats/subidData?campaign_id='+camp_id,
         "aaSorting": [[ 6, "desc" ]],
+        "iDisplayLength": 10,
+        "bLengthChange": true,
         "aoColumns": [
             {},
             { "sClass":"center"},
@@ -88,6 +97,10 @@ $(function() {
             { "sClass":"center"},
             { "sClass":"center"},
             { "sClass":"center"}
-        ]
+        ],
+        "oTableTools": {
+            "sSwfPath": "/theme/swf/copy_csv_xls_pdf.swf"
+        }
     });
+
 });
