@@ -288,7 +288,7 @@ function calculateWeights(section_obj) {
 
 function checkSlug(field){
     $.post('/ajax/tracker/code/searchSlug', $('#tracking_form').serialize(true), function(data) {
-        if(data){
+        if(data == true){
             var $dialog = $("<div>Duplicate slug, please enter another. <\/div>")
                 .dialog({
                     autoOpen: false,

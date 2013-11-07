@@ -527,8 +527,7 @@ class TrackerCodeController extends BTController {
     }
 
     public function searchSlugAction(){
-        if(isset($_POST['slug'])){
-            $valid = false;
+        if(isset($_POST['slug']) && $_POST['slug'] != ""){
             $sql = "SELECT campaign_id FROM bt_u_campaigns WHERE slug = '".$_POST['slug']."'";
             $result = DB::getRows($sql);
             if ($result!=null){

@@ -180,12 +180,16 @@ function restrictCharacters(myfield, e, restrictionType) {
     var character = String.fromCharCode(code);
     if (code==27) { this.blur(); return false; }
 
-    if (!e.ctrlKey && code!=9 && code!=8 && code!=229 && code!=192 && code!=15) {
+    if (!e.ctrlKey && !e.shiftKey && !e.altKey && code!=9 && code!=8 && code!=229 && code!=192 && code!=15) {
+        console.log(character);
         if (character.match(restrictionType)) {
             return true;
         } else {
             return false;
             if (e.preventDefault) e.preventDefault();
         }
+    }else if(code!=9 && code!=8){
+        return false;
+        if (e.preventDefault) e.preventDefault();
     }
 }
