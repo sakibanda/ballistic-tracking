@@ -98,7 +98,7 @@ class TrackerController extends BTController {
 		//var_dump($_GET);
 		//exit;
 		
-		$this->redirectAction();
+            $this->redirectAction();
 		
 		BTApp::end();
 	}
@@ -310,13 +310,13 @@ class TrackerController extends BTController {
 				BTApp::log("Direct Link: Invalid Offers For Tracker: " . $campaign->id(),'direct',BT_SYSLOG_CRITICAL); 
 			}
 
-			$payout = $campoffer->offer->payout;
+			$payout = 0.00; //$campoffer->offer->payout;
 			$offer_id = $campoffer->offer->id();
 		}
 		else if($campaign->type == 1) {
 			$camplp = rotateLPCampaign($campaign);
 			
-			$payout = 0;
+			$payout = 0.00;
 			
 			$landing_page = $camplp->landing_page;
 			$landing_page_id = $landing_page->id();

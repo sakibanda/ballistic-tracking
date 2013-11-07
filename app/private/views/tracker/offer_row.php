@@ -14,7 +14,7 @@
                     <?php } ?>
                 </td>
 				<td style="width: 90px;">Payout: $</td>
-				<td> <input onkeydown="validateNumber(event);" type="number"  name="offer_payout[]" type="text" value="<?php echo @$campoffer->offer->payout; ?>" /></td>
+				<td> <input onkeydown="validateNumber(event);" name="offer_payout[]" type="text" value="<?php echo @$campoffer->offer->payout; ?>" /></td>
 			</tr>
 			<tr class="no_row_borders">
 				<td style="width: 90px;">URL:</td>
