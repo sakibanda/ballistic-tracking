@@ -121,12 +121,12 @@ left join (select sum(amount) as cost from bt_u_spending where and deleted=0) sp
         //check amount first, so we dont overwrite the amount already in there.
         if($amount) {
             //$this->payout = $amount;
-            if($row['allow_duplicate_conversion'] == 1 && ( $this->payout != $amount)){
+            if(($row['allow_duplicate_conversion'] == 1) && ( $this->payout != $amount)){
                 $this->payout += $amount;
             }else{
                 $this->payout = $amount;
             }
-        }else if($row['allow_duplicate_conversion']){
+        }else if($row['allow_duplicate_conversion'] == 1){
             $offer = OfferModel::model()->getRowFromPk($this->offer_id);
             $this->payout = ($offer->payout)*($this->lead);
         }
