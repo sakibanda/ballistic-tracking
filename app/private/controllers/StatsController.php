@@ -58,17 +58,15 @@ class StatsController extends BTUserController {
                 //offer clicks
                 $offer_clicks = $result_offers[0]['clicks'];
                 //rev
-                $rev = (($row['payout']+$row['income'])+($result_offers[0]['payout']+$result_offers[0]['income']));
+                //$rev = (($row['payout']+$row['income'])+($result_offers[0]['payout']+$result_offers[0]['income']));
+                $rev = ($result_offers[0]['payout']+$result_offers[0]['income']);
                 //epc
                 $epc = ($row['income']+$result_offers[0]['income']) / $offer_clicks;
-                //rpi
-                $roi = calculate_roi(($row['income']+$result_offers[0]['income']),($row['cost']+$result_offers[0]['cost']));
             }else{
                 $leads = $row['leads'];
                 $offer_clicks = "0";
                 $rev = ($row['payout']+$row['income']);
                 $epc = "0";
-                $roi = calculate_roi($row['income'],$row['cost']);
             }
 
             //CAMPAIGN NAME
@@ -116,6 +114,7 @@ class StatsController extends BTUserController {
             $arr[] = $this->formatMoney($profit);
 
             //ROI
+            $roi = ($profit/$rev)*100;
             $arr[] = number_format(BTHtml::encode($roi), 0, '.', '') . '%';
 
             $output['aaData'][] = $arr;
@@ -201,7 +200,8 @@ class StatsController extends BTUserController {
             }
 
             //roi
-            $arr[] = number_format(BTHtml::encode($row['roi']),0,'.','') . '%';
+            $roi = ($profit/$rev)*100;
+            $arr[] = number_format(BTHtml::encode($roi),0,'.','') . '%';
             $output['aaData'][] = $arr;
         }
         echo json_encode($output);
@@ -235,17 +235,15 @@ class StatsController extends BTUserController {
                 //offer clicks
                 $offer_clicks = $result_offers[0]['clicks'];
                 //rev
-                $rev = (($row['payout']+$row['income'])+($result_offers[0]['payout']+$result_offers[0]['income']));
+                //$rev = (($row['payout']+$row['income'])+($result_offers[0]['payout']+$result_offers[0]['income']));
+                $rev = ($result_offers[0]['payout']+$result_offers[0]['income']);
                 //epc
                 $epc = ($row['income']+$result_offers[0]['income']) / $clicks;
-                //rpi
-                $roi = calculate_roi(($row['income']+$result_offers[0]['income']),($row['cost']+$result_offers[0]['cost']));
             }else{
                 $leads = $row['leads'];
                 $offer_clicks = "0";
                 $rev = ($row['payout']+$row['income']);
                 $epc = $row['income'] / $clicks;
-                $roi = calculate_roi($row['income'],$row['cost']);
             }
 
             //LP NAME
@@ -302,6 +300,7 @@ class StatsController extends BTUserController {
             $arr[] = $this->formatMoney($profit);
 
             //ROI
+            $roi = ($profit/$rev)*100;
             $arr[] = number_format(BTHtml::encode($roi),0,'.','') . '%';
 
             $output['aaData'][] = $arr;
