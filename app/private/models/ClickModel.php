@@ -108,15 +108,6 @@ left join (select sum(amount) as cost from bt_u_spending where and deleted=0) sp
         $result = DB::getRows($sql);
         $row = $result[0];
 
-		//check amount first, so we dont overwrite the amount already in there.
-		if($amount) {
-            //$this->payout = $amount;
-            if($row['allow_duplicate_conversion'] == 1){
-                $this->payout += $amount;
-            }else{
-                $this->payout = $amount;
-            }
-		}
 		$this->lead_manual = $manual;
 		//$this->lead = 1;
         if($row['allow_duplicate_conversion'] == 1){
@@ -126,7 +117,20 @@ left join (select sum(amount) as cost from bt_u_spending where and deleted=0) sp
         }
         $this->lead_time = time();
 		$this->lifetime = getClickLifetimeInterval(time() - $this->time); //save lifetime interval
-		$this->useRuleSet("pixel");
+
+        //check amount first, so we dont overwrite the amount already in there.
+        if($amount) {
+            //$this->payout = $amount;
+            if(($row['allow_duplicate_conversion'] == 1) && ( $this->payout != $amount)){
+                $this->payout += $amount;
+            }else{
+                $this->payout = $amount;
+            }
+        }else if($row['allow_duplicate_conversion'] == 1){
+            $offer = OfferModel::model()->getRowFromPk($this->offer_id);
+            $this->payout = ($offer->payout)*($this->lead);
+        }
+        $this->useRuleSet("pixel");
 
 		return $this->save();
 	}

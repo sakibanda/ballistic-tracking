@@ -14,7 +14,7 @@ $(document).ready(function(){
 
     $("#visitors_table").dataTable({
         bServerSide: true,
-        iDisplayLength: 10,
+        iDisplayLength: 50,
         sAjaxSource: "/ajax/spy/data",
         "sDom": '<"top"fl<"clear">>rt<"bottom"lip<"clear">>',
         fnInitComplete: function() {

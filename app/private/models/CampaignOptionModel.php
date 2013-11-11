@@ -105,6 +105,21 @@ class CampaignOptionModel extends BTModel {
             return false;
         }
 
+        $updateKey = "UPDATE bt_u_campaign_options as co SET co.value= '".generateRandomString(3,7)."'";
+        $updateKey .= " WHERE co.campaign_id = '$campaign_id' AND co.name = 'var_kw'";
+        if(!DB::query($updateKey)){
+            return false;
+        }
+
+        for ($i = 1; $i < 5; $i++) {
+            $updateVar = "UPDATE bt_u_campaign_options as co SET co.value= '".generateRandomString(3,7)."'";
+            $updateVar .= " WHERE co.campaign_id = '$campaign_id' AND co.name = 'var_v".$i."'";
+            if(!DB::query($updateVar)) {
+                return false;
+            }
+        }
+
         return true;
     }
+
 }

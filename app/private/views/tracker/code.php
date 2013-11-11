@@ -73,7 +73,7 @@
 					<label class="tooltip" title="The URL slug used for advanced redirects">Slug</label>
 					
 					<div>
-						<input type="text" name="slug" value="<?php echo $campaign->slug; ?>" />
+						<input id="slug" type="text" name="slug" value="<?php echo $campaign->slug; ?>" maxlength="50" onkeydown="return restrictCharacters(this, event, alphaNumeric);" onchange="checkSlug(this);" />
 					</div>
 				</div>
 				
@@ -93,7 +93,9 @@
 			</div>
 		</div>
 	</div>
-	
+
+    <?php $this->loadTemplate('message_boxes');  ?>
+
 	<div class="grid_12" id="offer_holder" class="offer_holder">
 		<div class="box with-table">
 			<div class="header">
@@ -322,6 +324,7 @@
 </div>
 
 <a name="tracking_bottom"></a>
+<script src="/theme/js/global.js"></script>
 <script src="/theme/js/scripts/campaigns.js"></script>
 <script>
     $(function(){

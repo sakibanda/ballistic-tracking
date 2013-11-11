@@ -285,3 +285,24 @@ function calculateWeights(section_obj) {
         }
     });
 }
+
+function checkSlug(field){
+    $.post('/ajax/tracker/code/searchSlug', $('#tracking_form').serialize(true), function(data) {
+        if(data == true){
+            var $dialog = $("<div>Duplicate slug, please enter another. <\/div>")
+                .dialog({
+                    autoOpen: false,
+                    title: "Ballistic Tracking says",
+                    width: 600,
+                    modal: true
+                });
+            $dialog.dialog('open');
+
+            $(".close_link_dialog").click(function() {
+                $dialog.dialog('close');
+            });
+            field.value = "";
+            field.focus();
+        }
+    },'json');
+}
