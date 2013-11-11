@@ -15,11 +15,11 @@ $(function() {
     var camp_id = $("#camp_id").val();
     $("#campaign_overview").dataTable({
         "sAjaxSource": '/ajax/stats/campaignData?campaign_id='+camp_id,
-        "aaSorting": [[ 5, "desc" ]],
+        "aaSorting": [[ 4, "desc" ]],
         "aoColumns": [
-            {},
+            {"sWidth": "20%"},
             { "sClass":"center","sType": "numeric" },
-            { "sClass":"center","sType": "numeric" },
+            //{ "sClass":"center","sType": "numeric" },
             { "sClass":"center","sType": "numeric" },
             { "sClass":"center","sType": "numeric" },
             { "sClass":"center","sType": "numeric" },
@@ -36,9 +36,10 @@ $(function() {
 
     $("#offer_overview").dataTable({
         "sAjaxSource": '/ajax/stats/offerData?campaign_id='+camp_id,
-        "aaSorting": [[ 3, "desc" ]],
+        "aaSorting": [[ 4, "desc" ]],
         "aoColumns": [
-            {},
+            {"sWidth": "20%"},
+            { "sClass":"center","sType": "numeric" },
             { "sClass":"center","sType": "numeric" },
             { "sClass":"center","sType": "numeric" },
             { "sClass":"center","sType": "numeric" },
@@ -58,11 +59,11 @@ $(function() {
 
     $("#lp_overview").dataTable({
         "sAjaxSource": '/ajax/stats/lpData?campaign_id='+camp_id,
-        "aaSorting": [[ 5, "desc" ]],
+        "aaSorting": [[ 4, "desc" ]],
         "aoColumns": [
-            {},
+            {"sWidth": "20%"},
             { "sClass":"center","sType": "numeric" },
-            { "sClass":"center","sType": "numeric" },
+            //{ "sClass":"center","sType": "numeric" },
             { "sClass":"center","sType": "numeric" },
             { "sClass":"center","sType": "numeric" },
             { "sClass":"center","sType": "numeric" },
@@ -82,9 +83,13 @@ $(function() {
 
     $("#subid_overview").dataTable({
         "sAjaxSource": '/ajax/stats/subidData?campaign_id='+camp_id,
+        "bInfo": true,
         "aaSorting": [[ 6, "desc" ]],
         "iDisplayLength": 10,
+        "bPaginate": true,
         "bLengthChange": true,
+        "bServerSide": true, //only ajax
+        "sServerMethod": "POST",
         "aoColumns": [
             {},
             { "sClass":"center"},

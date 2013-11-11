@@ -19,7 +19,7 @@
                 <tr>
                     <th>Campaign Name</th>
                     <th>Clicks</th>
-                    <th>LP Views</th>
+                    <!--<th>LP Views</th>-->
                     <th>Offer Clicks</th>
                     <th>LP CTR</th>
                     <th>Leads</th>
@@ -50,6 +50,7 @@
                 <thead>
                 <tr>
                     <th>Offers</th>
+                    <th>Clicks</th>
                     <th>Offer Clicks</th>
                     <th>LP CTR</th>
                     <th>Leads</th>
@@ -81,7 +82,7 @@
                 <tr>
                     <th>Landing Pages</th>
                     <th>Clicks</th>
-                    <th>LP Views</th>
+                    <!--<th>LP Views</th>-->
                     <th>Offer Clicks</th>
                     <th>LP CTR</th>
                     <th>Leads</th>
@@ -121,7 +122,7 @@
                     <th>Offer CVR</th>
                     <th>AVG Payout</th>
                     <th>EPC</th>
-                    <th>Income</th>
+                    <th>Revenue</th>
                 </tr>
                 </thead>
             </table>
