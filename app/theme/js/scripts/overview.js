@@ -14,14 +14,14 @@ $(function() {
         aoColumns: [
             { "bSortable": true,"sClass":"center","sType": "numeric" }, //id
             { "bSortable": true,"sType": "string" }, //name
-            { "bSortable": true,"sClass":"center","sType": "string" }, //type
+            { "bSortable": true,"sClass":"center","sType": "string", "sWidth": "5.5%"}, //type
             { "bSortable": true,"sClass":"center" }, //clicks
-            { "bSortable": true,"sClass":"center" }, //leads
-            { "bSortable": true,"sClass":"center" }, //Conv %
-            { "bSortable": true,"sClass":"center" }, //payout
-            { "bSortable": true,"sClass":"center" }, //epc
-            { "bSortable": true,"sClass":"center" }, //cpc
-            { "bSortable": true,"sClass":"center" }, //income
+            { "bSortable": true,"sClass":"center", "sWidth": "6%" }, //leads
+            { "bSortable": true,"sClass":"center", "sWidth": "7%", "sTitle":"LP CVR" }, //Conv %
+            //{ "bSortable": true,"sClass":"center" }, //payout
+            { "bSortable": true,"sClass":"center", "sWidth": "5.5%" }, //epc
+            { "bSortable": true,"sClass":"center", "sWidth": "5.5%" }, //cpc
+            { "bSortable": true,"sClass":"center", "sWidth": "6.5%" }, //income
             { "bSortable": true,"sClass":"center" }, //cost
             { "bSortable": true,"sClass":"center" }, //net
             { "bSortable": true,"sClass":"center" }, //roi

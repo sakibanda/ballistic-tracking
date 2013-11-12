@@ -21,7 +21,7 @@
 					<a class="open-add-client-dialog" id="download_cloaker_api" href="javascript:void(0);"><i class="icon-download-alt"></i>Download API File</a>
 				</div>
 				<div class="right">
-				</div>  
+				</div>
 			</div>
 			
 			<table class="dataTable" id="cloakers_table" cellpadding="0" cellspacing="0">

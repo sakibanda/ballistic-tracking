@@ -13,8 +13,7 @@
 						<th>Type</th>
 						<th>Clicks</th> 
 						<th>Leads</th>
-						<th>Conv</th>
-						<th>Payout</th>
+						<th>LP CVR</th>
 						<th>EPC</th>
 						<th>CPC</th>
 						<th>Income</th>
@@ -32,8 +31,7 @@
 						<th>Type</th>
 						<th>Clicks</th> 
 						<th>Leads</th>
-						<th>Conv</th>
-						<th>Payout</th>
+						<th>LP CVR</th>
 						<th>EPC</th>
 						<th>CPC</th>
 						<th>Income</th>
