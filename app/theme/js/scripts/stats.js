@@ -91,7 +91,7 @@ $(function() {
         "bServerSide": true, //only ajax
         "sServerMethod": "POST",
         "aoColumns": [
-            {},
+            { "sClass":"center"},
             { "sClass":"center"},
             { "sClass":"center"},
             { "sClass":"center"},

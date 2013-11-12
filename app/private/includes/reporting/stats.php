@@ -49,7 +49,6 @@ function runStats($user_pref){
     DB::query($sql);
     /** END CLICK DATA **/
 
-
     DB::query("update bt_c_statcache c
             left join (select
                     meta1,
@@ -65,6 +64,15 @@ function runStats($user_pref){
             set
                 c.clicks=data.clicks, c.click_throughs=data.click_throughs, c.click_through_rates=(c.click_throughs / c.clicks), c.leads=data.leads, c.conv=(c.leads / c.clicks), c.payout=data.payout, c.income=data.income
                 where (c.meta3 is null or c.meta3=0) AND (c.meta4 is null or c.meta4=0) AND type='stats' ");
+
+    /** GET ALL CAMPAIGNS TO FILL ZEROES, AND CALCULATE TOP-LEVEL CAMPAIGNS **/
+    /*
+    $sql = "select meta1 from bt_c_statcache where user_id='".$mysql['user_id']."' and type='stats' and meta1>0 and meta2=2 group by meta1";
+    $existing_rows = DB::getRows($sql,'meta1');
+    foreach($existing_rows as $campaign) {
+        DB::query("insert into bt_c_statcache set user_id='".$mysql['user_id']."', type='stats', meta1='" . DB::quote($campaign['meta1']) . "'");
+    }
+    */
 
     reCalculateIncomes($incomes);
     calculateCosts($spends);

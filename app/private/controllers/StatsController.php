@@ -46,7 +46,8 @@ class StatsController extends BTUserController {
         foreach($result as $row) {
             $arr = array();
 
-            $offers_query = "SELECT * FROM bt_c_statcache WHERE user_id='" . $mysql['user_id'] . "' AND type='stats' AND meta3!=0 AND meta1=" . $row['campaign_id'];
+            $offers_query = "SELECT sum( clicks ) AS clicks, sum( leads ) AS leads, sum( payout ) AS payout, sum( income ) AS income";
+            $offers_query .= " FROM bt_c_statcache WHERE user_id='" . $mysql['user_id'] . "' AND type='stats' AND meta3!=0 AND meta1=" . $row['campaign_id'];
             $result_offers = DB::getRows($offers_query);
 
             //clicks
@@ -79,7 +80,8 @@ class StatsController extends BTUserController {
             $arr[] = $offer_clicks;
 
             //LP CTR
-            $lpctr = (($offer_clicks / $clicks) * 100);
+            if($clicks>0) $lpctr = (($offer_clicks / $clicks) * 100);
+            else $lpctr = "0";
             $arr[] = number_format($lpctr, 2, '.', '') . '%';
 
             //LEADS
@@ -94,7 +96,8 @@ class StatsController extends BTUserController {
             }
 
             //LP CVR
-            $lpcvr = (($leads / $clicks) * 100);
+            if($clicks>0) $lpcvr = (($leads / $clicks) * 100);
+            else $lpcvr = "0";
             $arr[] = number_format($lpcvr, 2, '.', '') . '%';
 
             //EPC
@@ -114,7 +117,8 @@ class StatsController extends BTUserController {
             $arr[] = $this->formatMoney($profit);
 
             //ROI
-            $roi = ($profit/$rev)*100;
+            if($rev>0) $roi = ($profit/$rev)*100;
+            else $roi = "0";
             $arr[] = number_format(BTHtml::encode($roi), 0, '.', '') . '%';
 
             $output['aaData'][] = $arr;
@@ -200,7 +204,8 @@ class StatsController extends BTUserController {
             }
 
             //roi
-            $roi = ($profit/$rev)*100;
+            if($rev>0) $roi = ($profit/$rev)*100;
+            else $roi = "0";
             $arr[] = number_format(BTHtml::encode($roi),0,'.','') . '%';
             $output['aaData'][] = $arr;
         }
@@ -226,7 +231,8 @@ class StatsController extends BTUserController {
             //clicks
             $clicks = $row['clicks'];
 
-            $offers_query = "SELECT * FROM bt_c_statcache WHERE user_id='" . $mysql['user_id'] . "' AND type='stats' AND meta3!=0 AND meta1=" . $row['meta1'];
+            $offers_query = "SELECT sum( clicks ) AS clicks, sum( leads ) AS leads, sum( payout ) AS payout, sum( income ) AS income";
+            $offers_query .= " FROM bt_c_statcache WHERE user_id='" . $mysql['user_id'] . "' AND type='stats' AND meta3!=0 AND meta1=" . $row['meta1'];
             $result_offers = DB::getRows($offers_query);
 
             if($result_offers!=null){
@@ -296,7 +302,8 @@ class StatsController extends BTUserController {
             $arr[] = $this->formatMoney($profit);
 
             //ROI
-            $roi = ($profit/$rev)*100;
+            if($rev>0) $roi = ($profit/$rev)*100;
+            else $roi = "0";
             $arr[] = number_format(BTHtml::encode($roi),0,'.','') . '%';
 
             $output['aaData'][] = $arr;
