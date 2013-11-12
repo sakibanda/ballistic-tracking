@@ -256,12 +256,8 @@ class StatsController extends BTUserController {
             $arr[] = BTHtml::encode($offer_clicks);
 
             //LP CTR
-            if($clicks>0){
-                $lpctr = (($clicks/$clicks)*100);
-                $arr[] = number_format($lpctr,2,'.','') . '%';
-            }else{
-                $arr[] = "0.0%";
-            }
+            $lpctr = (($offer_clicks / $clicks) * 100);
+            $arr[] = number_format($lpctr, 2, '.', '') . '%';
 
             //LEADS
             $arr[] = BTHtml::encode($leads);
