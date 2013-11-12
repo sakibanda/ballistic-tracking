@@ -33,7 +33,7 @@ class IncomeController extends BtUserController {
         );
 
         $this->setVar("campaigns",$campaigns);
-        $this->setVar("title","Update Income");
+        $this->setVar("title","Income");
         $this->setVar("error",$error);
         $this->setVar("success",$success);
         $this->render("income/income");

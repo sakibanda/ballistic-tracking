@@ -9,7 +9,7 @@ class StatsController extends BTUserController {
 
     public function indexAction() {
         $this->useActionAsCurrentNav();
-        $this->setVar("title", "Campaign Stats");
+        $this->setVar("title", "Stats");
         $this->render("stats/index");
     }
 

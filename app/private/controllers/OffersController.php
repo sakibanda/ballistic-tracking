@@ -8,7 +8,7 @@ class OffersController extends BTUserController {
 	}
 	
 	public function indexAction() {
-		$this->setVar('title','My Offers');
+		$this->setVar('title','Offers');
 		$this->render('offers/index');
 	}
 

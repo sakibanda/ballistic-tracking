@@ -1,7 +1,7 @@
 <div class="grid_12">
 	<div class="box with-table">
 		<div class="header">
-			<h2>Spy View</h2>
+			<h2>Click Spy</h2>
 		</div>
 		<div class="tabletools">
 			<div class="left">

@@ -33,7 +33,7 @@ class SpendingController extends BtUserController {
 	
 		$this->setVar("campaigns",$campaigns);
 		
-		$this->setVar("title","Update Spending");
+		$this->setVar("title","Spending");
 		$this->setVar("error",$error);
 		$this->setVar("success",$success);
 		
