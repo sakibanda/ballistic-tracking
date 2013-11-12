@@ -229,7 +229,7 @@ class OverviewController extends BTUserController {
 	}
 	
 	public function getDataOverview() {
-		$cols = array('campaign_id','name','type','clicks','leads','conv','payout','epc','cpc','income','cost','net','roi','actions');
+		$cols = array('campaign_id','name','type','clicks','leads','conv','epc','cpc','income','cost','net','roi','actions');
 		
 		$this->getOverviewData();
 		

@@ -43,6 +43,10 @@ $(function() {
                     });
                 }
             });
+        },
+        "sDom": 'T<"clear"><lf>rtip',
+        "oTableTools": {
+            "sSwfPath": "/theme/swf/copy_csv_xls_pdf.swf"
         }
     });
 

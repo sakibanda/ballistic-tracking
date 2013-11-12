@@ -23,7 +23,7 @@ class CloakerController extends BTUserController {
 	}
 	
 	public function indexAction() {		
-		$this->setVar("title","Manage Cloakers");
+		$this->setVar("title","Advanced Redirects");
 
         $settings = SettingsModel::model()->getRow(array(
             'conditions'=>array(

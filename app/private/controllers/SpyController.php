@@ -2,7 +2,7 @@
 
 class SpyController extends BTUserController {
 	public function indexAction() {
-		$this->setVar("title","Spy View");
+		$this->setVar("title","Click Spy");
 		$this->render("spy/spy");
 	}
 	

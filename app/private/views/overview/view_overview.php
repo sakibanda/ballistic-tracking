@@ -5,16 +5,6 @@
 		</div>
 		
 		<div class="content">
-			<div class="tabletools">
-				<div class="left">
-					
-				</div>
-				
-				<div class="right">
-					<a href="#" onclick="exportCsv(); return false;">CSV</a>
-				</div>
-			</div>
-			
 			<table class="dataTable" id="overview_table" cellpadding="0" cellspacing="0">
 				<thead>
 					<tr>
@@ -23,8 +13,7 @@
 						<th>Type</th>
 						<th>Clicks</th> 
 						<th>Leads</th>
-						<th>Conv</th>
-						<th>Payout</th>
+						<th>LP CVR</th>
 						<th>EPC</th>
 						<th>CPC</th>
 						<th>Income</th>
@@ -42,8 +31,7 @@
 						<th>Type</th>
 						<th>Clicks</th> 
 						<th>Leads</th>
-						<th>Conv</th>
-						<th>Payout</th>
+						<th>LP CVR</th>
 						<th>EPC</th>
 						<th>CPC</th>
 						<th>Income</th>

@@ -67,6 +67,10 @@ $dialog->dialog();
 	}
     $(function(){
         $('#affnetwork_list').dataTable({
+            "sDom": 'T<"clear">lfrtip',
+            "oTableTools": {
+                "sSwfPath": "/theme/swf/copy_csv_xls_pdf.swf"
+            },
             "aoColumns": [
                 null,
                 {"sClass":"center"},
