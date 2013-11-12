@@ -4,9 +4,6 @@ $(function() {
     $('body').addClass('flex_width');
 
     $("#overview_table").dataTable({
-        "oTableTools": {
-            "sSwfPath": "/theme/swf/copy_csv_xls_pdf.swf"
-        },
         aaSorting: [[0,'desc']],
         bServerSide: true,
         bSearchable: false,
@@ -29,7 +26,22 @@ $(function() {
             { "bSortable": true,"sClass":"center" }, //net
             { "bSortable": true,"sClass":"center" }, //roi
             { "bSortable": false } //actions
-        ]
+        ],
+        "sDom": '<"top"T>rt<"footer"i><"clear">',
+        "oTableTools": {
+            "sSwfPath": "/theme/swf/copy_csv_xls_pdf.swf",
+            "aButtons": [
+                "copy",
+                "csv",
+                "xls",
+                {
+                    "sExtends": "pdf",
+                    "sPdfOrientation": "landscape",
+                    "sPdfMessage": "Your custom message would go here."
+                },
+                "print"
+            ]
+        }
     });
 });
 

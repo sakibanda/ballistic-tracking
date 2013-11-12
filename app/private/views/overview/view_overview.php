@@ -5,16 +5,6 @@
 		</div>
 		
 		<div class="content">
-			<div class="tabletools">
-				<div class="left">
-					
-				</div>
-				
-				<div class="right">
-					<a href="#" onclick="exportCsv(); return false;">CSV</a>
-				</div>
-			</div>
-			
 			<table class="dataTable" id="overview_table" cellpadding="0" cellspacing="0">
 				<thead>
 					<tr>

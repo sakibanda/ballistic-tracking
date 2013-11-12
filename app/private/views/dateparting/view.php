@@ -27,7 +27,7 @@
 
 <script type="text/javascript">
 	$("#weekparting_table").dataTable({
-		sDom: '<"filters"fl>rt',
+		//sDom: '<"filters"fl>rt',
 		bProcessing: false,
 		aaSorting: [[0,'asc']],
 		sPaginationType: 'full_numbers',
@@ -52,7 +52,22 @@
 			{ "bSortable": true }, //cost
 			{ "bSortable": true }, //net
 			{ "bSortable": true } //roi
-		]
+        ],
+        "sDom": 'T<"clear"><lf></lf>rt',
+        "oTableTools": {
+            "sSwfPath": "/theme/swf/copy_csv_xls_pdf.swf",
+            "aButtons": [
+                "copy",
+                "csv",
+                "xls",
+                {
+                    "sExtends": "pdf",
+                    "sPdfOrientation": "landscape",
+                    "sPdfMessage": "Your custom message would go here."
+                },
+                "print"
+            ]
+        }
 	});
 </script>
 
@@ -110,7 +125,7 @@
 
 <script type="text/javascript">
 	$("#dayparting_table").dataTable({
-		sDom: '<"filters"fl>rt',
+		//sDom: '<"filters"fl>rt',
 		bProcessing: false,
 		aaSorting: [[0,'asc']],
 		sPaginationType: 'full_numbers',
@@ -134,7 +149,22 @@
 			{ "bSortable": true }, //cost
 			{ "bSortable": true }, //net
 			{ "bSortable": true } //roi
-		]
+        ],
+        "sDom": 'T<"clear"><lf></lf>rt',
+        "oTableTools": {
+            "sSwfPath": "/theme/swf/copy_csv_xls_pdf.swf",
+            "aButtons": [
+                "copy",
+                "csv",
+                "xls",
+                {
+                    "sExtends": "pdf",
+                    "sPdfOrientation": "landscape",
+                    "sPdfMessage": "Your custom message would go here."
+                },
+                "print"
+            ]
+        }
 	});
 </script>
 

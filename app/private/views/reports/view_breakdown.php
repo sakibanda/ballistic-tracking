@@ -15,12 +15,7 @@ $stats_total['net'] = 0;
 			<h2>Breakdown</h2>
 		</div>
 		<div class="content">
-			<div class="tabletools">
-				<div class="right">
-					<a href="#" onclick="exportCsv(); return false;">CSV</a>
-				</div>
-			</div>
-			<table cellpadding="0" cellspacing="0" class="dataTable">
+			<table  id="breakdown_table" cellpadding="0" cellspacing="0" class="dataTable">
 				<thead><tr>   
 					<th>Time</th>
 					<th>Clicks</th> 
@@ -145,6 +140,27 @@ $stats_total['net'] = 0;
 </div>
 
 <script type="text/javascript">
+
+    $(function(){
+        $('#breakdown_table').dataTable({
+            "sDom": 'T<"clear">rt',
+            "oTableTools": {
+                "sSwfPath": "/theme/swf/copy_csv_xls_pdf.swf",
+                "aButtons": [
+                    "copy",
+                    "csv",
+                    "xls",
+                    {
+                        "sExtends": "pdf",
+                        "sPdfOrientation": "landscape",
+                        "sPdfMessage": "Your custom message would go here."
+                    },
+                    "print"
+                ]
+            }
+        });
+    });
+
     function exportCsv() {
         iframe = document.createElement('iframe');
         iframe.style.display = 'none';
