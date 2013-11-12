@@ -62,7 +62,8 @@ class StatsController extends BTUserController {
                 //$rev = (($row['payout']+$row['income'])+($result_offers[0]['payout']+$result_offers[0]['income']));
                 $rev = ($result_offers[0]['payout']+$result_offers[0]['income']);
                 //epc
-                $epc = ($row['income']+$result_offers[0]['income']) / $offer_clicks;
+                if($offer_clicks>0)$epc = ($row['income']+$result_offers[0]['income']) / $offer_clicks;
+                else $epc = "0";
             }else{
                 $leads = $row['leads'];
                 $offer_clicks = "0";
@@ -244,7 +245,8 @@ class StatsController extends BTUserController {
                 //$rev = (($row['payout']+$row['income'])+($result_offers[0]['payout']+$result_offers[0]['income']));
                 $rev = ($result_offers[0]['payout']+$result_offers[0]['income']);
                 //epc
-                $epc = ($row['income']+$result_offers[0]['income']) / $clicks;
+                if($clicks>0)$epc = ($row['income']+$result_offers[0]['income']) / $clicks;
+                else $epc = "0";
             }else{
                 $leads = $row['leads'];
                 $offer_clicks = "0";
