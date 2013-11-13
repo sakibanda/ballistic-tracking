@@ -32,7 +32,7 @@
 		<div class="content">
 			<?php
 				foreach($campaign->offers as $campoffer) {
-					printf("<p>%s:</p>",@$campoffer->offer->name);
+					printf("<p><b>%s: %s</b></p>",@$campoffer->offer->offer_id,@$campoffer->offer->name);
 					
 					printf("<p><textarea>%s</textarea></p>",$campoffer->getUrl());
 				}
