@@ -73,6 +73,19 @@ class AuthController {
         redirect(uri: "/")
     }
 
+//    def signOut = {
+//        // Log the user out of the application.
+//        def principal = SecurityUtils.subject?.principal
+//        SecurityUtils.subject?.logout()
+//        // For now, redirect back to the home page.
+//        if (ConfigUtils.getCasEnable() && ConfigUtils.isFromCas(principal)) {
+//            redirect(uri:ConfigUtils.getLogoutUrl())
+//        }else {
+//            redirect(uri: "/")
+//        }
+//        ConfigUtils.removePrincipal(principal)
+//    }
+
     def unauthorized = {
         render "You do not have permission to access this page."
     }

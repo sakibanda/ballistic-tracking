@@ -30,9 +30,10 @@
 			%{--<g:message code="user.settings.change.label"/>--}%
 			%{--</a></li>--}%
 
-			<li class=""><a href="${createLink(uri: '/')}">
+			<li class=""><a href="${createLink(uri: '/auth/signOut')}">
 				<i class="icon-off"></i>
 				<g:message code="security.signoff.label"/>
+
 			</a></li>
 		</ul>
 

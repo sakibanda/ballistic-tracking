@@ -21,7 +21,7 @@
 					<li class="dropdown">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Browse <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-		                    <g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName } }">
+		                    %{--<g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName } }">
 		                    <li class="controller">
 		                    	<g:link controller="${c.logicalPropertyName}">
 									<g:if test="${c.fullName.contains('HomeController')}">
@@ -33,7 +33,32 @@
 		                    		${c.fullName.substring(c.fullName.lastIndexOf('.')+1)}
 		                    	</g:link>
 		                    </li>
-		                    </g:each>
+		                    </g:each>--}%
+
+                            <li class="controller${params.controller == "home" ? " active" : ""}">
+
+                                <g:link controller="home" action="index">
+                                    <i class="icon-home"></i>
+                                    <g:message code="home.label" default="Home"/>
+                                </g:link>
+
+                            </li>
+
+                            <li class="controller${params.controller == "customer" ? " active" : ""}">
+                                <shiro:isLoggedIn>
+                                    <g:link controller="customer" action="index">
+                                        <g:message code="customer.label" default="Customer  "/>
+                                    </g:link>
+                                </shiro:isLoggedIn>
+                            </li>
+
+                            <li class="controller${params.controller == "click" ? " active" : ""}">
+                                <shiro:isLoggedIn>
+                                    <g:link controller="click" action="index">
+                                        <g:message code="click.label" default="Click"/>
+                                    </g:link>
+                                </shiro:isLoggedIn>
+                            </li>
 						</ul>
 					</li>
 				</ul>
