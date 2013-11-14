@@ -365,6 +365,21 @@ class CloakerController extends BTUserController {
 				$content = file_get_contents($file);
 				
 				$content = str_replace("{BT_URL}", getBTUrl(),$content);
+
+                //GET API KEY
+                $api_key = "";
+                $settings = SettingsModel::model()->getRow(array(
+                    'conditions'=>array(
+                        'user_id'=>getUserID()
+                    )
+                ));
+                if($settings==null){
+                    $api_key = "no_key";
+                }else{
+                    $api_key = $settings->keyId;
+                }
+
+                $content = str_replace("{API_KEY}", $api_key,$content);
 				
 				echo $content;
 				

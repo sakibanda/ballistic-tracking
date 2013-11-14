@@ -54,7 +54,8 @@ $payload = array(
 	'referer'=>$_SERVER['HTTP_REFERER'],
 	'version'=>API_VERS,
 	'slug'=>$request_uri,
-	'query'=>$_SERVER['QUERY_STRING']
+	'query'=>$_SERVER['QUERY_STRING'],
+    'api_key'=>"{API_KEY}"
 );
 
 $ch = curl_init("{BT_URL}/api/cloaker");

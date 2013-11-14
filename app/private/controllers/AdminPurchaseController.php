@@ -2,9 +2,14 @@
 
 loadController('AdminController');
 
-require_once(BT_ROOT . "/private/libs/2checkout-php/lib/Twocheckout.php");
-
 class AdminPurchaseController extends AdminController {
+
+    public function __construct() {
+        parent::__construct();
+
+        require_once(BT_ROOT . "/private/libs/2checkout-php/lib/Twocheckout.php");
+        require_once(BT_ROOT . '/private/includes/key.php');
+    }
 
     public function indexAction(){
 
@@ -47,6 +52,9 @@ class AdminPurchaseController extends AdminController {
             $this->render("admin/purchase/failed");
             BTApp::end();
         }
+
+        $key = generateKey();
+        sendEmailGenerateKey("barcelona23@gmail.com",$key);
 
         if ($passback['response_code'] == 'Success') {
             $id = $params['merchant_order_id'];
