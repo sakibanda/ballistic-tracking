@@ -43,8 +43,12 @@ class AdminPurchaseController extends AdminController {
 
         //Check the MD5 Hash to determine the validity of the sale.
         $passback = Twocheckout_Return::check($params, "tango", 'array');
+        if($passback==null){
+            $this->render("admin/purchase/failed");
+            BTApp::end();
+        }
 
-        if ($passback['code'] == 'Success') {
+        if ($passback['response_code'] == 'Success') {
             $id = $params['merchant_order_id'];
             $order_number = $params['order_number'];
             $invoice_id = $params['invoice_id'];
@@ -53,24 +57,23 @@ class AdminPurchaseController extends AdminController {
                 'order_number' => $order_number,
                 'last_invoice' => $invoice_id
             );
-            $this->ion_auth->update($id, $data);
-
+            //$this->ion_auth->update($id, $data);
+            $this->setVar("message",$passback['response_message']);
             $this->render("admin/purchase/success");
-            /*
-            $this->load->view('/include/header');
-            $this->load->view('/include/navblank');
-            $this->load->view('/order/return_success');
-            $this->load->view('/include/footer');
-            */
         } else {
+            $this->setVar("message",$passback['response_message']);
             $this->render("admin/purchase/failed");
-            /*
-            $this->load->view('/include/header');
-            $this->load->view('/include/navblank');
-            $this->load->view('/order/return_failed');
-            $this->load->view('/include/footer');
-            */
         }
+    }
+
+    public function successAction(){
+        $this->setVar("title","Success Transaction");
+        $this->render("admin/purchase/success");
+    }
+
+    public function failedAction(){
+        $this->setVar("title","Failed Transaction");
+        $this->render("admin/purchase/failed");
     }
 
 }
