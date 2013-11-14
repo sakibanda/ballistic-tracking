@@ -58,7 +58,7 @@ class ReportsController extends BTUserController {
                 }
             }
         }
-
+        /*
         if(!empty($_POST['deviceData'])) {
             foreach($_POST['deviceData'] as $option){
                 if($option != ""){
@@ -67,7 +67,7 @@ class ReportsController extends BTUserController {
                 }
             }
         }
-
+        */
         if(!empty($_POST['carrierData'])) {
             foreach($_POST['carrierData'] as $option){
                 if($option=="carrier")
@@ -99,9 +99,9 @@ class ReportsController extends BTUserController {
         $sql_from =" FROM bt_s_clicks c
         LEFT JOIN bt_s_clicks_site cs ON c.click_id = cs.click_id
         LEFT JOIN bt_s_clicks_advanced ca ON c.click_id = ca.click_id ";
-        if(!empty($_POST['deviceData'])) {
+        /*if(!empty($_POST['deviceData'])) { */
             $sql_from .="LEFT JOIN bt_s_device_data d ON ca.device_id = d.device_id ";
-        }
+        /*}*/
         $sql_from .="LEFT JOIN bt_s_ips i ON (ca.ip_id = i.ip_id)
         LEFT JOIN bt_s_keywords k ON (ca.keyword_id = k.keyword_id)
         LEFT JOIN bt_g_geo_locations l ON (ca.location_id = l.location_id)

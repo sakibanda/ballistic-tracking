@@ -300,7 +300,7 @@ $html['page'] = BTHtml::encode($page); ?>
                     <input type="checkbox" name="campaignData[]" data-column="Lifetime" value="c.lifetime"><p>Lifetime</p>
                 </div>
             </fieldset>
-
+            <!--
             <fieldset>
                 <legend>Device Data</legend>
                 <div class="reportOptions">
@@ -311,10 +311,10 @@ $html['page'] = BTHtml::encode($page); ?>
                     <input type="checkbox" name="deviceData[]" data-column="Name" value="d.brand"><p>Name</p>
                     <input type="checkbox" name="deviceData[]" data-column="Model" value="d.type"><p>Model</p>
                     <!--<input type="checkbox" name="deviceData[]" data-column="Device Type" value="d.type"><p>Device Type</p>
-                    <input type="checkbox" name="deviceData[]" data-column="Operating System" value="d.os"><p>Operating System</p>-->
+                    <input type="checkbox" name="deviceData[]" data-column="Operating System" value="d.os"><p>Operating System</p>
                 </div>
             </fieldset>
-
+            -->
             <fieldset>
                 <legend>Carrier Data</legend>
                 <div class="reportOptions">
