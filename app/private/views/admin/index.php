@@ -13,9 +13,9 @@
             </div>
             <div class="content">
                 <div class="row">
-                    <label for="keyId">Key Id</label>
+                    <label for="keyId">Api KEY</label>
                     <div>
-                        <input type="text" name="keyId" value="<?php echo @$settings->keyId; ?>"/>
+                        <input type="text" name="api_key" value="<?php echo @$settings->api_key; ?>"/>
                     </div>
                 </div>
                 <div class="row">

@@ -24,7 +24,8 @@ class SettingsModel extends BTModel {
 
     public function rules() {
         return array(
-            array('keyId','optional',array('for'=>array('new','edit'))),
+            array('pass_key','optional',array('for'=>array('new','edit'))),
+            array('api_key','optional',array('for'=>array('new','edit'))),
             array('domain','optional',array('for'=>array('new','edit')))
         );
     }

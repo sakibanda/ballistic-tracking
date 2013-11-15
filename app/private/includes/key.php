@@ -4,15 +4,16 @@ function generateKey(){
     return md5(microtime().rand());
 }
 
-function sendEmailGenerateKey($emailTo,$key){
+function sendEmailGenerateKey($emailTo,$key,$data){
     //now email the user the script to reset their email
     $to = $emailTo;
-    $subject = "Ballistic Tracking KEY";
+    $subject = "Ballistic Tracking API KEY";
     $message = "
-		<p>Use this key.</p>
+		<p>Use this Api key.</p>
 		<p>Key: ".$key."</p>";
 
-    $from = "ballistictracking@".$_SERVER['SERVER_NAME'];
+    //$from = "ballistictracking@".$_SERVER['SERVER_NAME'];
+    $from = "info@puresrc.com";
 
     $header = "From: Ballistic Tracking<" . $from . "> \r\n";
     $header .= "Reply-To: ".$from." \r\n";

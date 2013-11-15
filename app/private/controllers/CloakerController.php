@@ -376,7 +376,7 @@ class CloakerController extends BTUserController {
                 if($settings==null){
                     $api_key = "no_key";
                 }else{
-                    $api_key = $settings->keyId;
+                    $api_key = $settings->api_key;
                 }
 
                 $content = str_replace("{API_KEY}", $api_key,$content);

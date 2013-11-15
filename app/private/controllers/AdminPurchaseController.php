@@ -6,14 +6,13 @@ class AdminPurchaseController extends AdminController {
 
     public function __construct() {
         parent::__construct();
-
+        $this->loadModel('SettingsModel');
         require_once(BT_ROOT . "/private/libs/2checkout-php/lib/Twocheckout.php");
         require_once(BT_ROOT . '/private/includes/key.php');
     }
 
     public function indexAction(){
-
-        $this->setVar("title","Purchase a Key");
+        $this->setVar("title","Purchase an Api Key");
         $this->render("admin/purchase/index");
     }
 
@@ -26,16 +25,15 @@ class AdminPurchaseController extends AdminController {
         $args = array(
             'sid' => 1824492,
             'mode' => "2CO",
-            'li_0_name' => $_POST['li_0_name'],
-            'li_0_type' => $_POST['li_0_type'],
-            'li_0_price' => $_POST['li_0_price'],
-            'li_0_recurrence' => $_POST['li_0_recurrence'],
+            'li_0_name' => $_POST['li_0_name'], //Advance Redirect
+            'li_0_type' => $_POST['li_0_type'], //Professional
+            'li_0_price' => $_POST['li_0_price'],//5000
+            'li_0_recurrence' => $_POST['li_0_recurrence'], //1 Month
             'merchant_order_id' => $mysql['user_id']
         );
 
         //pass the buyer and the parameters to the checkout
         Twocheckout_Charge::redirect($args);
-
     }
 
     public function passbackAction(){
@@ -54,7 +52,18 @@ class AdminPurchaseController extends AdminController {
         }
 
         $key = generateKey();
-        sendEmailGenerateKey("barcelona23@gmail.com",$key);
+
+        $error = array();
+        $settings = new SettingsModel();
+        $settings->useRuleSet('new');
+        $settings->pass_key = $key;
+        $settings->domain = $_POST['domain'];
+
+        if($settings->save()) {
+            sendEmailGenerateKey("barcelona23@gmail.com",$key,$params);
+        }else {
+            $error = $settings->getErrors();
+        }
 
         if ($passback['response_code'] == 'Success') {
             $id = $params['merchant_order_id'];
@@ -72,6 +81,8 @@ class AdminPurchaseController extends AdminController {
             $this->setVar("message",$passback['response_message']);
             $this->render("admin/purchase/failed");
         }
+
+        $this->setVar("error",$error);
     }
 
     public function successAction(){
