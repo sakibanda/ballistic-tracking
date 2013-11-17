@@ -125,6 +125,7 @@
         <overview>
             <show_time>true</show_time>
             <show_traffic_source>true</show_traffic_source>
+            <show_campaign>true</show_campaign>
             <show_bottom>true</show_bottom>
             <show_type>true</show_type>
         </overview>
@@ -147,7 +148,7 @@
             <show_campaign>true</show_campaign>
             <show_status>false</show_status>
             <show_group>false</show_group>
-            <show_timezone>true</show_timezone>
+            <!--<show_timezone>true</show_timezone> /***Ticket#174-->
             <show_bottom>true</show_bottom>
             <show_button_report>false</show_button_report>
             <show_custom_report>true</show_custom_report>
