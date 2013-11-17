@@ -15,17 +15,22 @@ class AdminSettingsController extends AdminController {
         $settings = new SettingsModel();
 
         if(isset($_POST['api_key']) && !empty($_POST['api_key'])){
-            if(!($settings = SettingsModel::model()->getRowFromPk($_POST['id']))) {
-                $settings = SettingsModel::model();
-                $settings->useRuleSet('new');
-            }
-            $settings->api_key = $_POST['api_key'];
-            $settings->domain = $_POST['domain'];
-
-            if($settings->save()) {
-                $success = "Settings saved";
-            }else {
-                $error = $settings->getErrors();
+            $settings = SettingsModel::model()->getRowFromPk($_POST['id']);
+            if($settings != null){
+                if($settings->pass_key == $_POST['api_key']){
+                    $settings->api_key = $_POST['api_key'];
+                    $settings->domain = $_POST['domain'];
+                    if($settings->save()) {
+                        $success = "Settings saved";
+                    }else {
+                        $error = $settings->getErrors();
+                    }
+                }else{
+                    array_push($error,"The API KEY did not recognize.");
+                }
+            }else{
+                $settings = new SettingsModel();
+                array_push($error,"It seems like You haven't purchased any API KEY.");
             }
         }
 

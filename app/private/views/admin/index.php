@@ -4,6 +4,8 @@
 	<span>Admin Settings</span>
 </h1>
 
+<?php $this->loadTemplate('message_boxes');  ?>
+
 <div class="grid_6" id="settings">
     <form action="/admin/settings/save" method="post">
         <input type="hidden" name="id" value="<?php echo @$settings->Id(); ?>"/>

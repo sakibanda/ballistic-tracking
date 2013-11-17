@@ -25,10 +25,10 @@ class AdminPurchaseController extends AdminController {
         $args = array(
             'sid' => 1824492,
             'mode' => "2CO",
-            'li_0_name' => $_POST['li_0_name'], //Advance Redirect
-            'li_0_type' => $_POST['li_0_type'], //Professional
-            'li_0_price' => $_POST['li_0_price'],//5000
-            'li_0_recurrence' => $_POST['li_0_recurrence'], //1 Month
+            'li_0_name' => "Advance Redirect",
+            'li_0_type' => "Professional",
+            'li_0_price' => "5000",
+            'li_0_recurrence' => "1 Month",
             'merchant_order_id' => $mysql['user_id']
         );
 
