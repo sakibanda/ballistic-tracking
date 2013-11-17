@@ -72,7 +72,7 @@ class OverviewController extends BTUserController {
 									
 		DB::query($sql);
 		/** END CLICK DATA **/
-		
+
 		/** GET ALL CAMPAIGNS TO FILL ZEROES, AND CALCULATE TOP-LEVEL CAMPAIGNS **/
 		$sql = "select meta1 from bt_c_statcache where user_id='$user_id' and type='overview' and meta1>0 group by meta1";
 		
@@ -81,11 +81,14 @@ class OverviewController extends BTUserController {
 		if($ts_id) {
 			$conditions['traffic_source_id'] = $ts_id;
 		}
-		
-		$campaigns = CampaignModel::model()->getRows(array('conditions'=>$conditions));
-		
+
+        if (DB::quote(BTAuth::user()->getPref('campaign_id'))){
+            $campaigns =  array(CampaignModel::model()->getRowFromPk(DB::quote(BTAuth::user()->getPref('campaign_id'))));
+        }else{
+            $campaigns = CampaignModel::model()->getRows(array('conditions'=>$conditions));
+        }
 		$existing_rows = DB::getRows($sql,'meta1');
-				
+
 		//insert blank rows wheren eeded
 		foreach($campaigns as $campaign) {
 			if(isset($existing_rows[$campaign->id()])) {		
@@ -105,7 +108,8 @@ class OverviewController extends BTUserController {
 			
 			DB::query("insert into bt_c_statcache set user_id='$user_id', type='overview', meta1='" . DB::quote($campaign->id()) . "'");
 		}
-		
+
+
 		//calculate top-level stats
 		foreach($campaigns as $campaign) {
 			DB::query("update bt_c_statcache c
