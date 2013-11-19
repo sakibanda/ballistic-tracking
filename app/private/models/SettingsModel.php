@@ -26,7 +26,10 @@ class SettingsModel extends BTModel {
         return array(
             array('pass_key','optional',array('for'=>array('new','edit'))),
             array('api_key','optional',array('for'=>array('new','edit'))),
-            array('domain','optional',array('for'=>array('new','edit')))
+            array('domain','optional',array('for'=>array('new','edit'))),
+            array('buy_date','optional',array('for'=>array('new','edit'))),
+            array('type','required',array('message'=>'Invalid type','for'=>array('new'))),
+            array('recurrence','number',array('for'=>array('new','edit'))),
         );
     }
 
