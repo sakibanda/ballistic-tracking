@@ -58,12 +58,12 @@ function runStats($user_pref){
                     (sum(s.income) / sum(s.clicks)) as payout,
                     sum(s.income) as income
                     from bt_c_statcache s
-                    where type='stats'
+                    where type='stats' AND user_id='".$mysql['user_id']."'
                   ) data
             on data.meta1 > 0
             set
                 c.clicks=data.clicks, c.click_throughs=data.click_throughs, c.click_through_rates=(c.click_throughs / c.clicks), c.leads=data.leads, c.conv=(c.leads / c.clicks), c.payout=data.payout, c.income=data.income
-                where (c.meta3 is null or c.meta3=0) AND (c.meta4 is null or c.meta4=0) AND type='stats' ");
+                where (c.meta3 is null or c.meta3=0) AND (c.meta4 is null or c.meta4=0) AND type='stats' AND user_id='".$mysql['user_id']."' ");
 
     /** GET ALL CAMPAIGNS TO FILL ZEROES, AND CALCULATE TOP-LEVEL CAMPAIGNS **/
     $sql = "select meta1 from bt_c_statcache where user_id='".$mysql['user_id']."' and type='stats' and meta1>0 and meta2=2 group by meta1";
@@ -89,7 +89,7 @@ function reCalculateIncomes($incomes){
         $row['income'] = $row['income'] + $income;
         DB::query("update bt_c_statcache set
 				income='" . DB::quote($row['income']) . "'
-				where id='" . DB::quote($row['id']) . "'");
+				where id='" . DB::quote($row['id']) . "' AND type='stats' AND user_id='$user_id' ");
     }
 }
 
@@ -116,7 +116,7 @@ function calculateCosts($spends) {
 				cpc='" . DB::quote($row['cpc']) . "',
 				net='" . DB::quote($row['net']) . "',
 				roi='" . DB::quote($row['roi']) . "'
-				where id='" . DB::quote($row['id']) . "' and type='stats' ");
+				where id='" . DB::quote($row['id']) . "' and type='stats' AND user_id='$user_id' ");
 
         //if it has a campaign, update the top lvl LP as well
         if($row['meta2']) {

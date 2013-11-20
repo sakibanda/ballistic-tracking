@@ -58,6 +58,8 @@ class AdminPurchaseController extends AdminController {
         $settings->useRuleSet('new');
         $settings->pass_key = $key;
         $settings->domain = $_POST['domain'];
+        $settings->type = "Advance Redirect";
+        $settings->recurrence = 1;
 
         if($settings->save()) {
             sendEmailGenerateKey("barcelona23@gmail.com",$key,$params);
@@ -87,6 +89,34 @@ class AdminPurchaseController extends AdminController {
 
     public function successAction(){
         $this->setVar("title","Success Transaction");
+        /*
+        $to = "me@adriancr.com";
+        $subject = "Ballistic Tracking API KEY";
+        $message = "<p>Key: 111111111</p>";
+
+        //$from = "ballistictracking@".$_SERVER['SERVER_NAME'];
+        $from = "adrian.buy@gmail.com";
+
+        $header = "From: Ballistic Tracking<" . $from . "> \r\n";
+        $header .= "Reply-To: ".$from." \r\n";
+        $header .=  "To: " . $to . " \r\n";
+        $header .= "Content-Type: text/html; charset=\"iso-8859-1\" \r\n";
+        $header .= "Content-Transfer-Encoding: 8bit \r\n";
+        $header .= "MIME-Version: 1.0 \r\n";
+
+        mail($to,$subject,$message,$header);
+        */
+
+        $headers = "From: cv@adriancr.com" . "\r\n";
+        $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+        $emailbody = "<p>You have recieved a new message from the enquiries form on your website.</p>
+                  <p><strong>Name: </strong>  </p>
+                  <p><strong>Email Address: </strong>  </p>
+                  <p><strong>Message: </strong>  </p>
+                  <p>This message was sent from the IP Address: </p>";
+        mail("cv@adriancr.com","Contact-Me Form",$emailbody,$headers);
+
+        $this->setVar("message","enviado.");
         $this->render("admin/purchase/success");
     }
 
