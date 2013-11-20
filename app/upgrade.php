@@ -17,7 +17,11 @@ function upgradeVersion($version) {
 }
 
 define('BT_IS_ROUTED',false);
-define('BYPASS_CONFIG_LOCATION','/bt-config/conf.php');
+
+$file = BT_ROOT . '/bt-config/bt-config.php';
+if(file_exists($file)){
+    define('BYPASS_CONFIG_LOCATION','/bt-config/conf.php');
+}
 
 require_once(__DIR__. '/private/includes/BTApp.php');
 

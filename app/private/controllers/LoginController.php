@@ -24,7 +24,14 @@ class LoginController extends BTController {
 		$this->loadTemplate("public_header");
 		
 		$this->setVar("success",$success);
-		$this->loadView("login/login");
+
+        $file = BT_ROOT . '/bt-config/bt-config.php';
+        if(file_exists($file)){
+            $this->loadView("login/login");
+        }else{
+            header("Location: /dbconfig");
+            BTApp::end();
+        }
 		
 		$this->loadTemplate("public_footer");
 	}

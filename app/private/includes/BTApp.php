@@ -93,8 +93,14 @@ class BTApp {
 		
 		//no parts? Goto login. 
 		if(!$uri_parts[0]) {
-			header("Location: /login");
-			BTApp::end();
+            $file = BT_ROOT . '/bt-config/bt-config.php';
+            if(file_exists($file)){
+                header("Location: /login");
+                BTApp::end();
+            }else{
+                header("Location: /dbconfig");
+                BTApp::end();
+            }
 		}
 				
 		//Is ajax call?

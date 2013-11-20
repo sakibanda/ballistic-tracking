@@ -21,9 +21,12 @@ if(!class_exists('BTApp')) {
 
 //include mysql settings
 if(!defined("BYPASS_CONFIG_LOCATION")) {
-	require_once(BT_ROOT . '/bt-config/bt-config.php');
-}
-else {
+	//require_once(BT_ROOT . '/bt-config/bt-config.php');
+    $file = BT_ROOT . '/bt-config/bt-config.php';
+    if(file_exists($file)){
+        require_once(BT_ROOT . '/bt-config/bt-config.php');
+    }
+}else {
 	require_once(BT_ROOT . BYPASS_CONFIG_LOCATION);
 }
 require_once(BT_ROOT . '/private/includes/db.php');
