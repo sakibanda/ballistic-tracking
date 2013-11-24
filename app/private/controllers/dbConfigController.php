@@ -43,4 +43,9 @@ class dbConfigController extends BTController {
         $this->loadTemplate("public_footer");
     }
 
+    public function unzipAction() {
+        $script_file = BT_ROOT . '/install/db/database.zip';
+        $this->loadTemplate("");
+    }
+
  }

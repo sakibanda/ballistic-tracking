@@ -61,11 +61,12 @@ class AdminController extends BTAdminController {
 					<span class="icon icon-tasks"></span>
 					What's New?
 				</a>
-
+                <!--
                 <a href="/admin/purchase">
                     <span class="icon icon-key"></span>
                     Purchase a Key
                 </a>
+                -->
 			</div>
 		</div>
 		<?php
