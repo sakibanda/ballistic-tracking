@@ -1,3 +1,5 @@
-<h1>Install</h1>
-<p>install running...</p>
-<p>unzip database running...</p>
+<?php $this->loadTemplate('message_boxes');  ?>
+
+<h1>Running...</h1>
+<p>Unzip database...</p>
+<p>Intalling database...</p>

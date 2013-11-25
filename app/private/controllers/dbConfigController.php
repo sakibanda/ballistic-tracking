@@ -44,8 +44,17 @@ class dbConfigController extends BTController {
     }
 
     public function unzipAction() {
-        $script_file = BT_ROOT . '/install/db/database.zip';
-        $this->loadTemplate("");
+        $script_file = BT_ROOT . '/install/db/ballistic.zip';
+        $zip = new ZipArchive;
+        $zip->open($script_file);
+        $zip->extractTo(BT_ROOT . '/install/db/');
+        $zip->close();
+        $success = "Database installed successfully";
+        $this->setVar("title","Unzip Database");
+        $this->loadTemplate("public_header");
+        $this->setVar("success",$success);
+        $this->loadView("dbconfig/unzip");
+        $this->loadTemplate("public_footer");
     }
 
  }
