@@ -1,9 +1,10 @@
 <?php
 
-class planValidationController extends BTController {
+class PlanValidationController extends BTController {
     public function indexAction() {
-        $success = true;
-        $message = "";
+        $success = false;
+        $error = array();
+
         //$cookie = getArrayVar($_COOKIE,'bt_auth');
         //if(!$cookie) { return false; }
         if(isset($_POST['key']) && isset($_POST['domain_name'])){
@@ -15,26 +16,31 @@ class planValidationController extends BTController {
                 $result = DB::getRows($sql_plan);
 
                 if ($result[0]['pass_key']!=BTAuth::salt_pass($_POST['key'])){
-                    $message = 'Invalid credentials.';
-                    $success = false;
+                    $error = 'Invalid credentials.';
                 }else{
                     $sql_update = "UPDATE bt_u_settings as s SET s.api_key ='".BTAuth::salt_pass($_POST['key'])."' WHERE s.settings_id = ".$result[0]['settings_id'];
-                    if(!DB::query($sql_update)){ $success = false; $message = 'Failed to activate plan, please try again';}
+                    if(!DB::query($sql_update)){
+                        $error = 'Failed to activate plan, please try again';
+                    }
                     BTAuth::set_auth_cookie(" ",time());
                     header('location: /login');
                     BTApp::end();
                 }
             }else{
-                $success = false;
-                $message = 'Currently there are pending activation plans for this domain.';
+                $error = 'Currently there are pending activation plans for this domain.';
             }
+        }
+
+        if(isset($_GET['error'])){
+            if($_GET['error']=="1")
+                $error="Invalid API KEY";
         }
 
         $this->setVar("title","Plan Validation");
         $this->loadTemplate("public_header");
         $this->setVar("success",$success);
-        $this->setVar("message",$message);
-        $this->loadView("planValidation/planValidation");
+        $this->setVar("error",$error);
+        $this->loadView("planValidation/index");
 
         $this->loadTemplate("public_footer");
     }

@@ -1,3 +1,5 @@
+<?php $this->loadTemplate('message_boxes');  ?>
+
 <div class="grid_6 center_col">
     <div><br><br><br></div>
     <form method="post" action="/planValidation" class="box">
@@ -9,7 +11,6 @@
             <!-- Login messages -->
             <div class="login-messages">
                 <div class="message welcome">Enter plan data acquired</div>
-                <div class="message failure" style="display: <?php echo ($success) ? 'none' : 'block'; ?>;"><?php echo $message?></div>
             </div>
 
             <div class="form-box">

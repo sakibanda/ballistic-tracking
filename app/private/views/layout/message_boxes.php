@@ -11,7 +11,7 @@ extract(array_merge($defaults,$this->_templateVars));
 		<span class="icon"></span>
 		<strong>Error:</strong>
 		<span class="message">
-			<?php echo (is_array($error)) ? join('<br>',$error) : $errror; ?>
+			<?php echo (is_array($error)) ? join('<br>',$error) : $error; ?>
 		</span>
 	</div>
 	

@@ -257,7 +257,7 @@ class BTAuth {
 
     public static function  validatePlan($user_id){
 
-        $url = 'http://localhost/license_check.php?license=abc1231';
+        $url = 'http://ballistictracking.com/license_check/?license=abc123';
         $handle = curl_init($url);
         curl_setopt($handle,  CURLOPT_RETURNTRANSFER, TRUE);
 
@@ -265,7 +265,7 @@ class BTAuth {
         $response = curl_exec($handle);
         $test_mode_mail = $response === 'true'? true: false;
         if(!$test_mode_mail){
-            header("Location: /planValidation");
+            header("Location: /planValidation?error=1");
         }
         //echo $response;
 
