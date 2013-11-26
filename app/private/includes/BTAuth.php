@@ -256,6 +256,26 @@ class BTAuth {
 	}
 
     public static function  validatePlan($user_id){
+
+        $url = 'http://localhost/license_check.php?license=abc1231';
+        $handle = curl_init($url);
+        curl_setopt($handle,  CURLOPT_RETURNTRANSFER, TRUE);
+
+        /* Get the HTML or whatever is linked in $url. */
+        $response = curl_exec($handle);
+        $test_mode_mail = $response === 'true'? true: false;
+        if(!$test_mode_mail){
+            header("Location: /planValidation");
+        }
+        //echo $response;
+
+        /* Check for 404 (file not found). */
+        $httpCode = curl_getinfo($handle, CURLINFO_HTTP_CODE);
+
+        //echo $httpCode;
+
+        curl_close($handle);
+       /*
        if(isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] != ""){
 
            $sql_plan = "SELECT s.settings_id ,s.pass_key,s.api_key, s.domain,s.buy_date, s.recurrence FROM bt_u_settings s WHERE s.type = 'Ballistic' AND s.user_id =".$user_id;
@@ -278,6 +298,7 @@ class BTAuth {
                 }
 
            }
-        }
+       }
+       */
     }
 }
