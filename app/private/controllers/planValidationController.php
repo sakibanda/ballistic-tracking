@@ -1,6 +1,7 @@
 <?php
 
 class PlanValidationController extends BTController {
+
     public function indexAction() {
         $success = false;
         $error = array();
@@ -34,6 +35,8 @@ class PlanValidationController extends BTController {
         if(isset($_GET['error'])){
             if($_GET['error']=="1")
                 $error="Invalid API KEY";
+            if($_GET['error']=="2")
+                $error="Please enter your API KEY information";
         }
 
         $this->setVar("title","Plan Validation");

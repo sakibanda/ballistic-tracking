@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS `bt_u_settings` (
   `buy_date` date NOT NULL,
   `type` varchar(100) CHARACTER SET utf8 NOT NULL,
   `recurrence` mediumint(9) NOT NULL,
+  `active` tinyint(4) NOT NULL DEFAULT '1',
   `deleted` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`settings_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7;

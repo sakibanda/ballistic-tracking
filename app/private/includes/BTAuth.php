@@ -166,14 +166,15 @@ class BTAuth {
 			self::set_auth_cookie($_COOKIE['bt_auth'],$expire);
 			DB::query("update bt_s_authsessions set expire='" . $expire_format . "' where session_id='" . DB::quote($session['session_id']) . "'");
 		}
-
-        self::validatePlan($user_id);
 		
 		return true;
 	}
 	
 	public static function set_auth_cookie($cookie,$time) {
-		setcookie('bt_auth',$cookie,$time,'/','.' . $_SERVER['HTTP_HOST']);
+        /* If Google Chrome doesn't work, it's because disabling cookies for IP addresses and localhost was a design decision. */
+        setcookie('bt_auth',$cookie,$time,'/',null,false,true);
+
+		//setcookie('bt_auth',$cookie,$time,'/','.' . $_SERVER['HTTP_HOST']);
 		$_COOKIE['bt_auth'] = $cookie; //to avoid php weirdness with cookie not getting set after setcookie for this page load
 	}
 
@@ -255,50 +256,4 @@ class BTAuth {
 		}
 	}
 
-    public static function  validatePlan($user_id){
-
-        $url = 'http://ballistictracking.com/license_check/?license=abc123';
-        $handle = curl_init($url);
-        curl_setopt($handle,  CURLOPT_RETURNTRANSFER, TRUE);
-
-        /* Get the HTML or whatever is linked in $url. */
-        $response = curl_exec($handle);
-        $test_mode_mail = $response === 'true'? true: false;
-        if(!$test_mode_mail){
-            header("Location: /planValidation?error=1");
-        }
-        //echo $response;
-
-        /* Check for 404 (file not found). */
-        $httpCode = curl_getinfo($handle, CURLINFO_HTTP_CODE);
-
-        //echo $httpCode;
-
-        curl_close($handle);
-       /*
-       if(isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] != ""){
-
-           $sql_plan = "SELECT s.settings_id ,s.pass_key,s.api_key, s.domain,s.buy_date, s.recurrence FROM bt_u_settings s WHERE s.type = 'Ballistic' AND s.user_id =".$user_id;
-           $result = DB::getRows($sql_plan);
-           if($result){
-               $flag = 0;
-               foreach($result as $row){
-                   if(in_array($_SERVER['HTTP_HOST'], $row)){
-                       $date = mktime(0, 0, 0, date("m")-$row['recurrence']  , date("d"), date("Y"));
-                       $buydate = date('Y-m-d',strtotime($row['buy_date']));
-                       if($buydate>=date("Y-m-d",$date)){
-                            if(($row['api_key'] == $row['pass_key']) && ($row['domain'] == $_SERVER['HTTP_HOST'])){
-                                $flag = 1;
-                            }
-                       }
-                   }
-               }
-                if($flag!=1){
-                    header("Location: /planValidation");
-                }
-
-           }
-       }
-       */
-    }
 }

@@ -1,7 +1,8 @@
 <?php
 
 class CloakerController extends BTUserController {
-	public function __construct() {
+
+    public function __construct() {
 		parent::__construct();
 		
 		if(!bt_cloaker_enabled()) {
