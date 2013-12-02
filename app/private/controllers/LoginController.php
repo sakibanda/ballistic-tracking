@@ -241,9 +241,13 @@ class LoginController extends BTController {
 
     public function validatePlan(){
 
+        $u1 = BTAuth::$user;
+        $u2 = BTAuth::authUser();
+        $u3 = BTAuth::user();
+        $user_id = getUserID();
         $settings = SettingsModel::model()->getRow(array(
             'conditions'=>array(
-                'user_id'=>getUserID()
+                'user_id'=>$user_id
             )
         ));
 

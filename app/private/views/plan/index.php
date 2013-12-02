@@ -1,7 +1,6 @@
 <?php $this->loadTemplate('message_boxes');  ?>
 
 <div class="grid_6 center_col">
-    <div><br><br><br></div>
     <form method="post" action="/plan" class="box">
         <div class="header">
             <h2>Plan Validation</h2>
@@ -15,20 +14,24 @@
 
             <div class="form-box">
                 <div class="row">
-                    <label for="domain_name" style="">
-                        Domain
-                    </label>
-                    <div style="">
-                        <input tabindex="1" type="text" class="required noerror" name="domain_name" id="domain_name" value="<?php echo $_SERVER['HTTP_HOST'];?>" />
+                    <label for="domain_name">Domain</label>
+                    <div>
+                        <input type="text" class="required noerror" name="domain_name" id="domain_name" value="<?php echo $_SERVER['HTTP_HOST'];?>" />
                     </div>
                 </div>
 
                 <div class="row">
-                    <label for="key">
-                        Key
-                    </label>
+                    <label for="api_key">Api Key</label>
                     <div>
-                        <input tabindex=2 type="text" class="required noerror" name="key" id="key" />
+                        <input type="text" class="required noerror" name="api_key" id="api_key" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <label for="email">E-mail User Admin</label>
+                    <div>
+                        <input type="text" class="required noerror" name="email" id="email" style="margin-bottom: 0;" />
+                        <span style="font-style: italic;font-size: 10px;color: #444444;">It might be same email of ballistictracking.com</span>
                     </div>
                 </div>
             </div><!-- End of .form-box -->
@@ -36,7 +39,7 @@
 
         <div class="actions">
             <div class="right">
-                <input tabindex=3 type="submit" value="Save" name="saved_btn" />
+                <input type="submit" value="Save" name="saved_btn" />
             </div>
         </div><!-- End of .actions -->
     </form>

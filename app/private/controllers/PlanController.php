@@ -4,20 +4,28 @@ class PlanController extends BTController {
 
     public function __construct() {
         $this->loadModel('SettingsModel');
+        $this->loadModel('UserModel');
     }
 
     public function indexAction() {
         $success = false;
         $error = array();
 
-        if(isset($_POST['key']) && isset($_POST['domain_name'])){
-            $key = $_POST['key'];
+        if(isset($_POST['api_key']) && isset($_POST['domain_name'])){
+            $key = $_POST['api_key'];
             $domain = $_POST['domain_name'];
-            $user_id = getUserID();
+            $email = $_POST['email'];
+
+            $user = UserModel::model()->getRow(array(
+                'conditions'=>array(
+                    'email' => $email
+                )
+            ));
+            $user_id = $user->user_id;
 
             $settings = SettingsModel::model()->getRow(array(
                 'conditions'=>array(
-                    'user_id' => $user_id,
+                    'user_id' => $user->$user_id,
                     'type' => 'Ballistic',
                     'domain' => $domain
                 )
@@ -32,6 +40,8 @@ class PlanController extends BTController {
                 $settings-> buy_date = date('Y-m-d');
                 $settings-> type = 'Ballistic';
                 $settings-> recurrence = 1;
+                $settings-> user_id = $user_id;
+
                 if($settings->save()) {
                     $success = "Api Key Information Saved.";
                 }else{

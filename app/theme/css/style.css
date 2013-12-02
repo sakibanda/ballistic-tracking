@@ -1155,10 +1155,9 @@ form .row:after {
 
 form .row > label {
 	float: left;
-	
 	padding: 25px 0;
 	margin-right: 15px;
-	width: 100px;
+	width: 105px;
 }
 
 /*Custom label sizes*/

@@ -25,6 +25,7 @@ class SettingsModel extends BTModel {
     public function rules() {
         return array(
             array('pass_key','optional',array('for'=>array('new','edit'))),
+            array('user_id','required',array('message'=>"User ID required",'for'=>array('new'))),
             array('api_key','optional',array('for'=>array('new','edit'))),
             array('domain','optional',array('for'=>array('new','edit'))),
             array('buy_date','optional',array('for'=>array('new','edit'))),
@@ -32,10 +33,13 @@ class SettingsModel extends BTModel {
             array('recurrence','number',array('for'=>array('new','edit'))),
         );
     }
-
+    /*
     public function beforeSave() {
         if($this->isNew()) {
-            $this->user_id = BTAuth::user()->id();
+            if($this->user_id==null){
+                $this->user_id = BTAuth::user()->id();
+            }
         }
     }
+    */
 }
