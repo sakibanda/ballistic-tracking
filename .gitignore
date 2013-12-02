@@ -5,6 +5,7 @@ wurfl.log
 .idea/
 assets/
 app/bt-config/cache/*
+app/temp-plugin/
 .DS_Store
 manager/target/*
 app/bt-config/*.dat

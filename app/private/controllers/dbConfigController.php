@@ -23,7 +23,7 @@ class dbConfigController extends BTController {
                         fclose($fh);
                     }
                     //Redirect to the validation plan
-                    header('location: /planValidation');
+                    header('location: /plan');
                     BTApp::end();
                 }else{
                     $message = "Can't write to the directory: ".BT_ROOT . '/bt-config';

@@ -249,7 +249,8 @@ class LoginController extends BTController {
 
         if($settings){
             $key = $settings->api_key;
-            $url = 'http://ballistic.puresrc.com/?page_id=28&license='.$key;
+            //$key = "529647355dc80";
+            $url = 'http://ballistic.puresrc.com/license_check/?license=order_'.$key;
             $handle = curl_init($url);
             curl_setopt($handle,  CURLOPT_RETURNTRANSFER, TRUE);
 
@@ -258,7 +259,7 @@ class LoginController extends BTController {
             $test_mode_mail = $response === 'true'? true: false;
             if(!$test_mode_mail){
                 BTAuth::set_auth_cookie('',time() - 3600);
-                header("Location: /planValidation?error=1");
+                header("Location: /plan?error=1");
                 BTApp::end();
             }
             //echo $response;
@@ -268,7 +269,7 @@ class LoginController extends BTController {
             curl_close($handle);
         }else{
             BTAuth::set_auth_cookie('',time() - 3600);
-            header("Location: /planValidation?error=2");
+            header("Location: /plan?error=2");
             BTApp::end();
         }
 
@@ -291,7 +292,7 @@ class LoginController extends BTController {
                     }
                 }
                  if($flag!=1){
-                     header("Location: /planValidation");
+                     header("Location: /plan");
                  }
 
             }

@@ -2,7 +2,7 @@
 
 <div class="grid_6 center_col">
     <div><br><br><br></div>
-    <form method="post" action="/planValidation" class="box">
+    <form method="post" action="/plan" class="box">
         <div class="header">
             <h2>Plan Validation</h2>
         </div>
