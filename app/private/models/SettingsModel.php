@@ -30,7 +30,7 @@ class SettingsModel extends BTModel {
             array('domain','optional',array('for'=>array('new','edit'))),
             array('buy_date','optional',array('for'=>array('new','edit'))),
             array('type','required',array('message'=>'Invalid type','for'=>array('new'))),
-            array('recurrence','number',array('for'=>array('new','edit'))),
+            array('recurrence','optional',array('for'=>array('new','edit'))),
         );
     }
     /*

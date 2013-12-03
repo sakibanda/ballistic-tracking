@@ -7,7 +7,7 @@ class dbConfigController extends BTController {
         $message = "";
         if(isset($_POST['host_name']) && isset($_POST['db_name']) && isset($_POST['user_name']) && isset($_POST['pw_user'])){
             if(($_POST['host_name']!='') && ($_POST['db_name']!='') && ($_POST['user_name']!='') && ($_POST['pw_user']!='')){
-                $file = BT_ROOT . '/private/includes/bt-config_template.php';
+                $file = BT_ROOT . '/install/bt-config_template.php';
                 $content = file_get_contents($file);
 
                 $content = str_replace("{host_name}", $_POST['host_name'],$content);

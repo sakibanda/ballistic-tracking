@@ -26,7 +26,7 @@
                         <input type="text" class="required noerror" name="api_key" id="api_key" />
                     </div>
                 </div>
-
+                <!--
                 <div class="row">
                     <label for="email">E-mail User Admin</label>
                     <div>
@@ -34,6 +34,7 @@
                         <span style="font-style: italic;font-size: 10px;color: #444444;">It might be same email of ballistictracking.com</span>
                     </div>
                 </div>
+                -->
             </div><!-- End of .form-box -->
         </div>
 

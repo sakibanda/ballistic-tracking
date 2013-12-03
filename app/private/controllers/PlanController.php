@@ -14,18 +14,11 @@ class PlanController extends BTController {
         if(isset($_POST['api_key']) && isset($_POST['domain_name'])){
             $key = $_POST['api_key'];
             $domain = $_POST['domain_name'];
-            $email = $_POST['email'];
 
-            $user = UserModel::model()->getRow(array(
-                'conditions'=>array(
-                    'email' => $email
-                )
-            ));
-            $user_id = $user->user_id;
-
+            $user_id = 1;
             $settings = SettingsModel::model()->getRow(array(
                 'conditions'=>array(
-                    'user_id' => $user->$user_id,
+                    'user_id' => $user_id,
                     'type' => 'Ballistic',
                     'domain' => $domain
                 )
@@ -33,6 +26,7 @@ class PlanController extends BTController {
 
             if($settings){
                 $settings->api_key = $key;
+                $settings-> buy_date = date('Y-m-d');
             }else{
                 $settings = new SettingsModel();
                 $settings-> api_key = $key;
@@ -41,33 +35,12 @@ class PlanController extends BTController {
                 $settings-> type = 'Ballistic';
                 $settings-> recurrence = 1;
                 $settings-> user_id = $user_id;
-
-                if($settings->save()) {
-                    $success = "Api Key Information Saved.";
-                }else{
-                    $error = $settings->getErrors();
-                }
             }
-            /*
-            $sql_plan = "SELECT * FROM bt_u_settings WHERE type = 'Ballistic' ";
-            $sql_plan .= "AND user_id =".$user_id." AND domain = '".$_SERVER['HTTP_HOST']."' AND api_key = ''";
-            if(DB::getRows($sql_plan)){
-                $result = DB::getRows($sql_plan);
-
-                if ($result[0]['pass_key']!=BTAuth::salt_pass($_POST['key'])){
-                    $error = 'Invalid credentials.';
-                }else{
-                    $sql_update = "UPDATE bt_u_settings as s SET s.api_key ='".BTAuth::salt_pass($_POST['key'])."' WHERE s.settings_id = ".$result[0]['settings_id'];
-                    if(!DB::query($sql_update)){
-                        $error = 'Failed to activate plan, please try again';
-                    }
-                    BTAuth::set_auth_cookie(" ",time());
-                    header('location: /login');
-                    BTApp::end();
-                }
+            if($settings->save()) {
+                $success = "Api Key Information Saved.";
             }else{
-                $error = 'Currently there are pending activation plans for this domain.';
-            }*/
+                $error = $settings->getErrors();
+            }
         }
 
         if(isset($_GET['error'])){
@@ -81,7 +54,11 @@ class PlanController extends BTController {
         $this->setVar("success",$success);
         $this->setVar("error",$error);
         $this->loadTemplate("public_header");
-        $this->loadView("plan/index");
         $this->loadTemplate("public_footer");
+        if($success){
+            $this->loadView("login/login");
+        }else{
+            $this->loadView("plan/index");
+        }
     }
 }

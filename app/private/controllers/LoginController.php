@@ -241,10 +241,7 @@ class LoginController extends BTController {
 
     public function validatePlan(){
 
-        $u1 = BTAuth::$user;
-        $u2 = BTAuth::authUser();
-        $u3 = BTAuth::user();
-        $user_id = getUserID();
+        $user_id = 1;
         $settings = SettingsModel::model()->getRow(array(
             'conditions'=>array(
                 'user_id'=>$user_id
@@ -276,31 +273,5 @@ class LoginController extends BTController {
             header("Location: /plan?error=2");
             BTApp::end();
         }
-
-        /*
-        if(isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] != ""){
-
-            $sql_plan = "SELECT s.settings_id ,s.pass_key,s.api_key, s.domain,s.buy_date, s.recurrence FROM bt_u_settings s WHERE s.type = 'Ballistic' AND s.user_id =".$user_id;
-            $result = DB::getRows($sql_plan);
-            if($result){
-                $flag = 0;
-                foreach($result as $row){
-                    if(in_array($_SERVER['HTTP_HOST'], $row)){
-                        $date = mktime(0, 0, 0, date("m")-$row['recurrence']  , date("d"), date("Y"));
-                        $buydate = date('Y-m-d',strtotime($row['buy_date']));
-                        if($buydate>=date("Y-m-d",$date)){
-                             if(($row['api_key'] == $row['pass_key']) && ($row['domain'] == $_SERVER['HTTP_HOST'])){
-                                 $flag = 1;
-                             }
-                        }
-                    }
-                }
-                 if($flag!=1){
-                     header("Location: /plan");
-                 }
-
-            }
-        }
-        */
     }
 }
