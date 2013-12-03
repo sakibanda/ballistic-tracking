@@ -7,13 +7,19 @@ class dbConfigController extends BTController {
         $message = "";
         if(isset($_POST['host_name']) && isset($_POST['db_name']) && isset($_POST['user_name']) && isset($_POST['pw_user'])){
             if(($_POST['host_name']!='') && ($_POST['db_name']!='') && ($_POST['user_name']!='') && ($_POST['pw_user']!='')){
+
+                $userDB = $_POST['user_name'];
+                $passDB = $_POST['pw_user'];
+                $hostDB = $_POST['host_name'];
+                $dbName = $_POST['db_name'];
+
                 $file = BT_ROOT . '/install/bt-config_template.php';
                 $content = file_get_contents($file);
 
-                $content = str_replace("{host_name}", $_POST['host_name'],$content);
-                $content = str_replace("{db_name}", $_POST['db_name'],$content);
-                $content = str_replace("{user_name}", $_POST['user_name'],$content);
-                $content = str_replace("{pw_user}", $_POST['pw_user'],$content);
+                $content = str_replace("{host_name}", $hostDB,$content);
+                $content = str_replace("{db_name}", $dbName,$content);
+                $content = str_replace("{user_name}", $userDB,$content);
+                $content = str_replace("{pw_user}", $passDB,$content);
 
                 if(substr(decoct(fileperms(BT_ROOT . '/bt-config')),2)==777){
                     $fh = fopen(BT_ROOT . '/bt-config/bt-config.php','x');
@@ -22,9 +28,16 @@ class dbConfigController extends BTController {
                         fwrite($fh,$content);
                         fclose($fh);
                     }
-                    //Redirect to the validation plan
-                    header('location: /plan');
-                    BTApp::end();
+                    if($this->unzip()){
+                        if($this->installDB($hostDB, $userDB, $passDB,$dbName)){
+                            //Redirect to the validation plan
+                            header('location: /plan');
+                            BTApp::end();
+                        }
+                    }else{
+                        $message = "There was a problem with database.";
+                        $success = false;
+                    }
                 }else{
                     $message = "Can't write to the directory: ".BT_ROOT . '/bt-config';
                     $success = false;
@@ -43,18 +56,40 @@ class dbConfigController extends BTController {
         $this->loadTemplate("public_footer");
     }
 
-    public function unzipAction() {
+    function unzip() {
         $script_file = BT_ROOT . '/install/db/ballistic.zip';
         $zip = new ZipArchive;
         $zip->open($script_file);
         $zip->extractTo(BT_ROOT . '/install/db/');
         $zip->close();
-        $success = "Database installed successfully";
-        $this->setVar("title","Unzip Database");
-        $this->loadTemplate("public_header");
-        $this->setVar("success",$success);
-        $this->loadView("dbconfig/unzip");
-        $this->loadTemplate("public_footer");
+        return true;
+    }
+
+    function installDB($dsn, $user, $password, $dbname){
+
+        // Connect to MySQL
+        $link = mysql_connect($dsn, $user, $password);
+        if(!$link){
+            die('Could not connect: ' . mysql_error());
+        }
+
+        // Make my_db the current database
+        $db_selected = mysql_select_db($dbname, $link);
+        if(!$db_selected) {
+            // If we couldn't, then it either doesn't exist, or we can't see it.
+            $sql = 'CREATE DATABASE '.$dbname;
+            if(mysql_query($sql, $link)){
+                $script_path = BT_ROOT . '/install/db/ballistic.sql';
+                $command = "mysql -u{$user} -p{$password} "
+                    . "-h {$dsn} -D {$dbname} < {$script_path}";
+                $output = shell_exec($command);
+                echo "Database my_db created successfully\n";
+            }else{
+                echo 'Error creating database: ' . mysql_error() . "\n";
+            }
+        }
+        mysql_close($link);
+        return true;
     }
 
  }
