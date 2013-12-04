@@ -7,14 +7,20 @@ class DB {
 	protected static $_columnDetails = array();
 	
 	public static function connect($host,$user,$pass,$schema) {
-		self::$_link = new PDO("mysql:host=$host;dbname=$schema", $user, $pass);
-		
-		//raise exception on DB errors;
-		self::$_link->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		
-		//emulate prepared statements... until I can benchmark & stress test native prepares. 
-		self::$_link->setAttribute(PDO::ATTR_EMULATE_PREPARES,true);
-		
+
+        try{
+
+            self::$_link = new PDO("mysql:host=$host;dbname=$schema", $user, $pass);
+		    //raise exception on DB errors;
+		    self::$_link->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		    //emulate prepared statements... until I can benchmark & stress test native prepares.
+		    self::$_link->setAttribute(PDO::ATTR_EMULATE_PREPARES,true);
+
+        }catch(PDOException $e){
+            // PHP Fatal Error. Second Argument Has To Be An Integer, But PDOException::getCode Returns A String.
+            throw new pdoDbException($e);
+            //throw new MyDatabaseException($e->getMessage(),$e->getCode());
+        }
 		//do UTC by default
 		DB::query("SET time_zone='+00:00'");
 		
