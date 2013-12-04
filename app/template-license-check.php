@@ -7,7 +7,13 @@ Template Name: License Check
 if(isset($_GET['license']) && $_GET['license'] != ""){
     $license = $_GET['license'];
     global $wpdb;
-    $results = $wpdb->get_results("SELECT * FROM wp_woocommerce_downloadable_product_permissions WHERE order_key='".$license."';");
+    $sql = "SELECT *
+    FROM wp_woocommerce_downloadable_product_permissions as d
+    LEFT JOIN wp_woocommerce_order_items o ON d.order_id = o.order_id
+    LEFT JOIN wp_woocommerce_order_itemmeta m ON o.order_item_id = m.order_item_id
+    WHERE d.order_key='".$license."' AND m.meta_key='_subscription_status' AND m.meta_value='active'
+    ";
+    $results = $wpdb->get_results($sql);
     /*
     echo '<h3>'.$_GET['license'].'</h3>';
     echo '<table>';
