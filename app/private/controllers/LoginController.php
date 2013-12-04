@@ -34,7 +34,7 @@ class LoginController extends BTController {
         if(file_exists($file)){
             $this->loadView("login/login");
         }else{
-            header("Location: /dbconfig");
+            header("Location: /config");
             BTApp::end();
         }
 		

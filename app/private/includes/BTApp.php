@@ -98,7 +98,7 @@ class BTApp {
                 header("Location: /login");
                 BTApp::end();
             }else{
-                header("Location: /dbconfig");
+                header("Location: /config");
                 BTApp::end();
             }
 		}

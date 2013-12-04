@@ -1,10 +1,11 @@
 <?php
 
-class dbConfigController extends BTController {
+class ConfigController extends BTController {
 
     public function indexAction() {
         $success = true;
         $message = "";
+
         if(isset($_POST['host_name']) && isset($_POST['db_name']) && isset($_POST['user_name']) && isset($_POST['pw_user'])){
             if(($_POST['host_name']!='') && ($_POST['db_name']!='') && ($_POST['user_name']!='') && ($_POST['pw_user']!='')){
 
@@ -28,6 +29,7 @@ class dbConfigController extends BTController {
                         fwrite($fh,$content);
                         fclose($fh);
                     }
+
                     if($this->unzip()){
                         if($this->installDB($hostDB, $userDB, $passDB,$dbName)){
                             //Redirect to the validation plan
@@ -35,9 +37,10 @@ class dbConfigController extends BTController {
                             BTApp::end();
                         }
                     }else{
-                        $message = "There was a problem with database.";
-                        $success = false;
+                        //$message = "There was a problem with database.";
+                        //$success = false;
                     }
+
                 }else{
                     $message = "Can't write to the directory: ".BT_ROOT . '/bt-config';
                     $success = false;
@@ -49,19 +52,35 @@ class dbConfigController extends BTController {
         }
 
         $this->setVar("title","Database Settings");
-        $this->loadTemplate("public_header");
         $this->setVar("success",$success);
         $this->setVar("message",$message);
-        $this->loadView("dbconfig/dbconfig");
+        $this->loadTemplate("public_header");
         $this->loadTemplate("public_footer");
+        $this->loadView("config/index");
     }
 
+    /*
+    ZIPARCHIVE::ER_EXISTS - 10
+    ZIPARCHIVE::ER_INCONS - 21
+    ZIPARCHIVE::ER_INVAL - 18
+    ZIPARCHIVE::ER_MEMORY - 14
+    ZIPARCHIVE::ER_NOENT - 9
+    ZIPARCHIVE::ER_NOZIP - 19
+    ZIPARCHIVE::ER_OPEN - 11
+    ZIPARCHIVE::ER_READ - 5
+    ZIPARCHIVE::ER_SEEK - 4
+    */
     function unzip() {
         $script_file = BT_ROOT . '/install/db/ballistic.zip';
         $zip = new ZipArchive;
-        $zip->open($script_file);
-        $zip->extractTo(BT_ROOT . '/install/db/');
-        $zip->close();
+        $res = $zip->open($script_file);
+        if ($res === TRUE) {
+            //echo 'ok';
+            $zip->extractTo('install/db/');
+            $zip->close();
+        } else {
+            echo 'failed, code:' . $res;
+        }
         return true;
     }
 
@@ -80,7 +99,7 @@ class dbConfigController extends BTController {
             $sql = 'CREATE DATABASE '.$dbname;
             if(mysql_query($sql, $link)){
                 $script_path = BT_ROOT . '/install/db/ballistic.sql';
-                $command = "mysql -u{$user} -p{$password} "
+                $command = "mysql -u {$user} -p{$password} "
                     . "-h {$dsn} -D {$dbname} < {$script_path}";
                 $output = shell_exec($command);
                 echo "Database my_db created successfully\n";
@@ -91,5 +110,4 @@ class dbConfigController extends BTController {
         mysql_close($link);
         return true;
     }
-
- }
+}

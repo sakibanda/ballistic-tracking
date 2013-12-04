@@ -1,7 +1,7 @@
 <h1 class="grid_12"><span>Database Settings</span></h1>
 <br/><br/><br/><br/>
 <div class="grid_6 center_col">
-    <form id="dbSettings_form" method="post" action="/dbconfig" class="box">
+    <form id="dbSettings_form" method="post" action="/config" class="box">
         <div class="header"><h2>Database Settings</h2></div>
 
         <div class="content">

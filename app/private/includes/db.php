@@ -18,7 +18,7 @@ class DB {
 
         }catch(PDOException $e){
             // PHP Fatal Error. Second Argument Has To Be An Integer, But PDOException::getCode Returns A String.
-            throw new pdoDbException($e);
+            throw new PDOException($e);
             //throw new MyDatabaseException($e->getMessage(),$e->getCode());
         }
 		//do UTC by default

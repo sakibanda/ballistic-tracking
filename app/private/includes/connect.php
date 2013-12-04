@@ -114,7 +114,10 @@ define('DELETE_BIT_TRACKING_LINK',64);
 
 define('AUTH_SESSION_LENGTH',90);
 
-DB::connect($dbhost,$dbuser,$dbpass,$dbname);
+$file = BT_ROOT . '/bt-config/bt-config.php';
+if(file_exists($file)){
+    DB::connect($dbhost,$dbuser,$dbpass,$dbname);
+}
 
 function getBTUrl($vanity = '') {
 	return 'http://' . $_SERVER['HTTP_HOST'];
