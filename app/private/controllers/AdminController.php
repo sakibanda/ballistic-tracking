@@ -11,7 +11,8 @@ class AdminController extends BTAdminController {
 
         $settings = SettingsModel::model()->getRow(array(
             'conditions'=>array(
-                'user_id'=>getUserID()
+                'user_id'=>getUserID(),
+                'type'=>'Advanced Redirects'
             )
         ));
         if(!$settings) {

@@ -8,7 +8,7 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $('button#purchase').click(function(){
-            document.location.href='/admin/purchase/';
+            document.location.href='/admin/';
         })
     });
 </script>

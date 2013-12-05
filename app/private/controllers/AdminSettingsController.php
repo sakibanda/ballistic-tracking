@@ -14,23 +14,29 @@ class AdminSettingsController extends AdminController {
         $error = array();
         $settings = new SettingsModel();
 
-        if(isset($_POST['api_key']) && !empty($_POST['api_key'])){
-            $settings = SettingsModel::model()->getRowFromPk($_POST['id']);
-            if($settings != null){
-                if($settings->pass_key == $_POST['api_key']){
+        if(isset($_POST['api_key']) && isset($_POST['domain_name'])){
+            if(($_POST['api_key']!='') && ($_POST['domain_name']!='')){
+                $settings = SettingsModel::model()->getRowFromPk($_POST['id']);
+                if($settings != null){
                     $settings->api_key = $_POST['api_key'];
-                    $settings->domain = $_POST['domain'];
-                    if($settings->save()) {
-                        $success = "Settings saved";
-                    }else {
-                        $error = $settings->getErrors();
-                    }
+                    $settings->domain = $_POST['domain_name'];
+                    $settings-> buy_date = date('Y-m-d');
                 }else{
-                    array_push($error,"The API KEY did not recognize.");
+                    $settings = new SettingsModel();
+                    $settings->api_key = $_POST['api_key'];
+                    $settings->domain = $_POST['domain_name'];
+                    $settings-> buy_date = date('Y-m-d');
+                    $settings-> recurrence = 1;
+                    $settings-> user_id = getUserID();
+                    $settings->type = 'Advanced Redirects';
+                }
+                if($settings->save()) {
+                    $success = "Api Key Information Saved.";
+                }else {
+                    $error = $settings->getErrors();
                 }
             }else{
-                $settings = new SettingsModel();
-                array_push($error,"It seems like You haven't purchased any API KEY.");
+                array_push($error,"Please enter both values. Domain and Api Key are required.");
             }
         }
 

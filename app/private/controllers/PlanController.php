@@ -12,34 +12,38 @@ class PlanController extends BTController {
         $error = array();
 
         if(isset($_POST['api_key']) && isset($_POST['domain_name'])){
-            $key = $_POST['api_key'];
-            $domain = $_POST['domain_name'];
+            if(($_POST['api_key']!='') && ($_POST['domain_name']!='')){
+                $key = $_POST['api_key'];
+                $domain = $_POST['domain_name'];
 
-            $user_id = 1;
-            $settings = SettingsModel::model()->getRow(array(
-                'conditions'=>array(
-                    'user_id' => $user_id,
-                    'type' => 'Ballistic',
-                    'domain' => $domain
-                )
-            ));
+                $user_id = 1;
+                $settings = SettingsModel::model()->getRow(array(
+                    'conditions'=>array(
+                        'user_id' => $user_id,
+                        'type' => 'Ballistic Tracker',
+                        'domain' => $domain
+                    )
+                ));
 
-            if($settings){
-                $settings->api_key = $key;
-                $settings-> buy_date = date('Y-m-d');
+                if($settings){
+                    $settings->api_key = $key;
+                    $settings-> buy_date = date('Y-m-d');
+                }else{
+                    $settings = new SettingsModel();
+                    $settings-> api_key = $key;
+                    $settings-> domain = $domain;
+                    $settings-> buy_date = date('Y-m-d');
+                    $settings-> type = 'Ballistic Tracker';
+                    $settings-> recurrence = 1;
+                    $settings-> user_id = $user_id;
+                }
+                if($settings->save()) {
+                    $success = "Api Key Information Saved.";
+                }else{
+                    $error = $settings->getErrors();
+                }
             }else{
-                $settings = new SettingsModel();
-                $settings-> api_key = $key;
-                $settings-> domain = $domain;
-                $settings-> buy_date = date('Y-m-d');
-                $settings-> type = 'Ballistic';
-                $settings-> recurrence = 1;
-                $settings-> user_id = $user_id;
-            }
-            if($settings->save()) {
-                $success = "Api Key Information Saved.";
-            }else{
-                $error = $settings->getErrors();
+                $error="Please enter both values. Domain and Api Key are required.";
             }
         }
 

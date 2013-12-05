@@ -1,10 +1,10 @@
 <?php
 
 // ** MySQL settings ** //
-$dbname = 'ballistic';
-$dbuser = 'root';
-$dbpass = 'root';
-$dbhost = 'localhost';
+$dbname = 'ballistic_tracking';    		// The name of the database
+$dbuser = 'btrck';     		  		// Your MySQL username
+$dbpass = '12345'; 			// ...and password
+$dbhost = 'localhost';    					// 99% chance you won't need to change this value
 
 define('DEBUG',true);
 define('LIVE_SITE',false);

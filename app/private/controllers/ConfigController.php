@@ -37,8 +37,8 @@ class ConfigController extends BTController {
                             BTApp::end();
                         }
                     }else{
-                        //$message = "There was a problem with database.";
-                        //$success = false;
+                        $message = "There was a problem with database.";
+                        $success = false;
                     }
 
                 }else{
@@ -85,29 +85,29 @@ class ConfigController extends BTController {
     }
 
     function installDB($dsn, $user, $password, $dbname){
-
-        // Connect to MySQL
-        $link = mysql_connect($dsn, $user, $password);
-        if(!$link){
-            die('Could not connect: ' . mysql_error());
+        $script_path = BT_ROOT . '/install/db/bt_data.sql';
+        $mysqli = new mysqli($dsn, $user, $password);
+        if (mysqli_connect_errno()) {
+            printf("Connect failed: %s\n", mysqli_connect_error());
+            exit();
         }
 
-        // Make my_db the current database
-        $db_selected = mysql_select_db($dbname, $link);
-        if(!$db_selected) {
-            // If we couldn't, then it either doesn't exist, or we can't see it.
-            $sql = 'CREATE DATABASE '.$dbname;
-            if(mysql_query($sql, $link)){
-                $script_path = BT_ROOT . '/install/db/ballistic.sql';
-                $command = "mysql -u {$user} -p{$password} "
-                    . "-h {$dsn} -D {$dbname} < {$script_path}";
-                $output = shell_exec($command);
-                echo "Database my_db created successfully\n";
-            }else{
-                echo 'Error creating database: ' . mysql_error() . "\n";
-            }
+        $db_selected = mysqli_select_db($mysqli,$dbname);
+        if($db_selected){
+            $script_sql = 'DROP DATABASE '.$dbname;
+            mysqli_query($mysqli,$script_sql);
         }
-        mysql_close($link);
+        $script_sql = 'CREATE DATABASE '.$dbname;
+        mysqli_query($mysqli,$script_sql);
+
+        $mysqli->select_db($dbname);
+        $query_structure = file_get_contents($script_path);
+        if (mysqli_multi_query($mysqli, $query_structure))
+            echo "Database my_db created successfully\n";
+        else
+            echo 'Error creating database: ' . mysqli_error($mysqli) . "\n";
+
+        mysqli_close($mysqli);
         return true;
     }
 }
