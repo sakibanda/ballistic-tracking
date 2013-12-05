@@ -18,7 +18,7 @@ class LoginController extends BTController {
 			if($success) {
 
                 //Validate if the plan is Active
-                $this->validatePlan();
+                $this->validateSubscriptions();
 
 				header('location: /overview');
 				BTApp::end();
@@ -239,35 +239,67 @@ class LoginController extends BTController {
 		}
 	}
 
-    public function validatePlan(){
+    public function validateSubscriptions(){
 
         $user_id = 1;
         $settings = SettingsModel::model()->getRow(array(
             'conditions'=>array(
-                'user_id'=>$user_id
+                'user_id'=>$user_id,
+                'type' => 'Ballistic Tracker'
             )
         ));
 
         if($settings){
             $key = $settings->api_key;
-            //$key = "529647355dc80";
             $url = 'http://ballistic.puresrc.com/license_check/?license=order_'.$key;
             $handle = curl_init($url);
             curl_setopt($handle,  CURLOPT_RETURNTRANSFER, TRUE);
-
-            /* Get the HTML or whatever is linked in $url. */
             $response = curl_exec($handle);
             $test_mode_mail = $response === 'true'? true: false;
             if(!$test_mode_mail){
+
+                //disable
+                $settings->active=1;
+                $settings->save();
+
                 BTAuth::set_auth_cookie('',time() - 3600);
                 header("Location: /plan?error=1");
                 BTApp::end();
             }
-            //echo $response;
-            /* Check for 404 (file not found). */
-            $httpCode = curl_getinfo($handle, CURLINFO_HTTP_CODE);
+            //$httpCode = curl_getinfo($handle, CURLINFO_HTTP_CODE);
             //echo $httpCode;
             curl_close($handle);
+
+            //enable
+            $settings->active=0;
+            $settings->save();
+
+            $ss = SettingsModel::model()->getRow(array(
+                'conditions'=>array(
+                    'user_id'=>$user_id,
+                    'type' => 'Advanced Redirects'
+                )
+            ));
+
+            //If Advanced Redirects is active
+            if($ss){
+                $key = $ss->api_key;
+                $url = 'http://ballistic.puresrc.com/advanced_redirects/?license=order_'.$key;
+                $handle = curl_init($url);
+                curl_setopt($handle,  CURLOPT_RETURNTRANSFER, TRUE);
+                $response = curl_exec($handle);
+                curl_close($handle);
+                $test_mode_mail = $response === 'true'? true: false;
+                if(!$test_mode_mail){
+                    //disable
+                    $ss->active=1;
+                }else{
+                    //enable
+                    $ss->active=0;
+                }
+                $ss->save();
+            }
+
         }else{
             BTAuth::set_auth_cookie('',time() - 3600);
             header("Location: /plan?error=2");

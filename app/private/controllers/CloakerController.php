@@ -28,8 +28,9 @@ class CloakerController extends BTUserController {
 
         $settings = SettingsModel::model()->getRow(array(
             'conditions'=>array(
-                'user_id'=>getUserID(),
-                'type'=>'Advanced Redirects'
+                'user_id' => getUserID(),
+                'type' => 'Advanced Redirects',
+                'active' => 0
             )
         ));
         if(!$settings) {

@@ -49,9 +49,9 @@ class PlanController extends BTController {
 
         if(isset($_GET['error'])){
             if($_GET['error']=="1")
-                $error="Invalid API KEY";
+                $error="Invalid API KEY or Subscription has been suspended.";
             if($_GET['error']=="2")
-                $error="Please enter your API KEY information";
+                $error="Please enter your API KEY information.";
         }
 
         $this->setVar("title","Plan Validation");

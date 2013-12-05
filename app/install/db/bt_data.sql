@@ -369,6 +369,10 @@ CREATE TABLE IF NOT EXISTS `bt_u_users` (
   KEY `user_name` (`user_name`) USING BTREE
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
+
+INSERT INTO `bt_u_users` (`user_id`, `user_name`, `pass`, `pass_salt`, `email`, `privilege`, `timezone`, `pass_key`, `pass_time`, `deleted`) VALUES
+(1, 'Admin', 'fcc89ed9ebb15dd3a5bfc3f1b55f7379eb1d3ea09a90c912e59f52a14c78153d21ceeaf97cc9d286a08eb015952a66aeb08138495b7322ec6e7beeea03b8bd57', 'tJ%wsOr*sjUEIsnL!KM#NT*j9aTxgU', 'admin@admin.com', 10, 'America/Los_Angeles', '', 0, 0);
+
 CREATE TABLE IF NOT EXISTS `bt_u_users_pref` (
   `user_id` mediumint(8) unsigned NOT NULL,
   `name` varchar(45) NOT NULL,
@@ -1242,6 +1246,3 @@ INSERT INTO `bt_u_offers` (`offer_id`, `aff_network_id`, `deleted`, `name`, `url
 INSERT INTO `bt_u_traffic_sources` (`traffic_source_id`, `user_id`, `name`, `deleted`) VALUES
 (1, 1, 'SEO', 0),
 (2, 1, 'Facebook', 0);
-
-INSERT INTO `bt_u_users` (`user_id`, `user_name`, `pass`, `pass_salt`, `email`, `privilege`, `timezone`, `pass_key`, `pass_time`, `deleted`) VALUES
-(1, 'Admin', 'fcc89ed9ebb15dd3a5bfc3f1b55f7379eb1d3ea09a90c912e59f52a14c78153d21ceeaf97cc9d286a08eb015952a66aeb08138495b7322ec6e7beeea03b8bd57', 'tJ%wsOr*sjUEIsnL!KM#NT*j9aTxgU', 'admin@admin.com', 10, 'America/Los_Angeles', '', 0, 0);

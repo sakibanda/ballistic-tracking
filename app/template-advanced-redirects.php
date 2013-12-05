@@ -12,7 +12,7 @@ if(isset($_GET['license']) && $_GET['license'] != ""){
     LEFT JOIN wp_woocommerce_order_items o ON d.order_id = o.order_id
     LEFT JOIN wp_woocommerce_order_itemmeta m ON o.order_item_id = m.order_item_id
     WHERE d.order_key='".$license."' AND m.meta_key='_subscription_status' AND m.meta_value='active'
-    AND o.order_item_name='Advanced Rirects'";
+    AND o.order_item_name='Advanced Redirects'";
     $results = $wpdb->get_results($sql);
     /*
     echo '<h3>'.$_GET['license'].'</h3>';

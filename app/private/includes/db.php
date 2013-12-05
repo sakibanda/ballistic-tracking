@@ -23,10 +23,10 @@ class DB {
         }
 		//do UTC by default
 		DB::query("SET time_zone='+00:00'");
-		
+
 		/*****HANDLE COLUMN CACHE AND LOOKUPS****/
 		//schema cache - expire after 3600 seconds
-		$cache = new BTCache('column_meta',3600);
+		$cache = new BTCache('column_meta',10);
 		
 		if(!$cache->isExpired()) {
 			if($data = $cache->read()) {
