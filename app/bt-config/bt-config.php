@@ -1,7 +1,7 @@
 <?php
 
 // ** MySQL settings ** //
-$dbname = 'ballistic';
+$dbname = 'ballistictest';
 $dbuser = 'root';
 $dbpass = 'root';
 $dbhost = 'localhost';

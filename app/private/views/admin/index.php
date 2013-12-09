@@ -3,9 +3,10 @@
 <h1 class="grid_12">
 	<span>Admin Settings</span>
 </h1>
-<p>To buy an Advanced Rirects Key, please visit to: <a target="_blank" href="http://ballistic.puresrc.com">ballistic.puresrc.com</a></p>
+<!--<p>To buy an Advanced Rirects Key, please visit to: <a target="_blank" href="http://ballistic.puresrc.com">ballistic.puresrc.com</a></p>-->
 <?php $this->loadTemplate('message_boxes');  ?>
 
+<!--
 <div class="grid_6" id="settings">
     <form action="/admin/settings/save" method="post">
         <input type="hidden" name="id" value="<?php echo @$settings->Id(); ?>"/>
@@ -35,3 +36,4 @@
         </div>
     </form>
 </div>
+-->

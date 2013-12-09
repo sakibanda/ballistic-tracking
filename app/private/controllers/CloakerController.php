@@ -26,6 +26,7 @@ class CloakerController extends BTUserController {
 	public function indexAction() {		
 		$this->setVar("title","Advanced Redirects");
 
+        /*
         $settings = SettingsModel::model()->getRow(array(
             'conditions'=>array(
                 'user_id' => getUserID(),
@@ -38,6 +39,8 @@ class CloakerController extends BTUserController {
         }else{
             $this->render("cloaker/index");
         }
+        */
+        $this->render("cloaker/index");
 	}
 	
 	public function editAction($param = array()) {

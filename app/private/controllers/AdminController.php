@@ -9,9 +9,10 @@ class AdminController extends BTAdminController {
 	public function indexAction() {	
 		$this->setVar('title','Admin Settings');
 
+        /*
         $settings = SettingsModel::model()->getRow(array(
             'conditions'=>array(
-                'user_id'=>getUserID(),
+                'user_id'=>getUserID(), should be 1
                 'type'=>'Advanced Redirects'
             )
         ));
@@ -20,6 +21,7 @@ class AdminController extends BTAdminController {
         }
 
         $this->setVar("settings",$settings);
+        */
 		$this->render('admin/index');
 	}
 	

@@ -273,7 +273,7 @@ class LoginController extends BTController {
             //enable
             $settings->active=0;
             $settings->save();
-
+            /*
             $ss = SettingsModel::model()->getRow(array(
                 'conditions'=>array(
                     'user_id'=>$user_id,
@@ -299,6 +299,7 @@ class LoginController extends BTController {
                 }
                 $ss->save();
             }
+            */
 
         }else{
             BTAuth::set_auth_cookie('',time() - 3600);

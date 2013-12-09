@@ -32,6 +32,18 @@ CREATE TABLE IF NOT EXISTS `bt_g_cloaker_orgs` (
   PRIMARY KEY (`org_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO `bt_g_cloaker_orgs` (`org_id`, `org_name`) VALUES
+(1, 'Facebook'),
+(2, 'Google'),
+(3, 'Bing/Yahoo'),
+(4, 'Pulse360'),
+(6, 'AOL/Advertising.com'),
+(7, 'Catch All'),
+(10, 'Clickbooth CPC'),
+(11, 'WAM CPC'),
+(12, 'Site Scout - AU'),
+(13, 'TrafficVance');
+
 CREATE TABLE IF NOT EXISTS `bt_g_geo_locations` (
   `location_id` int(11) NOT NULL AUTO_INCREMENT,
   `country` char(2) NOT NULL,
@@ -141,6 +153,8 @@ CREATE TABLE IF NOT EXISTS `bt_s_counter` (
   `click_count` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`click_count`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `bt_s_counter` (`click_count`) VALUES (0);
 
 CREATE TABLE IF NOT EXISTS `bt_s_device_data` (
   `device_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
