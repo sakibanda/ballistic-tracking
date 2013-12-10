@@ -7,8 +7,6 @@ class AdminPurchaseController extends AdminController {
     public function __construct() {
         parent::__construct();
         $this->loadModel('SettingsModel');
-        require_once(BT_ROOT . "/private/libs/2checkout-php/lib/Twocheckout.php");
-        require_once(BT_ROOT . '/private/includes/key.php');
     }
 
     public function indexAction(){
