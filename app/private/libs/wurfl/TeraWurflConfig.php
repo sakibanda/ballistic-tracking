@@ -21,7 +21,6 @@
  * @see TeraWurflWebservice
  *
  */
-
 class TeraWurflConfig{
 	/**
 	 * Database Hostname
@@ -43,7 +42,7 @@ class TeraWurflConfig{
 	 * For MongoDB, this may be blank if authentication is not used
 	 * @var String
 	 */
-	public static $DB_PASS = '';
+	public static $DB_PASS = "";
 	/**
 	 * Database Name / Schema Name
 	 * @var String
@@ -89,7 +88,8 @@ class TeraWurflConfig{
 	 * ex: $PATCH_FILE = 'web_browsers_patch.xml;custom_patch_ver2.3.xml';
 	 * @var String
 	 */
-	public static $PATCH_FILE = 'custom_web_patch.xml;web_browsers_patch.xml';
+	//public static $PATCH_FILE = 'custom_web_patch.xml;web_browsers_patch.xml';
+    public static $PATCH_FILE = 'custom_web_patch.xml';
 	/**
 	 * Filename of main WURFL file (found in DATADIR; default: wurfl.xml)
 	 * @var String
