@@ -1984,3 +1984,25 @@ form#form_payment ul li button{
     float: left;
     margin-right: 15px;
 }
+
+table#table_checker{
+    margin-top: 15px;
+    margin-bottom: 30px;
+    width: 100%;
+    border: 1px solid gray;
+
+}
+table#table_checker td{
+    padding: 5px;
+    border: 1px solid gray;
+}
+td.passed{
+    background-color: green;
+    color: #ffffff;
+    font-weight: bold;
+}
+td.failed{
+    background-color: red;
+    color: #ffffff;
+    font-weight: bold;
+}

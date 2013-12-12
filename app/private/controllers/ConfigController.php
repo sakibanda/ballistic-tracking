@@ -2,9 +2,15 @@
 
 class ConfigController extends BTController {
 
+    public function __construct() {
+        require_once(BT_ROOT . '/private/libs/wurfl/TeraWurfl.php');
+        require_once(BT_ROOT . '/private/libs/wurfl/TeraWurflUtils/TeraWurflUpdater.php');
+    }
+
     public function indexAction() {
         $success = true;
         $message = "";
+        $result = false;
 
         if(isset($_POST['host_name']) && isset($_POST['db_name']) && isset($_POST['user_name']) && isset($_POST['pw_user'])){
             if(($_POST['host_name']!='') && ($_POST['db_name']!='') && ($_POST['user_name']!='') && ($_POST['pw_user']!='')){
@@ -30,28 +36,25 @@ class ConfigController extends BTController {
                         fclose($fh);
                     }
 
-                    if($this->unzip()){
-                        if($this->installDB($hostDB, $userDB, $passDB,$dbName)){
-                            //Redirect to the validation plan
-                            header('location: /plan');
-                            BTApp::end();
-                        }
-                    }else{
-                        $message = "There was a problem with database.";
+                    if(!$result = $this->installDB($hostDB, $userDB, $passDB,$dbName)){
+                        $message = "Can't connect to the database";
                         $success = false;
                     }
-
+                    //Redirect to the validation plan
+                    //header('location: /plan');
+                    //BTApp::end();
                 }else{
                     $message = "Can't write to the directory: ".BT_ROOT . '/bt-config';
                     $success = false;
                 }
             }else{
-                $message = "Can't connect to the database";
+                $message = "Please enter all the values, they All are required.";
                 $success = false;
             }
         }
 
         $this->setVar("title","Database Settings");
+        $this->setVar("details",$result);
         $this->setVar("success",$success);
         $this->setVar("message",$message);
         $this->loadTemplate("public_header");
@@ -85,29 +88,59 @@ class ConfigController extends BTController {
     }
 
     function installDB($dsn, $user, $password, $dbname){
-        $script_path = BT_ROOT . '/install/db/bt_data.sql';
+        $result = false;
+        $script_path = BT_ROOT . '/install/db/structure.sql';
         $mysqli = new mysqli($dsn, $user, $password);
         if (mysqli_connect_errno()) {
-            printf("Connect failed: %s\n", mysqli_connect_error());
-            exit();
+            //printf("Connect failed: %s\n", mysqli_connect_error());
+            return false;
+            //exit();
         }
 
+        //Validate if database exists
         $db_selected = mysqli_select_db($mysqli,$dbname);
         if($db_selected){
             $script_sql = 'DROP DATABASE '.$dbname;
             mysqli_query($mysqli,$script_sql);
+            $result .= "<p>Deleting database with the same name...</p>";
         }
+
         $script_sql = 'CREATE DATABASE '.$dbname;
         mysqli_query($mysqli,$script_sql);
+        $result .= "<p>Creating a new database...</p>";
 
-        $mysqli->select_db($dbname);
-        $query_structure = file_get_contents($script_path);
-        if (mysqli_multi_query($mysqli, $query_structure))
-            echo "Database my_db created successfully\n";
-        else
-            echo 'Error creating database: ' . mysqli_error($mysqli) . "\n";
+        mysqli_select_db($mysqli,$dbname);
+        $query = file_get_contents($script_path);
+        if (mysqli_multi_query($mysqli,$query)){
+            $this->clearStoredResults($mysqli);
+            $result .= "<p>Database <b>$dbname</b> has been created successfully...</p>";
+        }else{
+            //printf("Error creating database: %s\n", mysqli_error($mysqli));
+            return false;
+            //exit();
+        }
 
+        TeraWurflConfig::$DB_SCHEMA = $dbname;
+        TeraWurflConfig::$DB_HOST = $dsn;
+        TeraWurflConfig::$DB_USER = $user;
+        TeraWurflConfig::$DB_PASS = $password;
+
+        $result .= "<p>Installing the data...</p>";
+        $wurfl = new TeraWurfl();
+        $updater = new TeraWurflUpdater($wurfl,TeraWurflUpdater::SOURCE_LOCAL);
+        $updater->update();
+
+        $result .= "<p>Data has been installed successfully...</p>";
+        $result .= "<p><b>DONE.</b></p>";
         mysqli_close($mysqli);
-        return true;
+        return $result;
+    }
+
+    function clearStoredResults($mysqli){
+        while(mysqli_more_results($mysqli) && mysqli_next_result($mysqli)){
+            if($l_result = mysqli_store_result($mysqli)){
+                $l_result->free();
+            }
+        }
     }
 }
