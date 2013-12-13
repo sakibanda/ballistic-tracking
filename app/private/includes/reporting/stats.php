@@ -45,7 +45,7 @@ function runStats($user_pref){
 			";
     $extra_join = "LEFT JOIN bt_u_landing_pages AS lp ON (lp.landing_page_id = click.landing_page_id)";
     $sql .= getReportFilters('reports/stats',$extra_join);
-    $sql .= "group by click.campaign_id, click.offer_id order by null";
+    $sql .= "group by click.landing_page_id, click.offer_id order by null";
     DB::query($sql);
     /** END CLICK DATA **/
 

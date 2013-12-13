@@ -33,8 +33,10 @@ class StatsController extends BTUserController {
 
         //$campaign_id = @$_GET['campaign_id'];
         $mysql['user_id'] = DB::quote(getUserID());
-        $sql_query = "SELECT * FROM bt_c_statcache c JOIN bt_u_campaigns p ON (p.campaign_id = c.meta1) ";
-        $sql_query .= "WHERE c.user_id='".$mysql['user_id']."' AND c.type='stats' AND (c.meta3 is null or c.meta3=0)";
+        $sql_query = "SELECT sum(c.clicks) as clicks,p.campaign_id,c.leads,c.income,c.payout,p.name,c.cpc,c.cost ";
+        $sql_query .= "FROM bt_c_statcache c JOIN bt_u_campaigns p ON (p.campaign_id = c.meta1) ";
+        $sql_query .= "WHERE c.user_id='".$mysql['user_id']."' AND c.type='stats' AND (c.meta3 is null or c.meta3=0) ";
+        $sql_query .= "GROUP BY c.meta1";
         $result = DB::getRows($sql_query);
 
         $output = array(
@@ -130,8 +132,11 @@ class StatsController extends BTUserController {
     public function offerDataAction(){
         $campaign_id = @$_GET['campaign_id'];
         $mysql['user_id'] = DB::quote(getUserID());
-        $sql_query = "SELECT c.*, o.offer_id, o.name, o.url FROM bt_c_statcache c JOIN bt_u_offers o ON (o.offer_id = c.meta3) ";
+        $sql_query = "SELECT sum(c.clicks) as clicks, sum(c.leads) as leads, sum(c.epc) as epc, sum(c.cpc) as cpc, ";
+        $sql_query .= "sum(c.payout) as payout, sum(c.income) as income, sum(c.cost) as cost, o.offer_id, o.name, o.url, c.meta1 ";
+        $sql_query .= "FROM bt_c_statcache c JOIN bt_u_offers o ON (o.offer_id = c.meta3) ";
         $sql_query .= "WHERE c.user_id='".$mysql['user_id']."' AND c.type='stats' AND c.meta3>0 ";
+        $sql_query .= "GROUP BY c.meta3";
         $result = DB::getRows($sql_query);
 
         $output = array(
