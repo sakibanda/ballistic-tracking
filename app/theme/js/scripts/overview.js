@@ -30,16 +30,25 @@ $(function() {
         "sDom": '<"top"T>rt<"footer"i><"clear">',
         "oTableTools": {
             "sSwfPath": "/theme/swf/copy_csv_xls_pdf.swf",
-            "aButtons": [
+            "aButtons":[
                 "copy",
-                "csv",
-                "xls",
+                "print",
                 {
-                    "sExtends": "pdf",
-                    "sPdfOrientation": "landscape",
-                    "sPdfMessage": "Your custom message would go here."
-                },
-                "print"
+                    "sExtends": "collection",
+                    "sButtonText": "Save",
+                    "aButtons": ["csv", "xls",
+                        {
+                            "sExtends": "pdf",
+                            "sPdfOrientation": "landscape",
+                            "sPdfMessage": "Your custom message would go here."
+                        },
+                        {
+                            "sExtends": "download",
+                            "sButtonText": "Download All",
+                            "sUrl": "/ajax/overview/dataOverview"
+                        }
+                    ]
+                }
             ]
         }
     });

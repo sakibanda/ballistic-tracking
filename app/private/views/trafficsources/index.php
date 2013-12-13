@@ -69,11 +69,11 @@
             "aoColumns": [
                 null,
                 { "bSortable": false }
-            ],
-            "sDom": 'T<"clear">lfrtip',
+            ]
+            /*"sDom": 'T<"clear">lfrtip',
             "oTableTools": {
                 "sSwfPath": "/theme/swf/copy_csv_xls_pdf.swf"
-            }
+            }*/
         });
     });
 </script>

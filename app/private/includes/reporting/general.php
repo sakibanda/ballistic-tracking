@@ -372,3 +372,16 @@ function getReportOrder($cols,$extra_orders = '') {
 	
 	return ' order by `' . $cols[$sort_col] . '` ' . $sort_dir . ' ';
 }
+
+/*
+* csv_encode - encode data as csv, wrapping values in quotes
+*/
+function csv_encode($aaData, $aHeaders = NULL) {
+    // output headers
+    $output = "";
+    if ($aHeaders) $output .= '"' . implode('","', $aHeaders ) . '"'  . "\r\n";
+    foreach ($aaData as $aRow) {
+        $output .= '"' . implode('","', $aRow) . '"' . "\r\n";
+    }
+    return $output;
+}

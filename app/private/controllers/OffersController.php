@@ -18,6 +18,11 @@ class OffersController extends BTUserController {
         $sort_col = $_GET['iSortCol_0'];
         $sort_dir = $_GET['sSortDir_0'];
         $sort = $aColumns[$sort_col]." ".$sort_dir;
+        // parse new querystring variable "o" to represent output_mode
+        $output_mode = (isset($_GET["o"])) ? $_GET["o"] : "json";
+        if ($output_mode == "csv") {
+            $aColumns = array( 'Offer ID', 'Network', 'Name', 'Payout');
+        }
 
         $like = "";
         if ( isset($_GET['sSearch']) && $_GET['sSearch'] != "" ){
@@ -27,26 +32,49 @@ class OffersController extends BTUserController {
             $like = substr_replace( $like, "", -3 );
         }
 
-		if($network_id = getArrayVar($_GET,'network')){
-            $offers = OfferModel::model()->getRows(
-                array(
-                    'order'=>$sort,
-                    'limit'=>intval($_GET['iDisplayLength']),
-                    'offset'=>intval($_GET['iDisplayStart']),
-                    //'like'=>$like,
-                    'conditions'=>array('aff_network_id'=>$network_id)
-                )
-            );
-		}else {
-            $offers = OfferModel::model()->getRows(
-                array(
-                    'order'=>$sort,
-                    'limit'=>intval($_GET['iDisplayLength']),
-                    'offset'=>intval($_GET['iDisplayStart']),
-                    'like'=>$like
-                )
-            );
-		}
+        if ($output_mode != "csv") {
+            if($network_id = getArrayVar($_GET,'network')){
+                $offers = OfferModel::model()->getRows(
+                    array(
+                        'order'=>$sort,
+                        'limit'=>intval($_GET['iDisplayLength']),
+                        'offset'=>intval($_GET['iDisplayStart']),
+                        //'like'=>$like,
+                        'conditions'=>array('aff_network_id'=>$network_id)
+                    )
+                );
+            }else {
+                $offers = OfferModel::model()->getRows(
+                    array(
+                        'order'=>$sort,
+                        'limit'=>intval($_GET['iDisplayLength']),
+                        'offset'=>intval($_GET['iDisplayStart']),
+                        'like'=>$like
+                    )
+                );
+            }
+        }else{
+            if($network_id = getArrayVar($_GET,'network')){
+                $offers = OfferModel::model()->getRows(
+                    array(
+                        'order'=>$sort,
+                        //'limit'=>intval($_GET['iDisplayLength']),
+                        //'offset'=>intval($_GET['iDisplayStart']),
+                        //'like'=>$like,
+                        'conditions'=>array('aff_network_id'=>$network_id)
+                    )
+                );
+            }else {
+                $offers = OfferModel::model()->getRows(
+                    array(
+                        'order'=>$sort,
+                        //'limit'=>intval($_GET['iDisplayLength']),
+                        //'offset'=>intval($_GET['iDisplayStart']),
+                        //'like'=>$like
+                    )
+                );
+            }
+        }
         $sEcho = $_GET['sEcho'];
         $iTotal = 0;
         if($network_id = getArrayVar($_GET,'network')){
@@ -63,21 +91,29 @@ class OffersController extends BTUserController {
         foreach($offers as $offer) {
             $arr = array();
             if($offer->network!=null){
-
-
-            $arr[] = $offer->offer_id;
-            //$arr[] = $offer->network->name;
-            $arr[] = $offer->network->name;
-            $arr[] = $offer->name;
-            $arr[] = $offer->payout;
-            $arr[] = '<a class="button small grey tooltip" target="_blank" href="'.$offer->url.'"><i class="icon-external-link"></i></a>';
-            $actions =  '<a href="/offers/edit?id='.$offer->offer_id.'" class="button small grey tooltip" title="Edit"><i class="icon-pencil"></i> Edit</a> ';
-            $actions .= '<a rel="'.$offer->offer_id.'" class="button small grey tooltip delete_offer" title="Delete" href="#"><i class="icon-remove"></i> Delete</a>';
-            $arr[] = $actions;
+                $arr[] = $offer->offer_id;
+                $arr[] = $offer->network->name;
+                $arr[] = $offer->name;
+                $arr[] = $offer->payout;
+                if ($output_mode != "csv") {
+                    $arr[] = '<a class="button small grey tooltip" target="_blank" href="'.$offer->url.'"><i class="icon-external-link"></i></a>';
+                    $actions =  '<a href="/offers/edit?id='.$offer->offer_id.'" class="button small grey tooltip" title="Edit"><i class="icon-pencil"></i> Edit</a> ';
+                    $actions .= '<a rel="'.$offer->offer_id.'" class="button small grey tooltip delete_offer" title="Delete" href="#"><i class="icon-remove"></i> Delete</a>';
+                    $arr[] = $actions;
+                }
                 $output['aaData'][] = $arr;
             }
-            }
-        echo json_encode($output);
+        }
+
+        if ($output_mode == "csv") {
+            header("Content-type: text/csv");
+            header("Cache-Control: no-store, no-cache");
+            header('Content-Disposition: attachment; filename="Ballistic_Offers.csv"');  // you can change the default file name here
+            echo csv_encode( $output["aaData"], $aColumns );  // see function below
+        }else{
+            // default is to output json
+            echo json_encode($output);
+        }
 		//$this->setVar('offers',$offers);
 		//$this->loadView('offers/view_offers');
 	}

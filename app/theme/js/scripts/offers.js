@@ -46,7 +46,22 @@ $(function() {
         },
         "sDom": 'T<"clear"><lf>rtip',
         "oTableTools": {
-            "sSwfPath": "/theme/swf/copy_csv_xls_pdf.swf"
+            "sSwfPath": "/theme/swf/copy_csv_xls_pdf.swf",
+            "aButtons":[
+                "copy",
+                "print",
+                {
+                    "sExtends": "collection",
+                    "sButtonText": "Save",
+                    "aButtons": ["csv", "xls", "pdf",
+                        {
+                            "sExtends": "download",
+                            "sButtonText": "Download All",
+                            "sUrl": "../ajax/offers/list"
+                        }
+                    ]
+                }
+            ]
         }
     });
 

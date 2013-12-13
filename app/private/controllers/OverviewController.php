@@ -267,8 +267,29 @@ class OverviewController extends BTUserController {
 	
 	public function dataOverviewAction() {
 		extract($this->getDataOverview());
-		
-		echo getDatatablesReportJson($data,$cnt,$cols);
+
+        $output_mode = (isset($_GET["o"])) ? $_GET["o"] : "json";
+        if ($output_mode == "csv") {
+            header("Content-type: text/csv");
+            header("Cache-Control: no-store, no-cache");
+            header('Content-Disposition: attachment; filename="Ballistic_Overview.csv"');  // you can change the default file name here
+            $arr = array();
+            foreach($data as $row) {
+                $html = array();
+                foreach($cols as $col) {
+                    $value = getArrayVar($row,$col,null);
+                    if($value === null) {
+                        $html[] = '';
+                    }else{
+                        $html[] = BTHtml::encode(formatColumnValue($col,$value));
+                    }
+                }
+                $arr = $html;
+            }
+            //echo csv_encode($arr, $cols);  // see function below
+        }else{
+            echo getDatatablesReportJson($data,$cnt,$cols);
+        }
 	}
 
     public function deleteCampaignAction() {

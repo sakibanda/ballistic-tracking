@@ -38,7 +38,22 @@ $(document).ready(function() {
         oTable = $("#result_table").dataTable({
             "sDom": '<"top"lT>rt<"footer"ip><"clear">',
             "oTableTools": {
-                "sSwfPath": "/theme/swf/copy_csv_xls_pdf.swf"
+                "sSwfPath": "/theme/swf/copy_csv_xls_pdf.swf",
+                "aButtons":[
+                    "copy",
+                    "print",
+                    {
+                        "sExtends": "collection",
+                        "sButtonText": "Save",
+                        "aButtons": ["csv", "xls", "pdf",
+                            {
+                                "sExtends": "download",
+                                "sButtonText": "Download All",
+                                "sUrl": "/ajax/reports/customReport"
+                            }
+                        ]
+                    }
+                ]
             },
             "aoColumnDefs": aryJSONColTable,
             "bServerSide": true, //only ajax
