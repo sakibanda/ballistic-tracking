@@ -321,6 +321,8 @@ class StatsController extends BTUserController {
     public function subidDataAction(){
         $campaign_id = @$_GET['campaign_id'];
         $mysql['user_id'] = DB::quote(getUserID());
+        // parse new querystring variable "o" to represent output_mode
+        $output_mode = (isset($_GET["o"])) ? $_GET["o"] : "json";
 
         $cols = array('v1', 'v2', 'v3', 'v4', 'clicks', 'click_throughs', 'leads', 'conv', 'payout', 'epc', 'income');
         $cnt_query = "select count(1) from (select 1 from";
@@ -340,11 +342,17 @@ class StatsController extends BTUserController {
 			LEFT JOIN bt_s_variables AS tv4 on tv4.var_id=adv.v4_id
 		');
         $sql .= ' and adv.v1_id>0 and adv.v2_id>0 and adv.v3_id>0 and adv.v4_id>0 group by adv.v1_id, adv.v2_id, adv.v3_id, adv.v4_id ';
-        $limit = " LIMIT ".intval($_POST['iDisplayStart']).",".intval($_POST['iDisplayLength']);
+        //$limit = " LIMIT ".intval($_POST['iDisplayStart']).",".intval($_POST['iDisplayLength']);
 
-        $result = DB::getRows($sql.$limit);
+        $sql .= getReportOrder($cols);
 
-        $sEcho = $_POST['sEcho'];
+        if ($output_mode != "csv") {
+            $sql .= getReportLimits();
+        }
+
+        $result = DB::getRows($sql);
+
+        $sEcho = $_GET['sEcho'];
         $output = array(
             "sEcho" => $sEcho,
             "iTotalRecords" => $iTotal,
@@ -381,7 +389,16 @@ class StatsController extends BTUserController {
             $arr[] = money_format('$%i', BTHtml::encode($row['income'])); //Income
             $output['aaData'][] = $arr;
         }
-        echo json_encode($output);
+
+        if ($output_mode == "csv") {
+            header("Content-type: text/csv");
+            header("Cache-Control: no-store, no-cache");
+            header('Content-Disposition: attachment; filename="Ballistic_Subid_Stats_Report.csv"');  // you can change the default file name here
+            echo csv_encode( $output["aaData"], $cols );  // see function below
+        }else{
+            // default is to output json
+            echo json_encode($output);
+        }
     }
 
     public function formatMoney($value){

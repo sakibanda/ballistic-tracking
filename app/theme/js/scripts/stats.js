@@ -89,7 +89,7 @@ $(function() {
         "bPaginate": true,
         "bLengthChange": true,
         "bServerSide": true, //only ajax
-        "sServerMethod": "POST",
+        //"sServerMethod": "POST",
         "aoColumns": [
             { "sClass":"center"},
             { "sClass":"center"},
@@ -104,7 +104,22 @@ $(function() {
             { "sClass":"center"}
         ],
         "oTableTools": {
-            "sSwfPath": "/theme/swf/copy_csv_xls_pdf.swf"
+            "sSwfPath": "/theme/swf/copy_csv_xls_pdf.swf",
+            "aButtons":[
+                "copy",
+                "print",
+                {
+                    "sExtends": "collection",
+                    "sButtonText": "Save",
+                    "aButtons": ["csv", "xls", "pdf",
+                        {
+                            "sExtends": "download",
+                            "sButtonText": "Download All",
+                            "sUrl": '/ajax/stats/subidData?campaign_id='+camp_id
+                        }
+                    ]
+                }
+            ]
         }
     });
 

@@ -100,7 +100,11 @@ $(document).ready(function() {
             var iframe = document.createElement('iframe');
             iframe.style.height = "0px";
             iframe.style.width = "0px";
-            iframe.src = oConfig.sUrl+"?o=csv&"+$.param(oParams);
+            if(oConfig.sUrl.indexOf("?")){
+                iframe.src = oConfig.sUrl+"&o=csv&"+$.param(oParams);
+            }else{
+                iframe.src = oConfig.sUrl+"?o=csv&"+$.param(oParams);
+            }
             document.body.appendChild( iframe );
         },
         "fnSelect": null,
