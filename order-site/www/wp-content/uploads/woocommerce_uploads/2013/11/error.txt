@@ -1,0 +1,50 @@
+[Tue, 05-Nov-2013 @ 11:45:01.699] [ajp-bio-8009-exec-31] ERROR org.codehaus.groovy.grails.web.errors.GrailsExceptionResolver  - GroovyRuntimeException occurred when processing request: [GET] /oasis/services/config
+Failed to parse template script (your template may contain an error or be trying to use expressions not currently supported): startup failed:
+SimpleTemplateScript704.groovy: 1031: String too long. The given string is 85429 Unicode code units long, but only a maximum of 65535 is allowed.
+ @ line 1031, column 38.
+                   \"url\": \"${siteUrl}/services/targetLocationService\"
+                                        ^
+
+SimpleTemplateScript704.groovy: 1031: String too long. The given string is 85429 Unicode code units long, but only a maximum of 65535 is allowed.
+ @ line 1031, column 38.
+                   \"url\": \"${siteUrl}/services/targetLocationService\"
+                                        ^
+
+2 errors
+. Stacktrace follows:
+groovy.lang.GroovyRuntimeException: Failed to parse template script (your template may contain an error or be trying to use expressions not currently supported): startup failed:
+SimpleTemplateScript704.groovy: 1031: String too long. The given string is 85429 Unicode code units long, but only a maximum of 65535 is allowed.
+ @ line 1031, column 38.
+                   \"url\": \"${siteUrl}/services/targetLocationService\"
+                                        ^
+
+SimpleTemplateScript704.groovy: 1031: String too long. The given string is 85429 Unicode code units long, but only a maximum of 65535 is allowed.
+ @ line 1031, column 38.
+                   \"url\": \"${siteUrl}/services/targetLocationService\"
+                                        ^
+
+2 errors
+
+	at com.cassidian.oasis.services.GisConfigurationService.getGisConfigurationFromTemplate(GisConfigurationService.groovy:115)
+	at com.cassidian.oasis.controllers.rest.config.GisConfigurationEndpointController.configuration(GisConfigurationEndpointController.groovy:21)
+	at com.googlecode.psiprobe.Tomcat70AgentValve.invoke(Tomcat70AgentValve.java:38)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1146)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:679)
+[Tue, 05-Nov-2013 @ 11:45:01.705] [ajp-bio-8009-exec-31] INFO  com.cassidian.oasis.services.AuditEventService  - Audit Event.  Type: OASIS_SERVER_EXCEPTION Organization: 21621 User: 58529, Module: OTHER Description: error ->internalServerError :: uuid ->64c47fb0-148a-44b4-8c54-a9c1c6fdd4e1 :: username -> admin IP Address: 172.40.7.36
+[Tue, 05-Nov-2013 @ 11:45:01.709] [ajp-bio-8009-exec-31] ERROR com.cassidian.oasis.services.AuditEventService  - sign and verify service couldn't sign the audit event 
+java.io.FileNotFoundException: /etc/cassidian/keystore (No such file or directory)
+	at java.io.FileInputStream.<init>(FileInputStream.java:137)
+	at com.cassidian.ip.util.KeyStoreUtility.getFileSystemKeyStore(KeyStoreUtility.groovy:33)
+	at com.cassidian.ip.util.KeyStoreUtility.getPrivateKey(KeyStoreUtility.groovy:45)
+	at com.cassidian.oasis.services.SignAndVerifyService.sign(SignAndVerifyService.groovy:39)
+	at com.cassidian.oasis.services.SignAndVerifyService.signObject(SignAndVerifyService.groovy:56)
+	at com.cassidian.oasis.services.AuditEventService.publishEvent(AuditEventService.groovy:150)
+	at com.cassidian.oasis.controllers.ExceptionController.oops(ExceptionController.groovy:93)
+	at com.cassidian.oasis.controllers.ExceptionController.internalServerError(ExceptionController.groovy:44)
+	at com.googlecode.psiprobe.Tomcat70AgentValve.invoke(Tomcat70AgentValve.java:38)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1146)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:679)
+[Tue, 05-Nov-2013 @ 11:45:01.709] [ajp-bio-8009-exec-31] INFO  com.cassidian.ip.rabbit.RabbitPublisher  - Sending {"id":null,"timeStamp":1383673501705,"serviceOriginator":"oasis","instance":"oasis1","type":"OASIS_SERVER_EXCEPTION","organizationId":21621,"userId":58529,"module":"OTHER","description":"error ->internalServerError :: uuid ->64c47fb0-148a-44b4-8c54-a9c1c6fdd4e1 :: username -> admin","ipAddress":"172.40.7.36","signature":null,"valid":false,"eventSequence":0,"details":[{"id":null,"key":"SESSION_ID","value":"8B4291AEEA9CD901E5222FF4551601A6.tc01"}]} to rabbit exchange: cassidian.ip.audit routing: cassidian.ip.audit.event.
+[Tue, 05-Nov-2013 @ 11:45:01.711] [ajp-bio-8009-exec-31] ERROR grails.app.controllers.com.cassidian.oasis.controllers.ExceptionController  - error ->internalServerError :: uuid ->64c47fb0-148a-44b4-8c54-a9c1c6fdd4e1 :: username -> admin

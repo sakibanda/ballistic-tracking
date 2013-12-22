@@ -1,0 +1,345 @@
+*** Inspire Changelog ***
+
+2013.09.23 - version 2.11.0
+ * style.css,
+   includes/theme-widgets.php - Added styling for WooDojo Tweets widget, and removed Twitter Stream widget.
+ * includes/widgets/widget-woo-twitter.php - deleted file.
+ * includes/theme-woocommerce.php - Make WooCommerce style disabling 2.1 compatible.
+
+2013.07.22 - version 2.10.0
+ * index.php - Fix column count bug & add support for Testimoanials and Features plugins.
+ * archive.php - Feature now links to single page if there's a custom link set.
+ * includes/theme-functions.php - Add support for Testimonials and Features plugins. Add "is_testimonials_activated" and "is_features_activated()" functions
+ * includes/theme-options.php - Add support for Testimoanials and Features plugins.
+ * /includes/widgets/widget-woo-feedback.php - Add support for Testimoanials and Features plugins.
+ * style.css -  Add support for Testimoanials and Features plugins.
+
+2013.05.14 - version 2.9.6
+ * includes/theme-options.php - Added option to control the number of mini features in the homepage.
+ * index.php - Added option to control the number of mini features in the homepage.
+
+2013.04.25 - version 2.9.5
+ * /includes/theme-woocommerce.php - Declares WooCommerce compatibility.
+ * /includes/theme-options.php - Removed Custom Link from the "Mini Features" option.
+ * /includes/theme-functions.php - Added support for archives to the "Mini Features" (infobox) post type.
+ * index.php - Added direct link to the Mini Features (infobox) archive.
+
+2013.03.25 - version 2.9.4
+ * /includes/theme-woocommerce.php - Declares WooCommerce compatibility. Removes WooCommerce pagination hook in favour of WooFramework pagination.
+
+2013.02.11 - version 2.9.3
+ * index.php - Fix typo to ensure that view features link displays.
+
+2013.02.04 - version 2.9.2
+ * includes/featured.php - set slider to start again after pause on hover.
+
+2013.01.15 - version 2.9.1
+ * includes/js/general.js - fixed portfolio stacking bug with WP 3.5
+
+2013.01.09 - version 2.9
+ * css/woocommerce.css - WC 2.0 classes and compatibility
+
+2013.01.01 - version 2.8.4
+ * template-fullwidth.php - Removed anchor from page title to match the default styling.
+ * template-contact.php - Removed anchor from page title to match the default styling.
+
+2012.11.26 - version 2.8.3
+ * single-portfolio.php - fixed gallery output issue with multiple images
+ * template-portfolio.php - fixed gallery output issue with multiple images
+ 
+2012.10.15 - version 2.8.2
+ * /includes/theme-functions.php - Remove unused "upgrade_jquery()" function. Reset query before displaying the breadcrumbs.
+ * /includes/theme-woocommerce.php - Remove the functionality to add the woo_breadcrumbs() in place of WooCommerce breadcrumbs (just remove WooCommerce breadcrumbs).
+ * index.php - Remove query_posts() from the display of the mini-features.
+ * template-archives.php - Remove usage of query_posts() in favour of WP_Query.
+ * template-sitemap.php - Remove usage of query_posts() in favour of WP_Query.
+ * template-imagegallery.php - Remove usage of query_posts() in favour of WP_Query.
+ * template-portfolio.php - Remove usage of query_posts() in favour of WP_Query.
+
+2012.10.02 - version 2.8.1
+ * /includes/theme-options.php - Add section sub-headings. Move featured slider theme options to a sub-heading under "Homepage".
+ * /includes/theme-functions.php - Adjust woo_crumbs() function to use woo_breadcrumbs() if yoast_breadcrumbs() doesn't exist. Code clean-up and is_ssl() conditional on the RSS feed URL.
+ * 404.php - Code standards clean-up and maintenance.
+ * archive.php - Code standards clean-up and maintenance.
+ * comments.php - Code standards clean-up and maintenance. Update get_option( 'site_url' ) to relevant functions in each context.
+ * footer.php - Code standards clean-up and maintenance.
+ * header.php - Code standards clean-up and maintenance. Updated logo image and RSS feed URLs to support is_ssl() conditional.
+
+2012.09.13 - version 2.8.0
+ * Native WooCommerce support
+ * functions.php - Load WooCommerce functions only if WooCommerce is active.
+ * /css/woocommerce.css - ADDED - WooCommerce styles.
+ * /css/woocommerce.less - ADDED - WooCommerce styles.
+ * /images/icons/* - ADDED - WooCommerce icons.
+ * /images/ajax-loader.gif - ADDED - WooCommerce AJAX loader graphic.
+ * /includes/theme-woocommerce.php - ADDED - WooCommerce-specific functions.
+ * template-sitemap.php - modified with additional WooCommerce functionality
+
+2012.06.17 - version 2.7.13
+ * style.css - added bullets and numbering for slider content
+
+2012.04.16 - version 2.7.12
+ * /includes/js/jquery.prettyPhoto.js - Upgrade prettyPhoto to V3.1.4.
+ * /css/prettyPhoto.css - Upgrade prettyPhoto to V3.1.4.
+ * /images/prettyPhoto/default/ - Add "default" theme images.
+ * /includes/js/general.js - Disable social tools in prettyPhoto instantiation.
+
+2012.04.11 - version 2.7.11
+ * index.php replaced query_posts() with WP_Query() for custom page queries.
+
+2012.04.03 - version 2.7.10
+ * /includes/widgets/widget-woo-feedback.php - Added the 'widget_title' filter around the widget title, and suppress_filters=0 to the database query, for additional WPML support.
+ * /includes/widgets/widget-woo-blogauthor.php - Added the 'widget_title' filter around the widget title for additional WPML support.
+
+2012.01.18 - version 2.7.9
+ * header.php google fonts and logo now loaded securely if ssl enabled
+
+2011.11.28 - version 2.7.8
+ * index.php, 
+   includes/theme-functions.php,
+   template-portfolio.php - fixed notice errors.
+
+2011.11.08 - version 2.7.7
+ * style.css - Adjusted - body.home #breadcrumb .col - in order to correct the slider pagination.
+
+2011.11.02 - version 2.7.6
+ * includes/widgets/widget-woo-twitter.php - http requests now secure
+ * style.css altered padding on input, textarea
+
+2011.10.10 - version 2.7.5
+ * style.css - fixed bottom margin featured area
+ * includes/theme-options.php, includes/featured.php - removed bottom margin featured image option as this doesn't work with new slider
+
+2011.09.29 - version 2.7.4
+ * /includes/widgets/widget-woo-search.php - Converted the search widget to use get_template_part() when including search-form.php.
+ * /includes/featured.php - Code cleanup and standards consistency checks. Added support for single-slide display in the featured slider.
+ * index.php - Converted the homepage to use get_template_part() to load in the featured slider.
+
+2011.09.24 - version 2.7.3
+ * style.css - IE Slide animation "black border on PNG's" fix
+
+2011.09.21 - version 2.7.2
+ * style.css - changed z-index for #nav, #nav ul
+
+2011.09.17 - version 2.7.1
+ * style.css - Added display: none to #featured, to ensure the slider doesn't display until all slides have been loaded.
+ * style.css - Fix CSS for overflow slide images
+
+2011.09.13 - version 2.7
+ * /includes/js/slides.min.jquery.js - Added SlidesJS script to replace WooFader.
+ * /includes/featured.php - Replaced call to WooFader with call to SlidesJS.
+ * /includes/theme-js.php - Removed enqueue for WooFader and added enqueue for SlidesJS.
+ * style.css - Removed fixed height on #featured.
+
+2011.09.07 - version 2.6
+ * style.css - Added 4.4 Subscribe & Connect
+ * theme-functions.php - Added Subscribe & Connect
+ * theme-options.php - Added Subscribe & Connect
+ * includes/widgets/widget-woo-subscribe.php - Added
+ * single.php - Added woo_subscribe_connect
+ * images - Added social icons
+
+2011.08.23 - version 2.5.6
+ * /includes/js/woofader.js - Don't do auto-height resize when the option isn't enabled.
+ * /includes/featured.php - Added logic for the fixed slider height option.
+ * /includes/widgets/widget-woo-feedback.php - Make sure the first feedback item is displayed in full by SlidesJS. Added widget option to adjust interval between transitions.
+
+2011.08.23 - version 2.5.5
+ * /includes/js/woofader.js - Added .stop() before each call to jQuery.animate() to prevent slide stacking.
+ * style.css - Added CSS styles to the "Featured Slider" section.
+ * /includes/featured.php - Added toggle between "fixed-height" and "dynamic-height" CSS classes.
+ * /includes/js/slides.min.jquery.js - Added SlidesJS script for use in the Feedback widget.
+ * /includes/widgets/widget-woo-feedback.php - Converted JavaScript to use SlidesJS instead of jQuery.InnerFade.
+ * /includes/theme-js.php - Optimised the use of the $template_directory variable.
+
+2011.08.11 - version 2.5.4
+ * /includes/js/woofader.js - Added .stop() before each call to jQuery.animate() to prevent slide stacking.
+ 
+2011.08.09 - version 2.5.3
+ * includes/theme-actions.php - added new hook for slider CSS output in HEAD
+ * includes/featured.php - removed CSS for validation to work
+
+2011.08.05 - version 2.5.2
+ * includes/theme-options.php, 
+   includes/featured.php - updated slider speed options
+
+2011.07.18 - version 2.5.1
+ * /includes/theme-actions.php, 
+   index.php, 
+   archive.php, 
+   single.php, 
+   template-contact.php, 
+   template-blog.php - Resolved "undefined index" warning notices when Theme Options haven't been saved.
+
+2011.07.01 - version 2.5
+ * /includes/js/general.js - Added hash-based portfolio navigation JavaScript.
+ * template-portfolio.php - changed the link for the tags to include hash tag so it is easier to copy the URL
+
+2011.06.06 - version 2.4.5
+ * template-portfolio.php - Adjusted logic to include gallery when large image is specified, as well as if not.
+
+2011.03.15 - version 2.4.4
+ * /includes/widgets/widget-woo-feedback.php - Removed trailing comma in the innerfade JS settings.
+
+2011.02.23 - version 2.4.3
+ * template-fullwidth.php - added comment form (lines 29-31)
+
+2011.02.23 - version 2.4.2
+ * /includes/widgets/widget-woo-feedback.php - Localised the default widget title.
+ * /lang/en_GB.po - Rescanned and updated translation file with new translation for Woo - Feedback widget default title.
+
+2010.12.05 - version 2.4.1
+ * template-portfolio.php - possible to not have an image in portfolio item
+
+2010.11.20 - version 2.4
+ * includes/js/innerfade.js - new custom version
+ * includes/widgets/widget-woo-feedback.php - modified to use custom post type and innerfade
+ * includes/theme-options.php - added custom field for feedback posts
+ * includes/theme-functions.php - added new custom post type feedback
+ * style.css - fixed .feedback
+ * includes/images/feedback.png - new image
+
+2010.11.19 - version 2.3
+ * includes/js/jquery.prettyPhoto.js - Version 3.0 of prettyPhoto http://www.no-margin-for-errors.com/projects/prettyphoto-jquery-lightbox-clone/
+ * css/prettyPhoto.css - updated css
+
+2010.11.12 - version 2.2.2
+ * includes/theme-functions.php - added exclude of portfolio image from gallery function
+ * template-portfolio.php - fixed portfolio gallery to work with new framework
+
+2010.11.12 - version 2.2.1
+ * includes/theme-functions.php - fixed bug with saving custom field images
+
+2010.11.11 - version 2.2
+ * single-portfolio.php - single portfolio post
+ * images/portfolio-hover.png - updated image file
+ * style.css - updated position of hover image on portfolio (line 233)
+ * includes/theme-functions.php - fixed portfolio settings
+
+2010.11.02 - version 2.1.6 
+ * template-portfolio.php - fixed query parameters
+
+2010.10.28 - version 2.1.5
+ * index.php - added div class entry to optional pages on front page
+
+2010.10.25 - version 2.1.4
+ * style.css - Added active menu item styling for categories in WP Menus
+ * css/effects.css - Added active menu item styling for categories in WP Menus
+
+2010.10.19 - version 2.1.3
+ * template-portfolio.php - added caption text to gallery images
+ * includes/theme-functions.php - added caption text to gallery images function
+
+2010.10.09 - version 2.1.2
+ * index.php - fixed duplicate div id from main-page2 to main-page2 line 15
+
+2010.10.09 - version 2.1.1
+ * template-portfolio - fixed woo_resize if statement
+
+2010.10.05 - version 2.1
+ * /functions/ - framework update to add support for Sidebar Manager
+ * sidebar.php - changed woo_sidebar to woo_sidebar
+ * home.php, page.php, template-*.php - fixed get_sidebar()
+ * includes/sidebar-init.php - removed sidebar page, sidebar home (handled by Sidebar Manager)
+
+2010.09.02 - version 2.0.3
+ * template-blog.php - fixed query to only show post_type=post
+
+2010.08.23 - version 2.0.2
+ * index.php - removed meta_value from query of mini-features
+
+2010.08.22 - version 2.0.1
+ * template-portfolio.php - Added check for empty post image array.
+
+2010.08.19 - version 2.0
+ * /functions/ - updated to latest framework
+ * thumb.php - latest version 1.14
+ * archive-portfolio.php - REMOVED
+ * --- CUSTOM POST TYPES ---
+ * includes/theme-functions.php - Added custom post types for slides, mini-features, portfolio
+ * includes/featured.php - Added support for custom post type slides
+ * includes/theme-options.php - Removed redundant options. Added Custom Post Types fields.
+ * index.php - Added query for custom post types. Fixed homepage content query to work with new option
+ * template-portfolio.php - Added custom post types support
+ * header.php - removed jquery and added to includes/featured.php
+ * single.php - removed post meta for custom post types
+ * style.css - minor fixes to .single .title
+ * template-blog.php - removed old portfolio settings from query
+ * archive.php - removed old portfolio settings from query 
+ * template-portfolio.php - moved code from archive-portfolio.php. Added functionality for multiple portfolio images per item.
+ * includes/images/ - new custom post type icons
+
+2010.08.16 - version 1.2
+ * includes/theme-functions.php - Fixed breadcrumb
+ * includes/theme-options.php - Fixed description on breadcrumb bar option
+ * includes/theme-plugins.php - removed Yoast Breadcrumbs. Install plugin separately http://yoast.com/wordpress/breadcrumbs/
+
+2010.08.03 - version 1.1.8 
+ * header.php - added IE7 script in HEAD to fix navigation dropdown behind slider image
+
+2010.07.26 - version 1.1.7
+ * style.css - Fixed typo
+ * css/ie6.css - Fixed IE6 twitter icon bug
+ * css/ie7.css - Fixed IE7 twitter icon bug
+
+2010.07.20 - version 1.1.6
+ * includes/js/woofader.js - Updated zero timeout hover bug.
+
+2010.07.20 - version 1.1.5
+ * header.php - fixed RSS feed (line 16)
+ * archive-portfolio.php - fixed RSS feed (line 19)
+ * theme-functions.php - fixed RSS feed (line 162)
+ * widget-woo-news.php - fixed RSS feed (line 21)
+
+2010.07.15 - version 1.1.4
+ * includes/theme-widgets.php - Fixed bug with theme previewing
+
+2010.07.13 - version 1.1.3
+ * includes/theme-functions.php - removed breadcrumb single post right side
+
+2010.06.28 - version 1.1.2
+ * style.css - Fixed Gravity forms styling bug
+
+2010.06.25 - version 1.1.1
+ * template-blog.php - Added workaround for WP 3.0 bug when using blog template as static homepage
+
+2010.06.21 - version 1.1.0
+ * header.php - Added theme support for WordPress 3.0 Menu Management
+ * /includes/theme-functions.php - Added theme support for WordPress 3.0 Menu Management
+ 
+2010.06.15 - version 1.0.9
+ * header.php - Fixed option to show categories in nav
+
+2010.06.05 - version 1.0.8
+ * style.css - added styling for Gravity forms 
+
+2010.06.08 - version 1.0.7
+ * includes/js/jquery.prettyPhoto.js - updated this to an older version to fix image not found bug.
+
+2010.06.05 - version 1.0.6
+ * template-blog.php - added more tag fix before the_content 
+
+2010.06.04 - version 1.0.5
+ * archive.php - fixed archive layout bug if portfolio wasn't set in options
+
+2010.06.01 - version 1.0.4
+ * includes/featured.php - added link on featured image
+ * includes/theme-options.php - added custom field for adding link to featured image
+ * archive-portfolio.php - fixed feed url option
+ * includes/widgets/widget-woo-news.php - fixed feed url option
+ * includes/theme-functions.php - fixed feed url option
+
+2010.05.28 - version 1.0.3
+ * header.php - Added check for one page featured area
+
+2010.05.27 - version 1.0.2 
+ * header.php - fixed logic in woofader javascript load
+ * includes/theme-options.php - added option to disable featured area
+ * index.php - if conditional for disabling featured area
+ * includes/theme-js.php - if conditional for disabling featured area
+
+2010.05.27 - version 1.0.1
+ * includes/widgets/widget-woo-news.php - Fixed query. Added options for thumbnail to News widget
+	
+2010.05.26 - version 1.0
+ * First release!
