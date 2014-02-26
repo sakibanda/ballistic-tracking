@@ -1,4 +1,4 @@
-ballistic-tracking
+Online Marketing and click tracking software system.
 ==================
 
-The ballisitic tracker
+The system manages campaigns and clicks.
